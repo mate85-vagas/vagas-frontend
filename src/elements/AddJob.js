@@ -6,42 +6,42 @@ import { useNavigate } from 'react-router-dom';
 
 
  
-const AddVaga = () => {
-    const [descricaoVaga, setDescricao] = useState('');
-    const [tituloVaga, setTitulo] = useState('');
-    const [tipoVaga, setTipo] = useState('');
-    const [localVaga, setLocal] = useState('');
-    const [cargaVaga, setCarga] = useState('');
-    const [salarioVaga, setSalario] = useState('');
-    const [prazoVaga,setPrazo] = useState('');
+const AddJob = () => {
+    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [type, setType] = useState('');
+    const [site, setSite] = useState('');
+    const [workload, setWorkload] = useState('');
+    const [salary, setSalary] = useState('');
+    const [endingDate,setEndingDate] = useState('');
     const navigate = useNavigate();
  
-    const saveVaga = async (e) => {
+    const saveJob = async (e) => {
         e.preventDefault();
         await axios.post('http://localhost:5000/vagas',{
-            descricaoVaga: descricaoVaga,
-            tituloVaga: tituloVaga,
-            tipoVaga: tipoVaga,
-            localVaga:localVaga,
-            cargaVaga: cargaVaga,
-            salarioVaga: salarioVaga,
-            prazoVaga: prazoVaga,
-            usuarioIdUsuario: 1
+            description: description,
+            title: title,
+            type: type,
+            site:site,
+            workload: workload,
+            salary: salary,
+            endingDate: endingDate,
+            userId: 1
         });
         navigate("/");
     }
  
     return (
         <div>
-            <form onSubmit={ saveVaga }>
+            <form onSubmit={ saveJob }>
                 <div className="field">
                     <label className="label">Título</label>
                     <input 
                         className="input"
                         type="text"
                         placeholder="Título da Vaga"
-                        value={ tituloVaga }
-                        onChange={ (e) => setTitulo(e.target.value) }
+                        value={ title }
+                        onChange={ (e) => setTitle(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -50,14 +50,14 @@ const AddVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Descrição da Vaga"
-                        value={ descricaoVaga }
-                        onChange={ (e) => setDescricao(e.target.value) }
+                        value={ description }
+                        onChange={ (e) => setDescription(e.target.value) }
                     />
                 </div>
                 <div className="field">
                     <label className="label">Tipo</label>
                     <div className="select">
-                        <select value={tipoVaga} onChange={(e) => setTipo(e.target.value)}>
+                        <select value={type} onChange={(e) => setType(e.target.value)}>
                             <option value="">Selecione</option>
                             <option value="estagio">Estágio</option>
                             <option value="pesquisa">Pesquisa</option>
@@ -73,8 +73,8 @@ const AddVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Localização, Ex: Salvador - BA"
-                        value={ localVaga }
-                        onChange={ (e) => setLocal(e.target.value) }
+                        value={ site }
+                        onChange={ (e) => setSite(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -83,8 +83,8 @@ const AddVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Carga horária semanal, Ex: 30"
-                        value={ cargaVaga }
-                        onChange={ (e) => setCarga(e.target.value) }
+                        value={ workload}
+                        onChange={ (e) => setWorkload(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -93,8 +93,8 @@ const AddVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Salário em R$"
-                        value={ salarioVaga }
-                        onChange={ (e) => setSalario(e.target.value) }
+                        value={ salary }
+                        onChange={ (e) => setSalary(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -103,8 +103,8 @@ const AddVaga = () => {
                         className="input"
                         type="date"
                         placeholder="Data limite da vaga"
-                        value={prazoVaga}
-                        onChange={ (e) => setPrazo(e.target.value) }
+                        value={endingDate}
+                        onChange={ (e) => setEndingDate(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -115,4 +115,4 @@ const AddVaga = () => {
     )
 }
  
-export default AddVaga;
+export default AddJob;

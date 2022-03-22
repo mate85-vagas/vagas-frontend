@@ -4,58 +4,58 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
  
-const EditVaga = () => {
-    const [descricaoVaga, setDescricao] = useState('');
-    const [tituloVaga, setTitulo] = useState('');
-    const [tipoVaga, setTipo] = useState('');
-    const [localVaga, setLocal] = useState('');
-    const [cargaVaga, setCarga] = useState('');
-    const [salarioVaga, setSalario] = useState('');
-    const [prazoVaga,setPrazo] = useState('');
+const EditJob = () => {
+    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [type, setType] = useState('');
+    const [site, setSite] = useState('');
+    const [workload, setWorkload] = useState('');
+    const [salary, setSalary] = useState('');
+    const [endingDate,setEndingDate] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        getJobById();
+    }, []);
  
-    const updateVaga = async (e) => {
+    const updateJob = async (e) => {
         e.preventDefault();
         await axios.patch(`http://localhost:5000/vagas/${id}`,{
-            descricaoVaga: descricaoVaga,
-            tituloVaga: tituloVaga,
-            tipoVaga: tipoVaga,
-            localVaga:localVaga,
-            cargaVaga: cargaVaga,
-            salarioVaga: salarioVaga,
-            prazoVaga: prazoVaga,
-            usuarioIdUsuario: 1
+            description: description,
+            title: title,
+            type: type,
+            site:site,
+            workload: workload,
+            salary: salary,
+            endingDate: endingDate,
+            userId: 1
         });
         navigate("/");
     }
- 
-    useEffect(() => {
-        getVagaById();
-    }, []);
- 
-    const getVagaById = async () => {
+
+    const getJobById = async () => {
         const response = await axios.get(`http://localhost:5000/vagas/${id}`);
-        setDescricao(response.data.descricaoVaga);
-        setTitulo(response.data.tituloVaga);
-        setTipo(response.data.tipoVaga);
-        setLocal(response.data.localVaga);
-        setCarga(response.data.cargaVaga);
-        setSalario(response.data.salarioVaga);
-        setPrazo(response.data.prazoVaga);
+        setDescription(response.data.description);
+        setTitle(response.data.title);
+        setType(response.data.type);
+        setSite(response.data.site);
+        setWorkload(response.data.workload);
+        setSalary(response.data.salary);
+        setEndingDate(response.data.endingDate);
     }
  
     return (
         <div>
-            <form onSubmit={ updateVaga }>
-                <div className="field">
+            <form onSubmit={ updateJob }>
+               <div className="field">
                     <label className="label">Título</label>
                     <input 
                         className="input"
                         type="text"
                         placeholder="Título da Vaga"
-                        value={ tituloVaga }
-                        onChange={ (e) => setTitulo(e.target.value) }
+                        value={ title }
+                        onChange={ (e) => setTitle(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -64,14 +64,14 @@ const EditVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Descrição da Vaga"
-                        value={ descricaoVaga }
-                        onChange={ (e) => setDescricao(e.target.value) }
+                        value={ description }
+                        onChange={ (e) => setDescription(e.target.value) }
                     />
                 </div>
                 <div className="field">
                     <label className="label">Tipo</label>
                     <div className="select">
-                        <select value={tipoVaga} onChange={(e) => setTipo(e.target.value)}>
+                        <select value={type} onChange={(e) => setType(e.target.value)}>
                             <option value="estagio">Estágio</option>
                             <option value="pesquisa">Pesquisa</option>
                             <option value="trabalho">Trabalho</option>
@@ -86,8 +86,8 @@ const EditVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Localização, Ex: Salvador - BA"
-                        value={ localVaga }
-                        onChange={ (e) => setLocal(e.target.value) }
+                        value={ site }
+                        onChange={ (e) => setSite(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -96,8 +96,8 @@ const EditVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Carga horária semanal, Ex: 30"
-                        value={ cargaVaga }
-                        onChange={ (e) => setCarga(e.target.value) }
+                        value={ workload}
+                        onChange={ (e) => setWorkload(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -106,8 +106,8 @@ const EditVaga = () => {
                         className="input"
                         type="text"
                         placeholder="Salário em R$"
-                        value={ salarioVaga }
-                        onChange={ (e) => setSalario(e.target.value) }
+                        value={ salary }
+                        onChange={ (e) => setSalary(e.target.value) }
                     />
                 </div>
                 <div className="field">
@@ -115,16 +115,17 @@ const EditVaga = () => {
                     <input 
                         className="input"
                         type="date"
-                        value={prazoVaga}
-                        onChange={ (e) => setPrazo(e.target.value) }
+                        placeholder="Data limite da vaga"
+                        value={endingDate}
+                        onChange={ (e) => setEndingDate(e.target.value) }
                     />
                 </div>
                 <div className="field">
-                    <button className="button is-primary">Atualizar</button>
+                    <button className="button is-primary">Salvar</button>
                 </div>
             </form>
         </div>
     )
 }
  
-export default EditVaga;
+export default EditJob;
