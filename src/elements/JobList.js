@@ -4,21 +4,21 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const VagaList = () => {
-    const [vagas, setVaga] = useState([]);
+const JobList = () => {
+    const [jobs, setJob] = useState([]);
  
     useEffect(() => {
-        getVagas();
+        getJobs();
     }, []);
  
-    const getVagas= async () => {
+    const getJobs= async () => {
         const response = await axios.get('http://localhost:5000/vagas');
-        setVaga(response.data);
+        setJob(response.data);
     }
  
-    const deleteVaga = async (id) => {
+    const deleteJob = async (id) => {
         await axios.delete(`http://localhost:5000/vagas/${id}`);
-        getVagas();
+        getJobs();
     }
  
     return (
@@ -35,16 +35,16 @@ const VagaList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { vagas.map((vaga, index) => (
-                        <tr key={ vaga.idVaga }>
+                    { jobs.map((job, index) => (
+                        <tr key={ job.id }>
                             <td>{ index + 1 }</td>
-                            <td>{ vaga.tituloVaga }</td>
-                            <td>{ vaga.tipoVaga }</td>
-                            <td>{ vaga.localVaga }</td>
-                            <td>{ vaga.salarioVaga}</td>
+                            <td>{ job.title }</td>
+                            <td>{ job.type }</td>
+                            <td>{ job.site }</td>
+                            <td>{ job.salary}</td>
                             <td>
-                                <Link to={`/edit/${vaga.idVaga}`} className="button is-small is-info">Editar</Link>
-                                <button onClick={ () => deleteVaga(vaga.idVaga) } className="button is-small is-danger">Deletar</button>
+                                <Link to={`/edit/${job.id}`} className="button is-small is-info">Editar</Link>
+                                <button onClick={ () => deleteJob(job.id) } className="button is-small is-danger">Deletar</button>
                             </td>
                         </tr>
                     )) }
@@ -55,4 +55,4 @@ const VagaList = () => {
     )
 }
  
-export default VagaList;
+export default JobList;
