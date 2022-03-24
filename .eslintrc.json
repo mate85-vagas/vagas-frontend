@@ -20,6 +20,21 @@
     "rules": {
         "react/jsx-filename-extension": [
             1, { "extensions": [ ".js", ".jsx" ] }
+        ],
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-no-constructed-context-values": "off",
+        "prettier/prettier": [
+            "error",
+            {
+              "endOfLine": "auto"
+            }
+        ],
+        "react/function-component-definition": [
+            2,
+            {
+              "namedComponents": "function-declaration",
+              "unnamedComponents": "arrow-function"
+            }
         ]
     }
 }
