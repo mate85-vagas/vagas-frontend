@@ -1,0 +1,53 @@
+.top-header {
+  background-color: #13335F;
+  display: flex;
+  width: 100%;
+  height: 100px;
+  padding-left: 59px;
+  padding-right: 60px;
+}
+
+.title {
+  color: white;
+  align-items: center;
+  display: flex;
+  font-size: 26px;
+  font-weight: 700, bold;
+  font-style: normal;
+  font-family: 'Lato';
+}
+
+.right-container {
+  display: flex;
+  justify-content: start;
+  flex-grow: 1;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.left-container {
+  display: flex;
+  justify-content: end;
+  flex-grow: 1;
+}
+
+.user-avatar {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 25px 0px 25px 25px;
+  padding-left: 2px;
+  width: 50px;
+}
+
+.lnr-user {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
