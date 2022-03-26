@@ -1,0 +1,41 @@
+#pagination {
+  margin: 40px 0 0 30px;
+  text-align: center;
+  background: var(--color-one);
+  -webkit-box-shadow: var(--shadow-default);
+          box-shadow: var(--shadow-default);
+  border-radius: var(--border-radius);
+  padding: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#pagination a,
+#pagination span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 6px 10px;
+  min-width: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  margin: 0 3px;
+  color: var(--color-text);
+}
+
+#pagination span.current-page {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-one);
+}
+/*# sourceMappingURL=style.css.map */
