@@ -1,0 +1,47 @@
+.job {
+  background: var(--color-one);
+  -webkit-box-shadow: var(--shadow-default);
+          box-shadow: var(--shadow-default);
+  border-radius: var(--border-radius);
+  padding: 20px 25px;
+}
+
+.job h2 {
+  border-bottom: 1px solid var(--color-border);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-accent);
+  padding: 20px 25px;
+  margin: -20px 0 20px -25px;
+  width: calc(100% + 50px);
+}
+
+.job h2 sub {
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.job span.due-date {
+  display: block;
+  margin: 15px 0 0 0;
+  opacity: 0.8;
+}
+
+.job a.see-details {
+  background: var(--color-two);
+  color: var(--color-one);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  padding: 12px;
+  margin: 40px 0 0 0;
+}
+
+.job a.see-details:hover {
+  background: var(--color-accent);
+}
+/*# sourceMappingURL=style.css.map */
