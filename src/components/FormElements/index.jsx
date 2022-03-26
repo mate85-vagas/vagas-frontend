@@ -2,11 +2,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function SelectBox({ selectName, selectId, options, initialOption, label }) {
+function SelectBox({
+  selectName,
+  selectId,
+  options,
+  initialOption,
+  label,
+  event,
+}) {
   return (
     <>
       {label ? <span className="label">{label}</span> : false}
-      <select name={selectName} id={selectId}>
+      <select name={selectName} id={selectId} onChange={(e) => event(e)}>
         <option>{initialOption}</option>
         {options.map((option) => {
           return (
@@ -27,6 +34,7 @@ SelectBox.propTypes = {
   options: PropTypes.array,
   initialOption: PropTypes.string,
   label: PropTypes.string,
+  event: PropTypes.func,
 }
 
 SelectBox.defaultProps = {
@@ -35,6 +43,7 @@ SelectBox.defaultProps = {
   options: [],
   initialOption: 'Select --',
   label: 'Label',
+  event: null,
 }
 
 function SearchBox({ label, placeholder, inputName, inputId, submitEvent }) {
@@ -91,7 +100,7 @@ DateBox.defaultProps = {
 
 function BlueButton({ label, event, id }) {
   return (
-    <button type="submit" id={id} onClick={event}>
+    <button type="submit" id={id} onClick={() => event()}>
       {label}
     </button>
   )
