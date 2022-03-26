@@ -46,7 +46,14 @@ SelectBox.defaultProps = {
   event: null,
 }
 
-function SearchBox({ label, placeholder, inputName, inputId, submitEvent }) {
+function SearchBox({
+  label,
+  placeholder,
+  inputName,
+  inputId,
+  event,
+  searchButton,
+}) {
   return (
     <>
       <span className="label">{label}</span>
@@ -56,8 +63,20 @@ function SearchBox({ label, placeholder, inputName, inputId, submitEvent }) {
           placeholder={placeholder}
           name={inputName}
           id={inputId}
+          onChange={(e) => event(e)}
         />
-        <button type="submit" id="search-box-submit" onClick={submitEvent}>
+        <button
+          type="submit"
+          id="search-box-submit"
+          onClick={
+            searchButton
+              ? () => event()
+              : () => {
+                  return false
+                }
+          }
+          className={searchButton ? 'active-button' : 'inactive-button'}
+        >
           <span className="lnr lnr-magnifier" />
         </button>
       </div>
@@ -70,7 +89,8 @@ SearchBox.propTypes = {
   placeholder: PropTypes.string,
   inputName: PropTypes.string,
   inputId: PropTypes.string,
-  submitEvent: PropTypes.func,
+  event: PropTypes.func,
+  searchButton: PropTypes.bool,
 }
 
 SearchBox.defaultProps = {
@@ -78,24 +98,32 @@ SearchBox.defaultProps = {
   placeholder: 'Placeholder',
   inputName: 'serch_form',
   inputId: 'search-form',
-  submitEvent: null,
+  event: null,
+  searchButton: false,
 }
 
-function DateBox({ label }) {
+function DateBox({ label, event }) {
   return (
     <>
       <span className="label">{label}</span>
-      <input type="date" name="job_start_date" id="job-date" />
+      <input
+        type="date"
+        name="job_start_date"
+        id="job-date"
+        onChange={(e) => event(e)}
+      />
     </>
   )
 }
 
 DateBox.propTypes = {
   label: PropTypes.string,
+  event: PropTypes.func,
 }
 
 DateBox.defaultProps = {
   label: 'Label',
+  event: null,
 }
 
 function BlueButton({ label, event, id }) {
