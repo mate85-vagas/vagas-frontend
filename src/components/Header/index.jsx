@@ -1,5 +1,5 @@
 import React from 'react'
-import IconIC from './IconIC'
+import IconIC from '../IconIC'
 import UserAvatar from './UserAvatar'
 import Text from '../Text'
 import './styles.css'
