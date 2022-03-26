@@ -4,10 +4,10 @@ import './style.css'
 function JobCard() {
   return (
     <div className="job">
-      <h2>
+      <h3>
         Nome da Vaga
         <sub>Local de trabalho</sub>
-      </h2>
+      </h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt adipisci,
         laudantium eius aut voluptates deserunt hic nemo tempore iure harum,

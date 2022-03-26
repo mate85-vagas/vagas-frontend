@@ -6,7 +6,7 @@
   padding: 20px 25px;
 }
 
-.job h2 {
+.job h3 {
   border-bottom: 1px solid var(--color-border);
   font-size: 22px;
   font-weight: 600;
@@ -16,7 +16,7 @@
   width: calc(100% + 50px);
 }
 
-.job h2 sub {
+.job h3 sub {
   display: block;
   font-weight: 400;
   font-size: 16px;
