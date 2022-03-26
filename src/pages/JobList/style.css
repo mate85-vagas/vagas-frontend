@@ -1,0 +1,65 @@
+body {
+  background: var(--color-background);
+}
+
+#main {
+  padding: 50px 5%;
+}
+
+#main #label {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 0 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#main #jobs-container {
+  margin: 36px 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#main #jobs-container #jobs ul.filters {
+  padding: 0 0 0 30px;
+}
+
+#main #jobs-container #jobs ul.filters li.selected-filter {
+  background: var(--color-accent);
+  color: var(--color-one);
+  padding: 8px 15px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 10px 10px 0;
+}
+
+#main #jobs-container #jobs ul.filters li.selected-filter a {
+  display: inline-block;
+  margin: 0 0 0 10px;
+  color: var(--color-one);
+}
+
+#main #jobs-container #jobs .wrap {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 40px 0 0 30px;
+}
+/*# sourceMappingURL=style.css.map */
