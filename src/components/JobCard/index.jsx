@@ -1,6 +1,9 @@
+/* eslint-disable react/style-prop-object */
+/* eslint-disable no-console */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './style.css'
+import { Button } from '../FormElements'
 
 function JobCard({ data }) {
   const { title, description, site, endingDate, id } = data
@@ -13,9 +16,13 @@ function JobCard({ data }) {
       </h3>
       <p>{description}</p>
       <span className="due-date">Expira em: {endingDate}</span>
-      <a href={`/vagas/${id}`} className="see-details">
-        Ver mais detalhes
-      </a>
+      <Button
+        label="Ver mais detalhes"
+        scheme="gray"
+        onClick={() => {
+          document.location.href = `${document.location.href}vagas/${id}`
+        }}
+      />
     </div>
   )
 }
