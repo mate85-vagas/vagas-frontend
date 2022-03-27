@@ -20,7 +20,7 @@ function SelectBox({
         className="default-form-element select-box"
         onChange={(e) => onChange(e)}
       >
-        <option>{initialOption}</option>
+        <option value="">{initialOption}</option>
         {options.map((option) => {
           return (
             <option value={option.value} key={option.id}>
@@ -114,13 +114,13 @@ SearchBox.defaultProps = {
   searchButton: false,
 }
 
-function DateBox({ label, onChange }) {
+function DateBox({ label, onChange, name }) {
   return (
     <>
       <span className="label">{label}</span>
       <input
         type="date"
-        name="job_start_date"
+        name={name}
         id="job-date"
         className="default-form-element"
         onChange={(e) => onChange(e)}
@@ -132,11 +132,13 @@ function DateBox({ label, onChange }) {
 DateBox.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func,
+  name: PropTypes.string,
 }
 
 DateBox.defaultProps = {
   label: 'Label',
   onChange: null,
+  name: null,
 }
 
 function Button({ label, onClick, id, scheme }) {
