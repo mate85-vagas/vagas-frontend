@@ -3,7 +3,7 @@ body {
 }
 
 #main {
-  padding: 50px 5%;
+  padding: 50px 60px;
 }
 
 #main #label {
@@ -27,6 +27,12 @@ body {
           justify-content: space-between;
 }
 
+#main #jobs-container #jobs {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 78%;
+          flex: 1 0 78%;
+}
+
 #main #jobs-container #jobs ul.filters {
   padding: 0 0 0 30px;
 }
@@ -34,7 +40,7 @@ body {
 #main #jobs-container #jobs ul.filters li.selected-filter {
   background: var(--color-accent);
   color: var(--color-one);
-  padding: 8px 15px;
+  padding: 6px 15px;
   border-radius: 25px;
   font-weight: 600;
   font-size: 13px;
@@ -61,5 +67,33 @@ body {
       grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   padding: 40px 0 0 30px;
+}
+
+@media screen and (max-width: 992px) {
+  #main #jobs-container #jobs .wrap {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #main #jobs-container #jobs .wrap {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #main #jobs-container aside {
+    display: none;
+  }
+  #main #jobs-container #jobs ul.filters {
+    display: none;
+  }
+  #main #jobs-container #jobs .wrap {
+    -ms-grid-columns: (1fr)[1];
+        grid-template-columns: repeat(1, 1fr);
+    padding: 0px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
