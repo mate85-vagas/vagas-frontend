@@ -5,18 +5,23 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import JobList from '../pages/JobList'
 import ProtectedRoute from '../components/Routes/ProtectedRoute'
+import JobDetails from '../pages/JobDetails'
 
 function AppRoutes() {
   return (
     <Router>
       <Routes>
         <Route path="/" exact element={<JobList />} />
+
         <Route exact path="/login" element={<ProtectedRoute />}>
           <Route exact path="/login" element={<Login />} />
         </Route>
+
         <Route exact path="/register" element={<ProtectedRoute />}>
           <Route exact path="/register" element={<Register />} />
         </Route>
+
+        <Route path="/vagas/:id" exact element={<JobDetails />} />
       </Routes>
     </Router>
   )
