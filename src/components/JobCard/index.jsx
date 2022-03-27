@@ -1,25 +1,32 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './style.css'
 
-function JobCard() {
+function JobCard({ data }) {
+  const { title, description, site, endingDate, id } = data
+
   return (
     <div className="job">
       <h3>
-        Nome da Vaga
-        <sub>Local de trabalho</sub>
+        {title}
+        <sub>{site}</sub>
       </h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt adipisci,
-        laudantium eius aut voluptates deserunt hic nemo tempore iure harum,
-        harum, eveniet dolor consectetur minus molestiae recusandae, architecto
-        blanditiis impedit.
-      </p>
-      <span className="due-date">Expira em: 09/04/2022</span>
-      <a href="/" className="see-details">
+      <p>{description}</p>
+      <span className="due-date">Expira em: {endingDate}</span>
+      <a href={`/vagas/${id}`} className="see-details">
         Ver mais detalhes
       </a>
     </div>
   )
+}
+
+JobCard.defaultProps = {
+  data: {},
+}
+
+JobCard.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  data: PropTypes.object,
 }
 
 export default JobCard
