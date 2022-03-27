@@ -1,0 +1,87 @@
+.default-form-element {
+  border: 1px solid var(--color-border);
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  font-family: var(--font-default);
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+select.select-box {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("http://cdn.onlinewebfonts.com/svg/img_427298.png");
+  background-repeat: no-repeat;
+  background-position: 96% center;
+  background-size: 17px auto;
+  position: relative;
+  margin: 0 0 30px 0;
+}
+
+.search-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  margin: 0 0 30px 0;
+}
+
+.search-box input {
+  padding-right: 30px;
+}
+
+.search-box button {
+  position: absolute;
+  right: 10px;
+  color: var(--color-text);
+}
+
+input[type="range"] {
+  margin: 0 0 30px 0;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+}
+
+button.default-button {
+  border: none;
+  padding: 12px;
+  width: 100%;
+  margin: 30px 0 0 0;
+}
+
+button.inactive-button {
+  cursor: default;
+}
+
+button.blue {
+  background: var(--color-accent);
+  color: var(--color-one);
+  border-radius: var(--border-radius);
+}
+
+button.blue.blue:hover, button.blue.blue:active {
+  opacity: 0.8;
+}
+
+button.gray {
+  background: var(--color-two);
+  color: var(--color-one);
+  border-radius: var(--border-radius);
+}
+
+button.gray:hover, button.gray:active {
+  background: var(--color-accent);
+  color: var(--color-one);
+}
+/*# sourceMappingURL=style.css.map */

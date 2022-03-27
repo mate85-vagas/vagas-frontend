@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react'
 import PropTypes from 'prop-types'
+import './style.css'
 
 function SelectBox({
   selectName,
@@ -13,7 +14,12 @@ function SelectBox({
   return (
     <>
       {label ? <span className="label">{label}</span> : false}
-      <select name={selectName} id={selectId} onChange={(e) => onChange(e)}>
+      <select
+        name={selectName}
+        id={selectId}
+        className="default-form-element select-box"
+        onChange={(e) => onChange(e)}
+      >
         <option>{initialOption}</option>
         {options.map((option) => {
           return (
@@ -68,6 +74,7 @@ function SearchBox({
           placeholder={placeholder}
           name={inputName}
           id={inputId}
+          className="default-form-element"
           onChange={(e) => onChange(e)}
         />
         <button
@@ -115,6 +122,7 @@ function DateBox({ label, onChange }) {
         type="date"
         name="job_start_date"
         id="job-date"
+        className="default-form-element"
         onChange={(e) => onChange(e)}
       />
     </>
@@ -131,9 +139,14 @@ DateBox.defaultProps = {
   onChange: null,
 }
 
-function Button({ label, onClick, id, style }) {
+function Button({ label, onClick, id, scheme }) {
   return (
-    <button type="submit" id={id} className={style} onClick={() => onClick()}>
+    <button
+      type="submit"
+      id={id}
+      className={scheme ? `default-button ${scheme}` : 'default'}
+      onClick={() => onClick()}
+    >
       {label}
     </button>
   )
@@ -142,15 +155,15 @@ function Button({ label, onClick, id, style }) {
 Button.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
+  scheme: PropTypes.string,
   onClick: PropTypes.func,
-  style: PropTypes.string,
 }
 
 Button.defaultProps = {
   label: 'Button',
   id: 'button',
+  scheme: '',
   onClick: null,
-  style: 'button',
 }
 
 export { SelectBox, SearchBox, DateBox, Button }
