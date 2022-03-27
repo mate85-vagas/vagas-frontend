@@ -49,8 +49,6 @@ export function AuthProvider({ children }) {
     const tokenFromResponse = response.data.token
 
     manageToken(tokenFromResponse)
-
-    return tokenFromResponse !== undefined
   }, [])
 
   const register = useCallback(async (name, email, password) => {
@@ -63,8 +61,6 @@ export function AuthProvider({ children }) {
     const tokenFromResponse = response.data.token
 
     manageToken(tokenFromResponse)
-
-    return tokenFromResponse !== undefined
   }, [])
 
   const logout = useCallback(async () => {
