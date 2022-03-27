@@ -8,12 +8,12 @@ function SelectBox({
   options,
   initialOption,
   label,
-  event,
+  onChange,
 }) {
   return (
     <>
       {label ? <span className="label">{label}</span> : false}
-      <select name={selectName} id={selectId} onChange={(e) => event(e)}>
+      <select name={selectName} id={selectId} onChange={(e) => onChange(e)}>
         <option>{initialOption}</option>
         {options.map((option) => {
           return (
@@ -34,7 +34,7 @@ SelectBox.propTypes = {
   options: PropTypes.array,
   initialOption: PropTypes.string,
   label: PropTypes.string,
-  event: PropTypes.func,
+  onChange: PropTypes.func,
 }
 
 SelectBox.defaultProps = {
@@ -43,15 +43,20 @@ SelectBox.defaultProps = {
   options: [],
   initialOption: 'Select --',
   label: 'Label',
-  event: null,
+  onChange: null,
 }
 
+/**
+ * Return a input type search element.
+ *
+ * If you want to the search icons doesn't fire any function, set the variable searchButton false.
+ */
 function SearchBox({
   label,
   placeholder,
   inputName,
   inputId,
-  event,
+  onChange,
   searchButton,
 }) {
   return (
@@ -63,14 +68,14 @@ function SearchBox({
           placeholder={placeholder}
           name={inputName}
           id={inputId}
-          onChange={(e) => event(e)}
+          onChange={(e) => onChange(e)}
         />
         <button
           type="submit"
           id="search-box-submit"
           onClick={
             searchButton
-              ? () => event()
+              ? () => onChange()
               : () => {
                   return false
                 }
@@ -89,7 +94,7 @@ SearchBox.propTypes = {
   placeholder: PropTypes.string,
   inputName: PropTypes.string,
   inputId: PropTypes.string,
-  event: PropTypes.func,
+  onChange: PropTypes.func,
   searchButton: PropTypes.bool,
 }
 
@@ -98,11 +103,11 @@ SearchBox.defaultProps = {
   placeholder: 'Placeholder',
   inputName: 'serch_form',
   inputId: 'search-form',
-  event: null,
+  onChange: null,
   searchButton: false,
 }
 
-function DateBox({ label, event }) {
+function DateBox({ label, onChange }) {
   return (
     <>
       <span className="label">{label}</span>
@@ -110,7 +115,7 @@ function DateBox({ label, event }) {
         type="date"
         name="job_start_date"
         id="job-date"
-        onChange={(e) => event(e)}
+        onChange={(e) => onChange(e)}
       />
     </>
   )
@@ -118,32 +123,34 @@ function DateBox({ label, event }) {
 
 DateBox.propTypes = {
   label: PropTypes.string,
-  event: PropTypes.func,
+  onChange: PropTypes.func,
 }
 
 DateBox.defaultProps = {
   label: 'Label',
-  event: null,
+  onChange: null,
 }
 
-function BlueButton({ label, event, id }) {
+function Button({ label, onClick, id, style }) {
   return (
-    <button type="submit" id={id} onClick={() => event()}>
+    <button type="submit" id={id} className={style} onClick={() => onClick()}>
       {label}
     </button>
   )
 }
 
-BlueButton.propTypes = {
+Button.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
-  event: PropTypes.func,
+  onClick: PropTypes.func,
+  style: PropTypes.string,
 }
 
-BlueButton.defaultProps = {
+Button.defaultProps = {
   label: 'Button',
   id: 'button',
-  event: null,
+  onClick: null,
+  style: 'button',
 }
 
-export { SelectBox, SearchBox, DateBox, BlueButton }
+export { SelectBox, SearchBox, DateBox, Button }
