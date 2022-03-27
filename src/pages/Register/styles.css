@@ -28,6 +28,8 @@
 
 .auth-subtitle {
   margin-top: 20vh;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .auth-page .card {
@@ -54,23 +56,7 @@
   opacity: 0.8;
 }
 
-.auth-page .btn-register-call {
-  display: flex;
-  justify-content: center;
-}
-
-.auth-page .btn-register-call:focus {
-  box-shadow: none;
-}
-
-.auth-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.auth-header .lnr-arrow-right {
-  font-size: 25px;
-  font-weight: bold;
-  color: var(--color-accent);
+.auth-label-error {
+  margin-top: 10px;
+  color: red;
 }
