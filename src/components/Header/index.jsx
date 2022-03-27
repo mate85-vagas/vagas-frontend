@@ -6,13 +6,14 @@ import Text from '../Text'
 import ButtonRectangle from '../Buttons/ButtonRectangle'
 import useAuth from '../../hooks/useAuth'
 import './styles.css'
+import useAuth from '../../hooks/useAuth'
 
 function Header() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
 
   const navigateToLogin = () => navigate('/login')
-
+  
   return (
     <div className="top-header">
       <div className="header-right-container">
