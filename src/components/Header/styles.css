@@ -46,6 +46,12 @@
   width: 50px;
 }
 
+.login-btn-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
 .lnr-user {
   color: white;
   font-weight: bold;

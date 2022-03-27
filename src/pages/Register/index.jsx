@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import Text from '../../components/Text'
 import IconIC from '../../components/IconIC'
 import TextInput from '../../components/TextInput'
-import ButtonArrow from '../../components/ButtonArrow'
+import ButtonArrow from '../../components/Buttons/ButtonArrow'
 import useAuth from '../../hooks/useAuth'
 import { isEmailValid } from '../../utils/validations'
 import './styles.css'
@@ -36,9 +37,14 @@ function Register() {
       return
     }
 
-    const apiResponse = register(name, email, password)
-
-    if (apiResponse) navigate('/')
+    try {
+      await register(name, email, password)
+      navigate('/')
+    } catch (error) {
+      toast.error(
+        'Houve algum problema com seu cadastro! Verifique os campos e tente novamente.'
+      )
+    }
   }
 
   return (

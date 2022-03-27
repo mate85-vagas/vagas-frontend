@@ -126,24 +126,4 @@ DateBox.defaultProps = {
   event: null,
 }
 
-function BlueButton({ label, event, id }) {
-  return (
-    <button type="submit" id={id} onClick={() => event()}>
-      {label}
-    </button>
-  )
-}
-
-BlueButton.propTypes = {
-  label: PropTypes.string,
-  id: PropTypes.string,
-  event: PropTypes.func,
-}
-
-BlueButton.defaultProps = {
-  label: 'Button',
-  id: 'button',
-  event: null,
-}
-
-export { SelectBox, SearchBox, DateBox, BlueButton }
+export { SelectBox, SearchBox, DateBox }
