@@ -5,7 +5,7 @@ import './styles.css'
 function Text({ className, text, size, weight, color }) {
   return (
     <p
-      className={`${className} text`}
+      className={`text ${className}`}
       style={{
         fontSize: size,
         fontWeight: weight,
