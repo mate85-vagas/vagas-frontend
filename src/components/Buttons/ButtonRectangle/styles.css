@@ -13,5 +13,9 @@
 }
 
 .is-blue {
+  background-color: var(--color-accent);
+}
+
+.is-gray {
   background-color: var(--color-two);
 }

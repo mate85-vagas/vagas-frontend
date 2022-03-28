@@ -37,8 +37,8 @@ function Login() {
     }
 
     try {
-      await login(email, password)
-      navigate('/')
+      const token = await login(email, password)
+      if (token) navigate('/')
     } catch (error) {
       toast.error('Usuário ou senha errados.')
     }
@@ -81,7 +81,7 @@ function Login() {
             </button>
           </form>
           <button
-            className="button is-ghost btn-register-call without-focus"
+            className="button is-ghost btn-register-call"
             type="button"
             onClick={navigateToRegister}
           >
