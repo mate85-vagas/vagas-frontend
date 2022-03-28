@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useCallback, useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 import api from '../../api'
 
 export const AuthState = {
@@ -16,17 +17,17 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState()
   const [authState, setAuthState] = useState(AuthState.IDLE)
 
-  const manageToken = () => {
-    if (token === undefined) {
+  const manageToken = (newToken) => {
+    if (newToken === undefined) {
       setToken(undefined)
       setAuthState(AuthState.UNAUTHENTICATED)
       localStorage.removeItem(AUTH_TOKEN_KEY)
       return
     }
 
-    setToken(token)
+    setToken(newToken)
     setAuthState(AuthState.AUTHENTICATED)
-    localStorage.setItem(AUTH_TOKEN_KEY, token)
+    localStorage.setItem(AUTH_TOKEN_KEY, newToken)
 
     api.interceptors.request.use(
       (config) => {
@@ -35,7 +36,7 @@ export function AuthProvider({ children }) {
         return {
           ...config,
           headers: {
-            Authorization: token,
+            Authorization: newToken,
           },
         }
       },
@@ -44,23 +45,33 @@ export function AuthProvider({ children }) {
   }
 
   const login = useCallback(async (email, password) => {
-    const response = await api.post('login', { email, password })
+    const response = await api.post('usuarios/login', { email, password })
 
-    const tokenFromResponse = response.data.authorization
+    const tokenFromResponse = response.data.token
 
     manageToken(tokenFromResponse)
+
+    if (!tokenFromResponse && response.data.message)
+      toast.error(response.data.message)
+
+    return tokenFromResponse !== undefined
   }, [])
 
   const register = useCallback(async (name, email, password) => {
-    const response = await api.post('user', {
+    const response = await api.post('usuarios', {
       name,
       email,
       password,
     })
 
-    const tokenFromResponse = response.data.authorization
+    const tokenFromResponse = response.data.token
 
     manageToken(tokenFromResponse)
+
+    if (!tokenFromResponse && response.data.message)
+      toast.error(response.data.message)
+
+    return tokenFromResponse !== undefined
   }, [])
 
   const logout = useCallback(async () => {

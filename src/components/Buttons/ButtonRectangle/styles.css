@@ -1,0 +1,21 @@
+.btn-rect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 40px 0px 40px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-rect:hover {
+  opacity: 0.8;
+}
+
+.is-blue {
+  background-color: var(--color-accent);
+}
+
+.is-gray {
+  background-color: var(--color-two);
+}
