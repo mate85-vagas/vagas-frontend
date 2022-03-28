@@ -20,10 +20,6 @@ body {
   -moz-osx-font-smoothing: grayscale;  
 }
 
-html, body {
-  height: 100%;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -39,6 +35,10 @@ code {
   filter: drop-shadow(-1px -1px 6px rgba(0, 0, 0, 0.1));
   display: flex;
   flex-direction: column;
+}
+
+.button:focus {
+  box-shadow: none;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');

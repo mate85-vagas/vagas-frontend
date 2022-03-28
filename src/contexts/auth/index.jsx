@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useCallback, useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 import api from '../../api'
 
 export const AuthState = {
@@ -50,6 +51,9 @@ export function AuthProvider({ children }) {
 
     manageToken(tokenFromResponse)
 
+    if (!tokenFromResponse && response.data.message)
+      toast.error(response.data.message)
+
     return tokenFromResponse !== undefined
   }, [])
 
@@ -63,6 +67,9 @@ export function AuthProvider({ children }) {
     const tokenFromResponse = response.data.token
 
     manageToken(tokenFromResponse)
+
+    if (!tokenFromResponse && response.data.message)
+      toast.error(response.data.message)
 
     return tokenFromResponse !== undefined
   }, [])

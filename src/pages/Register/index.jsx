@@ -38,8 +38,8 @@ function Register() {
     }
 
     try {
-      await register(name, email, password)
-      navigate('/')
+      const token = await register(name, email, password)
+      if (token) navigate('/')
     } catch (error) {
       toast.error(
         'Houve algum problema com seu cadastro! Verifique os campos e tente novamente.'
