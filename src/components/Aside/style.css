@@ -20,4 +20,19 @@ aside h2 {
 aside span.label {
   font-weight: 500;
 }
+
+aside span.job-salary-value {
+  display: block;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+aside .rc-slider-handle {
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+aside .rc-slider-track {
+  background: var(--color-accent);
+}
 /*# sourceMappingURL=style.css.map */

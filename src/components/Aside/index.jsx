@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 import { SearchBox, SelectBox, DateBox, Button } from '../FormElements'
 import api from '../../api'
 import './style.css'
@@ -11,7 +13,8 @@ function Aside({ onSubmitFilters }) {
   const [jobWorkload, setJobWorkload] = useState(null)
   const [jobScholarity, setJobScholarity] = useState(null)
   const [jobStartDate, setJobStartDate] = useState(null)
-  const [jobSalary, setJobSalary] = useState(0)
+  const [jobMinSalary, setJobMinSalary] = useState(0)
+  const [jobMaxSalary, setJobMaxSalary] = useState(0)
   const [hasFilters, setHasFilters] = useState(false)
   const [filterQuery, setFilterQuery] = useState('/vagas?')
   const [filteredJobs, setFilteredJobs] = useState([])
@@ -120,9 +123,10 @@ function Aside({ onSubmitFilters }) {
     if (jobType) filters.type = jobType
     if (jobWorkload) filters.workload = jobWorkload
     if (jobScholarity) filters.scholarity = jobScholarity
-    if (jobStartDate) filters.jobStartDate = jobStartDate
+    if (jobStartDate) filters.createdAt = jobStartDate
     if (jobSite) filters.site = jobSite
-    if (jobSalary) filters.salary = jobSalary
+    if (jobMinSalary) filters.min = jobMinSalary
+    if (jobMaxSalary) filters.max = jobMaxSalary
 
     if (Object.keys(filters).length > 0) {
       setFilterQuery('/vagas?')
@@ -134,8 +138,14 @@ function Aside({ onSubmitFilters }) {
           return `${state}&${key}=${filters[key]}`
         })
       })
+      console.log(filterQuery)
       setHasFilters(true)
     }
+  }
+
+  const handleSalaryChange = (value) => {
+    setJobMinSalary(value[0])
+    setJobMaxSalary(value[1])
   }
 
   return (
@@ -143,23 +153,18 @@ function Aside({ onSubmitFilters }) {
       <h2>Filtros</h2>
 
       <div id="filters-form">
-        <span className="label">Salário</span>
-        <input
-          type="range"
-          name="salary"
-          id="job-salary"
-          onChange={(e) =>
-            setJobSalary(() => {
-              const newSalary = e.target.value.toLocaleString('pt-BR', {
-                minimumFractionDigits: 2,
-              })
-              return newSalary
-            })
-          }
-          max={50000}
+        <Slider
+          range
           min={300}
+          max={30000}
+          count
+          startPoint={300}
+          step={10}
+          onChange={handleSalaryChange}
         />
-        <span className="job-salary-value">{jobSalary}</span>
+        <span className="job-salary-value">
+          {jobMinSalary} &mdash; {jobMaxSalary}
+        </span>
 
         <SelectBox
           selectName="type"

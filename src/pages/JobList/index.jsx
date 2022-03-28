@@ -1,7 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
-// import axios from 'axios'
 import Header from '../../components/Header'
 import Aside from '../../components/Aside'
 import JobCard from '../../components/JobCard'
