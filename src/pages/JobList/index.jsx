@@ -1,8 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header'
-import React from 'react'
 import Aside from '../../components/Aside'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import JobCard from '../../components/JobCard'
