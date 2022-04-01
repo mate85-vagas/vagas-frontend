@@ -141,7 +141,6 @@ DateBox.defaultProps = {
   name: null,
 }
 
-
 function Button({ label, onClick, id, scheme }) {
   return (
     <button

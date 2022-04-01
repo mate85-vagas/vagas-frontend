@@ -63,11 +63,10 @@ function JobList() {
     }
   }
 
-
   return (
     <Layout
-      headerLeftChildren={[
-        <div className="search-box">
+      headerLeftChildren={
+        <div className="search-box header-search-box">
           <input
             type="search"
             placeholder="Pesquisar vaga"
@@ -77,8 +76,8 @@ function JobList() {
           <button type="submit" id="search-box-submit">
             <span className="lnr lnr-magnifier" />
           </button>
-        </div>,
-      ]}
+        </div>
+      }
       headerRightChildren={[
         <ButtonRectangle
           key="btn-profile"

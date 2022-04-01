@@ -123,3 +123,7 @@ input[type="search"] {
   background: transparent;
   right: 10px;
 }
+
+.header-search-box {
+  margin-top: 32px;
+}
