@@ -11,7 +11,7 @@ function ButtonRectangle({ label, onClick, id, className, isSubmit }) {
       type={isSubmit ? 'submit' : 'button'}
       onClick={onClick}
     >
-      <Text text={label} size={17} weight="bold" />
+      <Text className="is-bold is-white" text={label} size={17} />
     </button>
   )
 }

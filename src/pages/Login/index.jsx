@@ -48,19 +48,22 @@ function Login() {
     <div className="auth-page">
       <div className="auth-left-container">
         <IconIC height={150} />
-        <Text text="Vagas" size={48} weight="bold" />
-        <Text text="Instituto de Computação da UFBA" size={30} />
+        <Text className="is-bold is-white" text="Vagas" size={48} />
         <Text
-          className="auth-subtitle"
+          className="is-white"
+          text="Instituto de Computação da UFBA"
+          size={30}
+        />
+        <Text
+          className="auth-subtitle is-white is-light"
           text="Bem-vindo(a) de volta!"
           size={24}
-          weight="lighter"
         />
       </div>
       <div className="auth-right-container">
         <div className="card">
           <div className="auth-header">
-            <Text text="Login" size={24} weight="bold" color="#13335F" />
+            <Text className="is-bold is-blue" text="Login" size={24} />
             <ButtonArrow onClick={navigateToJobList} />
           </div>
           <form onSubmit={submitLogin}>
@@ -77,7 +80,7 @@ function Login() {
               hasError={hasError && isPasswordInvalid()}
             />
             <button className="btn-submit" type="submit" aria-label="Entrar">
-              <Text text="Entrar" size={18} />
+              <Text className="is-white" text="Entrar" size={18} />
             </button>
           </form>
           <button
@@ -86,10 +89,9 @@ function Login() {
             onClick={navigateToRegister}
           >
             <Text
+              className="is-bold is-blue"
               text="Não tem uma conta? Cadastre-se"
               size={16}
-              weight="bold"
-              color="#13335F"
             />
           </button>
         </div>

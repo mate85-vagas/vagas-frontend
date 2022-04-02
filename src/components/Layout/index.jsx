@@ -6,7 +6,7 @@ import BottomHeader from './BottomHeader'
 
 function Layout({ children, headerLeftChildren, headerRightChildren }) {
   return (
-    <div>
+    <div className="layout">
       <Header />
       <BottomHeader
         leftChildren={headerLeftChildren}

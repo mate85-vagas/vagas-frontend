@@ -14,11 +14,9 @@ function UserAvatar() {
         onClick={onClick}
       >
         <Text
-          className="text-dropdown"
+          className="text-dropdown is-blue is-bold"
           text={label}
           size={16}
-          weight="bold"
-          color="#13335F"
         />
       </button>
     </div>

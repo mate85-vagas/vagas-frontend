@@ -1,7 +1,23 @@
 .text {
-  color: white;
+  color: var(--color-text);
   align-items: center;
   display: flex;
   font-style: normal;
   font-family: 'Lato';
+}
+
+.text.is-light {
+  font-weight: lighter;
+}
+
+.text.is-bold {
+  font-weight: bold;
+}
+
+.text.is-blue {
+  color: var(--color-accent);
+}
+
+.text.is-white {
+  color: var(--color-one);
 }

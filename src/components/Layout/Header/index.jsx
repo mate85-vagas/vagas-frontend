@@ -18,8 +18,12 @@ function Header() {
       <div className="header-right-container">
         <IconIC height={100} />
         <div className="title-container">
-          <Text text="Vagas" size={26} weight="bold" />
-          <Text text="Instituto de Computação da UFBA" size={18} weight={400} />
+          <Text className="is-bold is-white" text="Vagas" size={26} />
+          <Text
+            className="is-white"
+            text="Instituto de Computação da UFBA"
+            size={18}
+          />
         </div>
       </div>
       <div className="header-left-container">

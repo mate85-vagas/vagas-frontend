@@ -12,10 +12,14 @@
   opacity: 0.8;
 }
 
-.is-blue {
+.btn-rect.is-blue {
   background-color: var(--color-accent);
 }
 
-.is-gray {
+.btn-rect.is-gray {
   background-color: var(--color-two);
+}
+
+.btn-rect.is-green {
+  background-color: var(--color-green);
 }

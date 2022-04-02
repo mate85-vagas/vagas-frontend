@@ -24,3 +24,7 @@
 .bottom-header-margin {
   margin-left: 20px;
 }
+
+.layout {
+  min-height: 100vh;
+}

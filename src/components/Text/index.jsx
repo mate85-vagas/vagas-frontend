@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
 
-function Text({ className, text, size, weight, color }) {
+function Text({ className, text, size }) {
   return (
     <p
       className={`text ${className}`}
       style={{
         fontSize: size,
-        fontWeight: weight,
-        color,
       }}
     >
       {text}
@@ -21,16 +19,12 @@ Text.propTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
   size: PropTypes.number,
-  weight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  color: PropTypes.string,
 }
 
 Text.defaultProps = {
   className: '',
   text: '',
   size: 16,
-  weight: 'normal',
-  color: 'white',
 }
 
 export default Text

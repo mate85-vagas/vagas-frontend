@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useCallback, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
-import api from '../../api'
+import api from '../api'
 
 export const AuthState = {
   AUTHENTICATED: 1,

@@ -51,19 +51,22 @@ function Register() {
     <div className="auth-page">
       <div className="auth-left-container">
         <IconIC height={150} />
-        <Text text="Vagas" size={48} weight="bold" />
-        <Text text="Instituto de Computação da UFBA" size={30} />
+        <Text className="is-bold is-white" text="Vagas" size={48} />
         <Text
-          className="auth-subtitle"
+          className="is-white"
+          text="Instituto de Computação da UFBA"
+          size={30}
+        />
+        <Text
+          className="auth-subtitle is-white is-light"
           text="Cadastre-se para ter acesso à todas funcionalidades."
           size={24}
-          weight="lighter"
         />
       </div>
       <div className="auth-right-container">
         <div className="card">
           <div className="auth-header">
-            <Text text="Cadastro" size={24} weight="bold" color="#13335F" />
+            <Text className="is-blue is-bold" text="Cadastro" size={24} />
             <ButtonArrow onClick={navigateToLogin} />
           </div>
           <form onSubmit={submitRegister}>
@@ -87,15 +90,13 @@ function Register() {
             />
             {hasError && (
               <Text
-                className="auth-label-error"
+                className="is-bold auth-label-error"
                 text="Algum campo precisa ser redigitado!"
                 size={16}
-                weight="bold"
-                color="red"
               />
             )}
             <button className="btn-submit" type="submit" aria-label="Cadastrar">
-              <Text text="Cadastrar" size={18} />
+              <Text className="is-white" text="Cadastrar" size={18} />
             </button>
           </form>
         </div>

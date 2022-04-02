@@ -6,7 +6,7 @@ import './styles.css'
 function TextInput({ label, type, setValue, hasError }) {
   return (
     <div className="text-input">
-      <Text text={label} size={18} weight="bold" color="#333333" />
+      <Text className="is-bold" text={label} size={18} />
       <div className="field-body">
         <div className="field">
           <p className="control">
