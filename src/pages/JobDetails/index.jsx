@@ -10,7 +10,7 @@ import './styles.css'
 
 function JobDetails() {
   const params = useParams()
-  const job = useGetJobById(params.id)
+  const { job, user } = useGetJobById(params.id)
 
   const renderDetailItem = (
     title,
@@ -25,14 +25,10 @@ function JobDetails() {
   )
 
   return (
-    <Layout
-      headerRightChildren={
-        <ButtonRectangle className="is-blue" label="Vagas" />
-      }
-    >
+    <Layout isFinalPage>
       <div className="job-details">
         <div className="card detail-card">
-          {job ? (
+          {job && user ? (
             <>
               <div className="detail-top-container">
                 <div>
@@ -41,7 +37,7 @@ function JobDetails() {
                     text={job.title}
                     size={24}
                   />
-                  <Text text="Frederico Araújo Durão" size={22} />
+                  <Text text={user.name} size={22} />
                   <Text
                     className="is-blue is-bold description-title"
                     text="Descrição da vaga"
@@ -79,11 +75,11 @@ function JobDetails() {
                 <div className="bottom-details">
                   {renderDetailItem(
                     'Nome do responsável pela vaga',
-                    'Frederico Araújo Durão',
+                    user.name,
                     'bottom-detail-item',
                     18
                   )}
-                  {renderDetailItem('E-mail', 'computacao@ufba.br', '', 18)}
+                  {renderDetailItem('E-mail', user.email, '', 18)}
                   <div className="btn-apply-container">
                     <ButtonRectangle className="is-green" label="Aplicar" />
                   </div>
@@ -92,10 +88,9 @@ function JobDetails() {
             </>
           ) : (
             <Text
+              className="is-bold is-blue"
               text="Carregando detalhes da vaga..."
               size={24}
-              weight="bold"
-              color="#13335F"
             />
           )}
         </div>
