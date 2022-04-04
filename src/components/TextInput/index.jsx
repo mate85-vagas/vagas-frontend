@@ -3,10 +3,27 @@ import PropTypes from 'prop-types'
 import Text from '../Text'
 import './styles.css'
 
-function TextInput({ label, type, setValue, hasError }) {
+function TextInput({
+  className,
+  label,
+  subLabel,
+  type,
+  setValue,
+  hasError,
+  autoComplete,
+}) {
   return (
-    <div className="text-input">
-      <Text className="is-bold" text={label} size={18} />
+    <div className={`text-input ${className}`}>
+      <Text
+        className="is-bold input-label"
+        text={
+          <p>
+            {label}
+            <span className="input-sublabel"> {subLabel}</span>
+          </p>
+        }
+        size={18}
+      />
       <div className="field-body">
         <div className="field">
           <p className="control">
@@ -14,6 +31,7 @@ function TextInput({ label, type, setValue, hasError }) {
               className={`input ${hasError ? 'is-danger' : ''}`}
               type={type}
               onChange={(e) => setValue(e.target.value)}
+              autoComplete={autoComplete ? 'on' : 'new-password'}
             />
           </p>
         </div>
@@ -23,14 +41,20 @@ function TextInput({ label, type, setValue, hasError }) {
 }
 
 TextInput.propTypes = {
+  className: PropTypes.string,
   label: PropTypes.string.isRequired,
+  subLabel: PropTypes.string,
   type: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
+  autoComplete: PropTypes.bool,
 }
 
 TextInput.defaultProps = {
+  className: '',
+  subLabel: '',
   hasError: false,
+  autoComplete: true,
 }
 
 export default TextInput

@@ -5,8 +5,10 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import JobList from '../pages/JobList'
 import ProtectedRoute from '../components/Routes/ProtectedRoute'
+// import PrivateRoute from '../components/Routes/PrivateRoute'
 import JobDetails from '../pages/JobDetails'
 import useAuth from '../hooks/useAuth'
+import EditData from '../pages/EditData'
 
 function AppRoutes() {
   const { loadToken } = useAuth()
@@ -19,6 +21,7 @@ function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" exact element={<JobList />} />
+        <Route path="/vagas/:id" exact element={<JobDetails />} />
 
         <Route exact path="/login" element={<ProtectedRoute />}>
           <Route exact path="/login" element={<Login />} />
@@ -28,7 +31,9 @@ function AppRoutes() {
           <Route exact path="/register" element={<Register />} />
         </Route>
 
-        <Route path="/vagas/:id" exact element={<JobDetails />} />
+        {/* <Route exact path="/editardados" element={<PrivateRoute />}> */}
+        <Route exact path="/editardados" element={<EditData />} />
+        {/* </Route> */}
       </Routes>
     </Router>
   )

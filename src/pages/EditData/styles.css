@@ -1,0 +1,47 @@
+.edit-data {
+  padding: 50px;
+  flex-grow: 1;
+}
+
+.edit-data .card {
+  padding: 45px; 
+}
+
+.edit-data .card-title {
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DFDFDF;
+  margin-bottom: 23px;
+}
+
+.form-user {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #DFDFDF;
+  margin-bottom: 30px;
+  display: flex;
+}
+
+.edit-data .text-input {
+  flex-grow: 1;
+  width: 50%;
+}
+
+.edit-data .margin-input {
+  margin-right: 30px;
+}
+
+.form-horizontal {
+  display: flex;
+}
+
+.edit-data .btn-save {
+  width: 100%;
+  margin-top: 45px;
+}
+
+.form-profile-1 {
+  margin-top: 20px;
+}
+
+.form-profile-1 .control {
+  flex-grow: 1;
+}

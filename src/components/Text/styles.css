@@ -21,3 +21,7 @@
 .text.is-white {
   color: var(--color-one);
 }
+
+.text.is-italic {
+  font-style: italic;
+}

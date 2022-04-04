@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './style.css'
+import Text from '../Text'
 
 function SelectBox({
   selectName,
@@ -12,24 +13,26 @@ function SelectBox({
   onChange,
 }) {
   return (
-    <>
+    <div className="control">
       {label ? <span className="label">{label}</span> : false}
-      <select
-        name={selectName}
-        id={selectId}
-        className="default-form-element select-box"
-        onChange={(e) => onChange(e)}
-      >
-        <option value="">{initialOption}</option>
-        {options.map((option) => {
-          return (
-            <option value={option.value} key={option.id}>
-              {option.label}
-            </option>
-          )
-        })}
-      </select>
-    </>
+      <div className="select">
+        <select
+          name={selectName}
+          id={selectId}
+          className="input default-form-element select-box"
+          onChange={(e) => onChange(e)}
+        >
+          <option value="">{initialOption}</option>
+          {options.map((option) => {
+            return (
+              <option value={option.value} key={option.id}>
+                {option.label}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+    </div>
   )
 }
 
@@ -114,28 +117,34 @@ SearchBox.defaultProps = {
   searchButton: false,
 }
 
-function DateBox({ label, onChange, name }) {
+function DateBox({ labelLarge, label, onChange, name }) {
   return (
-    <>
-      <span className="label">{label}</span>
+    <div className="control">
+      <Text
+        className="label is-bold"
+        text={label}
+        size={labelLarge ? 18 : 16}
+      />
       <input
         type="date"
         name={name}
         id="job-date"
-        className="default-form-element"
+        className="input default-form-element"
         onChange={(e) => onChange(e)}
       />
-    </>
+    </div>
   )
 }
 
 DateBox.propTypes = {
+  labelLarge: PropTypes.bool,
   label: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
 }
 
 DateBox.defaultProps = {
+  labelLarge: false,
   label: 'Label',
   onChange: null,
   name: null,

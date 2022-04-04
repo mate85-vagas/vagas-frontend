@@ -12,22 +12,28 @@ export const AuthState = {
 const AuthContext = createContext({})
 
 const AUTH_TOKEN_KEY = '@vagas/token'
+const AUTH_USER_ID_KEY = '@vagas/user_id'
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState()
+  const [userId, setUserId] = useState()
   const [authState, setAuthState] = useState(AuthState.IDLE)
 
-  const manageToken = (newToken) => {
-    if (newToken === undefined) {
+  const manageUser = (user) => {
+    if (!user || user.token === undefined || user.id === undefined) {
       setToken(undefined)
+      setUserId(undefined)
       setAuthState(AuthState.UNAUTHENTICATED)
       localStorage.removeItem(AUTH_TOKEN_KEY)
+      localStorage.removeItem(AUTH_USER_ID_KEY)
       return
     }
 
-    setToken(newToken)
+    setToken(user.token)
+    setUserId(user.id)
     setAuthState(AuthState.AUTHENTICATED)
-    localStorage.setItem(AUTH_TOKEN_KEY, newToken)
+    localStorage.setItem(AUTH_TOKEN_KEY, user.token)
+    localStorage.setItem(AUTH_USER_ID_KEY, user.id)
 
     api.interceptors.request.use(
       (config) => {
@@ -36,7 +42,7 @@ export function AuthProvider({ children }) {
         return {
           ...config,
           headers: {
-            Authorization: newToken,
+            Authorization: user.token,
           },
         }
       },
@@ -49,10 +55,10 @@ export function AuthProvider({ children }) {
 
     const tokenFromResponse = response.data.token
 
-    manageToken(tokenFromResponse)
-
     if (!tokenFromResponse && response.data.message)
       toast.error(response.data.message)
+
+    manageUser(response.data)
 
     return tokenFromResponse !== undefined
   }, [])
@@ -66,22 +72,26 @@ export function AuthProvider({ children }) {
 
     const tokenFromResponse = response.data.token
 
-    manageToken(tokenFromResponse)
-
     if (!tokenFromResponse && response.data.message)
       toast.error(response.data.message)
+
+    manageUser(response.data)
 
     return tokenFromResponse !== undefined
   }, [])
 
   const logout = useCallback(async () => {
-    manageToken(undefined)
+    manageUser(undefined)
   }, [])
 
   const loadToken = useCallback(() => {
     const tokenLoaded = localStorage.getItem(AUTH_TOKEN_KEY)
+    const userIdLoaded = localStorage.getItem(AUTH_USER_ID_KEY)
 
-    manageToken(tokenLoaded ?? undefined)
+    manageUser({
+      token: tokenLoaded ?? undefined,
+      id: userIdLoaded ?? undefined,
+    })
   }, [])
 
   const isAuthenticated = useMemo(
@@ -94,6 +104,7 @@ export function AuthProvider({ children }) {
       value={{
         isAuthenticated,
         token,
+        userId,
         state: authState,
         login,
         register,

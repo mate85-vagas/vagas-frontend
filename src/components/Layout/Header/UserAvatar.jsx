@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import Text from '../../Text'
 import './styles.css'
 
 function UserAvatar() {
+  const navigate = useNavigate()
   const { logout } = useAuth()
 
   const dropdownItem = (label, onClick) => (
@@ -32,7 +34,7 @@ function UserAvatar() {
       <div className="dropdown-menu" id="user-dropdown-menu" role="menu">
         <div className="dropdown-content">
           {dropdownItem('Ver Perfil')}
-          {dropdownItem('Editar Dados')}
+          {dropdownItem('Editar Dados', () => navigate('/editardados'))}
           {dropdownItem('Sair', logout)}
         </div>
       </div>

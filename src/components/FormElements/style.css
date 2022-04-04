@@ -8,16 +8,23 @@
   font-size: 16px;
 }
 
-select.select-box {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url("http://cdn.onlinewebfonts.com/svg/img_427298.png");
-  background-repeat: no-repeat;
-  background-position: 96% center;
-  background-size: 17px auto;
-  position: relative;
+.control .select {
+  width: 100%;
   margin: 0 0 30px 0;
+}
+
+.select::after {
+  border-color: var(--color-text) !important;
+  border-width: 1px !important;
+}
+
+select.select-box {
+  position: relative;
+  padding: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-box {
