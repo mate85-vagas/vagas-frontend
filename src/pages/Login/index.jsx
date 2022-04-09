@@ -70,12 +70,14 @@ function Login() {
             <TextInput
               label="E-mail"
               type="email"
+              value={email}
               setValue={setEmail}
               hasError={hasError && isEmailInvalid()}
             />
             <TextInput
               label="Senha"
               type="password"
+              value={password}
               setValue={setPassword}
               hasError={hasError && isPasswordInvalid()}
             />

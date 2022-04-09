@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { jobTypes, jobScholarities } from '../../utils/constants/project'
 import { SearchBox, SelectBox, DateBox, Button } from '../FormElements'
 import api from '../../api'
 import './style.css'
@@ -35,55 +36,6 @@ function Aside({ onSubmitFilters }) {
     onSubmitFilters(filteredJobs)
   }, [filteredJobs])
 
-  const jobTypes = [
-    {
-      id: 0,
-      value: 'estagio',
-      label: 'Estágio',
-    },
-    {
-      id: 1,
-      value: 'trabalho',
-      label: 'Trabalho',
-    },
-    {
-      id: 2,
-      value: 'extensao',
-      label: 'Extensão',
-    },
-    {
-      id: 3,
-      value: 'complementar',
-      label: 'CH Complementar',
-    },
-    {
-      id: 4,
-      value: 'pesquisa',
-      label: 'Pesquisa',
-    },
-    {
-      id: 5,
-      value: 'outro',
-      label: 'Outro',
-    },
-  ]
-  const jobScholarities = [
-    {
-      id: 0,
-      value: 'supinc',
-      label: 'Superior Incompleto',
-    },
-    {
-      id: 1,
-      value: 'supc',
-      label: 'Superior Completo',
-    },
-    {
-      id: 2,
-      value: 'posgrad',
-      label: 'Pós-Graduação',
-    },
-  ]
   const jobWorkloads = [
     {
       id: 0,

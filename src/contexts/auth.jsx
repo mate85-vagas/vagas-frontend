@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
         return {
           ...config,
           headers: {
-            Authorization: user.token,
+            'x-access-token': user.token,
           },
         }
       },

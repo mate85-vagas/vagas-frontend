@@ -1,0 +1,40 @@
+.view-profile {
+  padding: 50px;
+  flex-grow: 1;
+}
+
+.view-profile .card {
+  padding: 45px; 
+}
+
+.view-profile .card-title {
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DFDFDF;
+  margin-bottom: 23px;
+}
+
+.view-profile .text-input {
+  flex-grow: 1;
+  width: 50%;
+}
+
+.view-profile .text {  
+  overflow-wrap: anywhere;
+}
+
+.view-profile .margin-input {
+  padding-right: 20px;
+}
+
+.profile-row {
+  display: flex;
+  width: 100%;
+}
+
+.profile-row.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.profile-field {
+  width: 50%;
+}

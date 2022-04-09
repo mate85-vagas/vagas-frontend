@@ -35,4 +35,8 @@ aside .rc-slider-handle {
 aside .rc-slider-track {
   background: var(--color-accent);
 }
+
+aside .control {
+  margin-bottom: 30px;
+}
 /*# sourceMappingURL=style.css.map */

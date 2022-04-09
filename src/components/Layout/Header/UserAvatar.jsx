@@ -33,7 +33,7 @@ function UserAvatar() {
       </div>
       <div className="dropdown-menu" id="user-dropdown-menu" role="menu">
         <div className="dropdown-content">
-          {dropdownItem('Ver Perfil')}
+          {dropdownItem('Ver Perfil', () => navigate('/verperfil'))}
           {dropdownItem('Editar Dados', () => navigate('/editardados'))}
           {dropdownItem('Sair', logout)}
         </div>

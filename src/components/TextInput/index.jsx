@@ -8,6 +8,7 @@ function TextInput({
   label,
   subLabel,
   type,
+  value,
   setValue,
   hasError,
   autoComplete,
@@ -30,6 +31,7 @@ function TextInput({
             <input
               className={`input ${hasError ? 'is-danger' : ''}`}
               type={type}
+              value={value}
               onChange={(e) => setValue(e.target.value)}
               autoComplete={autoComplete ? 'on' : 'new-password'}
             />
@@ -45,6 +47,7 @@ TextInput.propTypes = {
   label: PropTypes.string.isRequired,
   subLabel: PropTypes.string,
   type: PropTypes.string.isRequired,
+  value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
   autoComplete: PropTypes.bool,
@@ -53,6 +56,7 @@ TextInput.propTypes = {
 TextInput.defaultProps = {
   className: '',
   subLabel: '',
+  value: '',
   hasError: false,
   autoComplete: true,
 }
