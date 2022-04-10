@@ -12,6 +12,7 @@ function TextInput({
   setValue,
   hasError,
   autoComplete,
+  maxLength,
 }) {
   return (
     <div className={`text-input ${className}`}>
@@ -34,6 +35,7 @@ function TextInput({
               value={value}
               onChange={(e) => setValue(e.target.value)}
               autoComplete={autoComplete ? 'on' : 'new-password'}
+              maxLength={maxLength}
             />
           </p>
         </div>
@@ -51,6 +53,7 @@ TextInput.propTypes = {
   setValue: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
   autoComplete: PropTypes.bool,
+  maxLength: PropTypes.number,
 }
 
 TextInput.defaultProps = {
@@ -59,6 +62,7 @@ TextInput.defaultProps = {
   value: '',
   hasError: false,
   autoComplete: true,
+  maxLength: null,
 }
 
 export default TextInput

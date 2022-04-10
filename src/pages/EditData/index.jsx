@@ -169,6 +169,7 @@ function EditData() {
                   autoComplete={false}
                   value={knowledge}
                   setValue={setKnowledge}
+                  maxLength={255}
                 />
                 <TextInput
                   label="Conhecimentos e tecnologias"
@@ -177,6 +178,7 @@ function EditData() {
                   autoComplete={false}
                   value={technologies}
                   setValue={setTechnologies}
+                  maxLength={255}
                 />
               </div>
               <div className="form-horizontal">
@@ -188,6 +190,7 @@ function EditData() {
                   autoComplete={false}
                   value={languages}
                   setValue={setLanguages}
+                  maxLength={255}
                 />
                 <TextInput
                   label="URL do Linkedin"
@@ -195,6 +198,7 @@ function EditData() {
                   autoComplete={false}
                   value={linkResume}
                   setValue={setLinkResume}
+                  maxLength={255}
                 />
               </div>
               <ButtonRectangle
