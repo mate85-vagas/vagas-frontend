@@ -22,12 +22,17 @@
   margin-bottom: 15px;
 }
 
+.description-container {
+  text-align: justify;
+}
+
 .detail-menu {
   background-color: #F6F6F6;
   border-radius: 10px;
   padding: 30px;
-  width: 30vw;
+  min-width: 30vw;
   max-width: 380px;
+  margin-left: 50px;
 }
 
 .side-detail-item {

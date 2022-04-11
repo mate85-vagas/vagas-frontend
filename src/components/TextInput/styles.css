@@ -5,8 +5,8 @@
   flex-direction: column;
 }
 
-.field-body {
-  margin-top: 10px;
+.input-label {
+  margin-bottom: 10px;
 }
 
 .text-input .field {

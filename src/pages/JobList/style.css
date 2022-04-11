@@ -15,6 +15,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  align-items: center;
 }
 
 #main #jobs-container {
@@ -54,10 +55,11 @@ body {
   margin: 0 10px 10px 0;
 }
 
-#main #jobs-container #jobs ul.filters li.selected-filter a {
-  display: inline-block;
-  margin: 0 0 0 10px;
+#main #jobs-container #jobs ul.filters li.selected-filter button {
+  display: flex;
+  align-items: center;
   color: var(--color-one);
+  font-size: 12px;
 }
 
 #main #jobs-container #jobs .wrap {
@@ -66,7 +68,7 @@ body {
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  padding: 40px 0 0 30px;
+  padding-left: 30px;
 }
 
 @media screen and (max-width: 992px) {
@@ -122,4 +124,24 @@ input[type="search"] {
   font-size: 16px;
   background: transparent;
   right: 10px;
+}
+
+.filters-margin {
+  margin-bottom: 20px;
+}
+
+.page-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-input {
+  margin-left: 10px;
+}
+
+.no-results-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
 }

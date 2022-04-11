@@ -17,7 +17,7 @@ function TextInput({
   return (
     <div className={`text-input ${className}`}>
       <Text
-        className="is-bold input-label"
+        className={`is-bold ${label ? 'input-label' : ''}`}
         text={
           <p>
             {label}
@@ -46,7 +46,7 @@ function TextInput({
 
 TextInput.propTypes = {
   className: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   subLabel: PropTypes.string,
   type: PropTypes.string.isRequired,
   value: PropTypes.string,
@@ -58,6 +58,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   className: '',
+  label: '',
   subLabel: '',
   value: '',
   hasError: false,

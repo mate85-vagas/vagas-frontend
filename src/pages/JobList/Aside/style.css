@@ -9,6 +9,7 @@ aside {
           flex: 0 0 22%;
   max-width: 350px;
   overflow: hidden;
+  height: fit-content;
 }
 
 aside h2 {

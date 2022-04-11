@@ -1,98 +1,49 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
-import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
-import { jobTypes, jobScholarities } from '../../utils/constants/project'
-import { SearchBox, SelectBox, DateBox, Button } from '../FormElements'
-import api from '../../api'
+import { jobTypes, jobScholarities } from '../../../utils/constants/project'
+import {
+  SearchBox,
+  SelectBox,
+  DateBox,
+  Button,
+} from '../../../components/FormElements'
 import './style.css'
+import SliderInput from '../../../components/SliderInput'
 
-function Aside({ onSubmitFilters }) {
+function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
   const [jobType, setJobType] = useState(null)
   const [jobSite, setJobSite] = useState(null)
-  const [jobWorkload, setJobWorkload] = useState(null)
   const [jobScholarity, setJobScholarity] = useState(null)
   const [jobStartDate, setJobStartDate] = useState(null)
+  const [jobMinWorkload, setJobMinWorkload] = useState(0)
+  const [jobMaxWorkload, setJobMaxWorkload] = useState(0)
   const [jobMinSalary, setJobMinSalary] = useState(0)
   const [jobMaxSalary, setJobMaxSalary] = useState(0)
-  const [hasFilters, setHasFilters] = useState(false)
-  const [filterQuery, setFilterQuery] = useState('/vagas?')
-  const [filteredJobs, setFilteredJobs] = useState([])
-
-  useEffect(() => {
-    if (hasFilters) {
-      const fetchData = async () => {
-        await api.get(filterQuery).then((response) => {
-          setFilteredJobs(response.data)
-        })
-      }
-
-      fetchData()
-    }
-  }, [filterQuery])
-
-  useEffect(() => {
-    onSubmitFilters(filteredJobs)
-  }, [filteredJobs])
-
-  const jobWorkloads = [
-    {
-      id: 0,
-      value: '10',
-      label: '10 Horas',
-    },
-    {
-      id: 1,
-      value: '15',
-      label: '15 Horas',
-    },
-    {
-      id: 2,
-      value: '20',
-      label: '20 Horas',
-    },
-    {
-      id: 3,
-      value: '30',
-      label: '30 Horas',
-    },
-    {
-      id: 4,
-      value: '40',
-      label: '40 Horas',
-    },
-    {
-      id: 5,
-      value: '44',
-      label: '44 Horas',
-    },
-  ]
+  const [toSubmit, setToSubmit] = useState(false)
 
   const handleSubmitFilters = () => {
     const filters = {}
 
     if (jobType) filters.type = jobType
-    if (jobWorkload) filters.workload = jobWorkload
     if (jobScholarity) filters.scholarity = jobScholarity
     if (jobStartDate) filters.createdAt = jobStartDate
     if (jobSite) filters.site = jobSite
-    if (jobMinSalary) filters.min = jobMinSalary
-    if (jobMaxSalary) filters.max = jobMaxSalary
-
-    if (Object.keys(filters).length > 0) {
-      setFilterQuery('/vagas?')
-      Object.keys(filters).forEach((key, index) => {
-        setFilterQuery((state) => {
-          if (index === 0) {
-            return `${state}${key}=${filters[key]}`
-          }
-          return `${state}&${key}=${filters[key]}`
-        })
-      })
-      console.log(filterQuery)
-      setHasFilters(true)
+    if (jobMinWorkload || jobMaxWorkload) {
+      filters.workload = {
+        min: jobMinWorkload,
+        max: jobMaxWorkload,
+      }
     }
+    if (jobMinSalary || jobMaxSalary) {
+      filters.salary = {
+        min: jobMinSalary,
+        max: jobMaxSalary,
+      }
+    }
+
+    onSubmitFilters(filters)
   }
 
   const handleSalaryChange = (value) => {
@@ -100,29 +51,71 @@ function Aside({ onSubmitFilters }) {
     setJobMaxSalary(value[1])
   }
 
+  const handleWorkloadChange = (value) => {
+    setJobMinWorkload(value[0])
+    setJobMaxWorkload(value[1])
+  }
+
+  useEffect(() => {
+    if (tagToRemove === '') return
+
+    if (tagToRemove === 'all') {
+      setJobType('')
+      setJobScholarity('')
+      setJobStartDate('')
+      setJobSite('')
+      setJobMaxWorkload(0)
+      setJobMinWorkload(0)
+      setJobMaxSalary(0)
+      setJobMinSalary(0)
+
+      return
+    }
+
+    if (tagToRemove === 'type') setJobType('')
+    else if (tagToRemove === 'scholarity') setJobScholarity('')
+    else if (tagToRemove === 'createdAt') setJobStartDate('')
+    else if (tagToRemove === 'site') setJobSite('')
+    else if (tagToRemove === 'workload') {
+      setJobMaxWorkload(0)
+      setJobMinWorkload(0)
+    } else if (tagToRemove === 'salary') {
+      setJobMaxSalary(0)
+      setJobMinSalary(0)
+    }
+
+    setToSubmit(true)
+  }, [tagToRemove])
+
+  useEffect(() => {
+    if (!toSubmit) return
+    handleSubmitFilters()
+    setToSubmit(false)
+    onClearedFilter()
+  }, [toSubmit])
+
   return (
     <aside>
       <h2>Filtros</h2>
 
       <div id="filters-form">
-        <Slider
-          range
+        <SliderInput
+          label="Salário"
           min={300}
           max={30000}
-          count
           startPoint={300}
           step={10}
           onChange={handleSalaryChange}
+          minValue={jobMinSalary}
+          maxValue={jobMaxSalary}
         />
-        <span className="job-salary-value">
-          {jobMinSalary} &mdash; {jobMaxSalary}
-        </span>
 
         <SelectBox
           selectName="type"
           selectId="job-type"
           label="Tipo"
           initialOption="Selecionar tipo"
+          value={jobType}
           options={jobTypes}
           onChange={(e) => setJobType(e.target.value)}
         />
@@ -132,16 +125,19 @@ function Aside({ onSubmitFilters }) {
           placeholder="Pesquisar localidade"
           inputName="site"
           inputId="job-locate"
+          value={jobSite}
           onChange={(e) => setJobSite(e.target.value)}
         />
 
-        <SelectBox
-          selectName="workload"
-          selectId="job-hour"
+        <SliderInput
           label="Carga horária"
-          initialOption="Selecionar carga"
-          options={jobWorkloads}
-          onChange={(e) => setJobWorkload(e.target.value)}
+          min={0}
+          max={60}
+          startPoint={0}
+          step={5}
+          onChange={handleWorkloadChange}
+          minValue={jobMinWorkload}
+          maxValue={jobMaxWorkload}
         />
 
         <SelectBox
@@ -149,6 +145,7 @@ function Aside({ onSubmitFilters }) {
           selectId="job-scholarity"
           label="Escolaridade"
           initialOption="Selecionar escolaridade"
+          value={jobScholarity}
           options={jobScholarities}
           onChange={(e) => setJobScholarity(e.target.value)}
         />
@@ -157,6 +154,7 @@ function Aside({ onSubmitFilters }) {
           label="Selecionar data inicial"
           name="startingDate"
           onChange={(e) => setJobStartDate(e.target.value)}
+          value={jobStartDate}
         />
 
         <Button

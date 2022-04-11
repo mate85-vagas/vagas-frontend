@@ -9,6 +9,15 @@ export const jobTypeLabel = {
   outro: 'Outro',
 }
 
+export const jobFilterLabel = {
+  type: 'Tipo',
+  workload: 'Carga horária',
+  scholarity: 'Escolaridade',
+  createdAt: 'Data de criação',
+  site: 'Localidade',
+  salary: 'Salário',
+}
+
 export const jobScholarityLabel = {
   supinc: 'Superior Incompleto',
   supc: 'Superior Completo',
@@ -41,3 +50,11 @@ export const appearOnSearchOptions = [
     label: 'Não',
   },
 ]
+
+export const itemsPerPageNumbers = [5, 10, 20, 30, 50]
+
+export const itemsPerPageOptions = itemsPerPageNumbers.map((number, id) => ({
+  id,
+  value: number,
+  label: `${number} por página`,
+}))

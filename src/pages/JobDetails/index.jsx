@@ -43,7 +43,11 @@ function JobDetails() {
                     text="Descrição da vaga"
                     size={20}
                   />
-                  <Text text={job.description} size={18} />
+                  <Text
+                    className="description-container"
+                    text={job.description}
+                    size={18}
+                  />
                 </div>
                 <div className="detail-menu">
                   {renderDetailItem(

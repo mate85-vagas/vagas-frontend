@@ -17,11 +17,13 @@ function SelectBox({
 }) {
   return (
     <div className={`control ${className}`}>
-      <Text
-        className="label is-bold"
-        text={label}
-        size={labelLarge ? 18 : 16}
-      />
+      {label && (
+        <Text
+          className="label is-bold"
+          text={label}
+          size={labelLarge ? 18 : 16}
+        />
+      )}
       {/* {label ? <span className="label">{label}</span> : false} */}
       <div className="select">
         <select
@@ -54,7 +56,7 @@ SelectBox.propTypes = {
   initialOption: PropTypes.string,
   label: PropTypes.string,
   labelLarge: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
 }
 
@@ -64,9 +66,8 @@ SelectBox.defaultProps = {
   selectId: 'select-box',
   options: [],
   initialOption: 'Select --',
-  label: 'Label',
+  label: '',
   labelLarge: false,
-  value: '',
   onChange: null,
 }
 
@@ -76,35 +77,32 @@ SelectBox.defaultProps = {
  * If you want to the search icons doesn't fire any function, set the variable searchButton false.
  */
 function SearchBox({
+  className,
   label,
   placeholder,
   inputName,
   inputId,
   onChange,
   searchButton,
+  onSearch,
+  value,
 }) {
   return (
-    <div className="control">
+    <div className={`control ${className}`}>
       <span className="label">{label}</span>
       <div className="search-box">
         <input
-          type="search"
           placeholder={placeholder}
           name={inputName}
           id={inputId}
-          className="default-form-element"
+          value={value}
+          className="input default-form-element"
           onChange={(e) => onChange(e)}
         />
         <button
           type="submit"
           id="search-box-submit"
-          onClick={
-            searchButton
-              ? () => onChange()
-              : () => {
-                  return false
-                }
-          }
+          onClick={onSearch}
           className={searchButton ? 'active-button' : 'inactive-button'}
         >
           <span className="lnr lnr-magnifier" />
@@ -115,20 +113,25 @@ function SearchBox({
 }
 
 SearchBox.propTypes = {
+  className: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   inputName: PropTypes.string,
   inputId: PropTypes.string,
   onChange: PropTypes.func,
+  onSearch: PropTypes.func,
   searchButton: PropTypes.bool,
+  value: PropTypes.string.isRequired,
 }
 
 SearchBox.defaultProps = {
+  className: '',
   label: 'Label',
   placeholder: 'Placeholder',
   inputName: 'serch_form',
   inputId: 'search-form',
   onChange: null,
+  onSearch: () => {},
   searchButton: false,
 }
 
@@ -156,7 +159,7 @@ DateBox.propTypes = {
   className: PropTypes.string,
   labelLarge: PropTypes.bool,
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   name: PropTypes.string,
 }
@@ -165,7 +168,6 @@ DateBox.defaultProps = {
   className: '',
   labelLarge: false,
   label: 'Label',
-  value: '',
   onChange: null,
   name: null,
 }
