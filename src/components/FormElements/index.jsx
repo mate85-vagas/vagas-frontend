@@ -14,6 +14,7 @@ function SelectBox({
   labelLarge,
   value,
   onChange,
+  hasError,
 }) {
   return (
     <div className={`control ${className}`}>
@@ -29,7 +30,9 @@ function SelectBox({
         <select
           name={selectName}
           id={selectId}
-          className="input default-form-element select-box"
+          className={`input ${
+            hasError ? 'is-danger' : ''
+          } default-form-element select-box`}
           onChange={(e) => onChange(e)}
           value={value}
         >
@@ -58,6 +61,7 @@ SelectBox.propTypes = {
   labelLarge: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  hasError: PropTypes.bool,
 }
 
 SelectBox.defaultProps = {
@@ -69,6 +73,7 @@ SelectBox.defaultProps = {
   label: '',
   labelLarge: false,
   onChange: null,
+  hasError: false,
 }
 
 /**
@@ -135,7 +140,15 @@ SearchBox.defaultProps = {
   searchButton: false,
 }
 
-function DateBox({ className, labelLarge, label, value, onChange, name }) {
+function DateBox({
+  className,
+  labelLarge,
+  label,
+  value,
+  onChange,
+  name,
+  hasError,
+}) {
   return (
     <div className={`control ${className}`}>
       <Text
@@ -147,7 +160,7 @@ function DateBox({ className, labelLarge, label, value, onChange, name }) {
         type="date"
         name={name}
         id="job-date"
-        className="input default-form-element"
+        className={`input ${hasError ? 'is-danger' : ''} default-form-element`}
         onChange={(e) => onChange(e)}
         value={value}
       />
@@ -162,6 +175,7 @@ DateBox.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  hasError: PropTypes.bool,
 }
 
 DateBox.defaultProps = {
@@ -170,6 +184,7 @@ DateBox.defaultProps = {
   label: 'Label',
   onChange: null,
   name: null,
+  hasError: false,
 }
 
 function Button({ label, onClick, id, scheme }) {

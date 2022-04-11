@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import { DateBox, SelectBox } from '../../components/FormElements'
 import Layout from '../../components/Layout'
@@ -13,6 +14,7 @@ import {
   appearOnSearchOptions,
   jobScholarities,
 } from '../../utils/constants/project'
+import { translate } from '../../utils/translations'
 import './styles.css'
 
 function EditData() {
@@ -28,11 +30,18 @@ function EditData() {
   const [languages, setLanguages] = useState('')
   const [linkResume, setLinkResume] = useState('')
 
+  const [hasError, setHasError] = useState(false)
+
   const user = useGetUserById(userId)
   const profile = useGetProfileById(user && user.profileId, false)
 
   const { updateUser } = useUserRoutes()
   const { createProfile, updateProfile } = useProfileRoutes()
+
+  const isScholarityInvalid = () => scholarity === ''
+  const isBirthDateInvalid = () => birthDate === ''
+  const isKnowledgeInvalid = () => knowledge === ''
+  const isTechnologiesInvalid = () => technologies === ''
 
   const hasProfileChanges = () => {
     if (profile) {
@@ -61,6 +70,17 @@ function EditData() {
     e.preventDefault()
     if (user.email !== email) await updateUser(userId, { email })
     if (hasProfileChanges()) {
+      if (
+        isScholarityInvalid() ||
+        isBirthDateInvalid() ||
+        isKnowledgeInvalid() ||
+        isTechnologiesInvalid()
+      ) {
+        toast.error(translate('mandatory_not_filled'))
+        setHasError(true)
+        return
+      }
+
       if (user.profileId !== -1) {
         await updateProfile(
           user.profileId,
@@ -143,6 +163,7 @@ function EditData() {
                   value={scholarity}
                   options={jobScholarities}
                   onChange={(e) => setScholarity(e.target.value)}
+                  hasError={hasError && isScholarityInvalid()}
                 />
                 <DateBox
                   className="margin-input"
@@ -150,6 +171,7 @@ function EditData() {
                   labelLarge
                   onChange={(e) => setBirthDate(e.target.value)}
                   value={birthDate}
+                  hasError={hasError && isBirthDateInvalid()}
                 />
                 <SelectBox
                   label="Aparecer na busca?"
@@ -168,6 +190,7 @@ function EditData() {
                   type="text"
                   autoComplete={false}
                   value={knowledge}
+                  hasError={hasError && isKnowledgeInvalid()}
                   setValue={setKnowledge}
                   maxLength={255}
                 />
@@ -177,6 +200,7 @@ function EditData() {
                   type="text"
                   autoComplete={false}
                   value={technologies}
+                  hasError={hasError && isTechnologiesInvalid()}
                   setValue={setTechnologies}
                   maxLength={255}
                 />
