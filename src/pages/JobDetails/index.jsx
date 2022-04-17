@@ -7,6 +7,7 @@ import { localDate, numberToReais } from '../../utils/conversions'
 import { jobScholarityLabel, jobTypeLabel } from '../../utils/constants/project'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import './styles.css'
+import { translate } from '../../utils/translations'
 
 function JobDetails() {
   const params = useParams()
@@ -85,7 +86,10 @@ function JobDetails() {
                   )}
                   {renderDetailItem('E-mail', user.email, '', 18)}
                   <div className="btn-apply-container">
-                    <ButtonRectangle className="is-green" label="Aplicar" />
+                    <ButtonRectangle
+                      className="is-green"
+                      label={translate('apply_to_job')}
+                    />
                   </div>
                 </div>
               </div>

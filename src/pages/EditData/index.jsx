@@ -217,7 +217,7 @@ function EditData() {
                   maxLength={255}
                 />
                 <TextInput
-                  label="URL do Linkedin"
+                  label={translate('profile_field_resume')}
                   type="text"
                   autoComplete={false}
                   value={linkResume}

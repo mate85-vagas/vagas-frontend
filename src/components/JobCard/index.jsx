@@ -30,7 +30,7 @@ function JobCard({ data }) {
       <div>
         <Button
           label="Ver mais detalhes"
-          scheme="gray"
+          scheme="blue"
           onClick={() => {
             document.location.href = `${document.location.href}vagas/${id}`
           }}

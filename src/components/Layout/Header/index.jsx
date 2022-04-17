@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import IconIC from '../../IconIC'
 import UserAvatar from './UserAvatar'
 import Text from '../../Text'
-import ButtonRectangle from '../../Buttons/ButtonRectangle'
 import useAuth from '../../../hooks/useAuth'
-import './styles.css'
 import ButtonArrow from '../../Buttons/ButtonArrow'
+import { translate } from '../../../utils/translations'
+import './styles.css'
 
 function Header({ hasReturnButton }) {
   const navigate = useNavigate()
@@ -20,7 +20,11 @@ function Header({ hasReturnButton }) {
       <div className="header-right-container">
         <IconIC height={100} />
         <div className="title-container">
-          <Text className="is-bold is-white" text="Vagas" size={26} />
+          <Text
+            className="is-bold is-white"
+            text={translate('site_name')}
+            size={26}
+          />
           <Text
             className="is-white"
             text="Instituto de Computação da UFBA"
@@ -33,11 +37,13 @@ function Header({ hasReturnButton }) {
           <UserAvatar />
         ) : (
           <div className="login-btn-container">
-            <ButtonRectangle
-              label="Entrar"
-              className="is-gray"
+            <button
+              className="button is-ghost"
+              type="button"
               onClick={navigateToLogin}
-            />
+            >
+              <Text className="is-bold is-white" text="Entrar" size={18} />
+            </button>
           </div>
         )}
         {hasReturnButton && (

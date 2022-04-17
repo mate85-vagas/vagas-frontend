@@ -16,10 +16,10 @@
   background-color: var(--color-accent);
 }
 
-.btn-rect.is-gray {
-  background-color: var(--color-two);
-}
-
 .btn-rect.is-green {
   background-color: var(--color-green);
+}
+
+.btn-rect.is-white {
+  background-color: var(--color-one);
 }

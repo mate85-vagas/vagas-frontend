@@ -10,3 +10,18 @@ export const assignDefined = (target, sources) => {
   })
   return newObject
 }
+
+// export const byString = (object, lookup) => {
+//   if (object === null || object === undefined) return
+
+//   const keys = lookup.split('.')
+
+//   let value = object
+
+//   keys.forEach((key) => {
+//     if (value[key] === null || value[key] === undefined) return
+//     value = value[key]
+//   })
+
+//   return value
+// }

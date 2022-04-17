@@ -7,6 +7,7 @@ import TextInput from '../../components/TextInput'
 import ButtonArrow from '../../components/Buttons/ButtonArrow'
 import useAuth from '../../hooks/useAuth'
 import { isEmailValid } from '../../utils/validations'
+import { translate } from '../../utils/translations'
 import './styles.css'
 
 function Register() {
@@ -51,7 +52,11 @@ function Register() {
     <div className="auth-page">
       <div className="auth-left-container">
         <IconIC height={150} />
-        <Text className="is-bold is-white" text="Vagas" size={48} />
+        <Text
+          className="is-bold is-white"
+          text={translate('site_name')}
+          size={48}
+        />
         <Text
           className="is-white"
           text="Instituto de Computação da UFBA"

@@ -96,3 +96,7 @@
   font-weight: bold;
   color: var(--color-one);
 }
+
+.login-btn-container.button:focus {
+  box-shadow: none;
+}

@@ -23,7 +23,7 @@ function JobList() {
   const { isAuthenticated } = useAuth()
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageNumbers[0])
+  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageNumbers[2])
   const [filters, setFilters] = useState({})
   const [tagToRemove, setTagToRemove] = useState('')
 
@@ -101,7 +101,7 @@ function JobList() {
         <ButtonRectangle
           key="btn-profile"
           label="Pesquisar Perfis"
-          className="is-gray"
+          className="is-blue"
         />,
         isAuthenticated ? (
           <ButtonRectangle

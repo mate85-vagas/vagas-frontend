@@ -109,7 +109,11 @@ function ViewProfile() {
               </div>
               <div className="profile-row">
                 <div className="profile-field margin-input">
-                  <Text className="is-bold" text="URL do Linkedin" size={18} />
+                  <Text
+                    className="is-bold"
+                    text={translate('profile_field_resume')}
+                    size={18}
+                  />
                   <Text
                     text={linkResume || translate('not_informed')}
                     size={16}
