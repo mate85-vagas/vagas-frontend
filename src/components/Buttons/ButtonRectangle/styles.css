@@ -23,3 +23,7 @@
 .btn-rect.is-white {
   background-color: var(--color-one);
 }
+
+.btn-rect.is-red {
+  background-color: var(--color-red);
+}

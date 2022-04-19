@@ -10,6 +10,7 @@ import JobDetails from '../pages/JobDetails'
 import useAuth from '../hooks/useAuth'
 import EditData from '../pages/EditData'
 import ViewProfile from '../pages/ViewProfile'
+import JobForm from '../pages/JobForm'
 
 function AppRoutes() {
   const { loadToken } = useAuth()
@@ -36,6 +37,10 @@ function AppRoutes() {
         <Route exact path="/editardados" element={<PrivateRoute />}>
           <Route exact path="/editardados" element={<EditData />} />
         </Route>
+
+        {/* <Route exact path="/formulariovaga" element={<PrivateRoute />}> */}
+        <Route exact path="/formulariovaga" element={<JobForm />} />
+        {/* </Route> */}
       </Routes>
     </Router>
   )

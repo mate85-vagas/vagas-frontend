@@ -13,6 +13,7 @@ function TextInput({
   hasError,
   autoComplete,
   maxLength,
+  multiline,
 }) {
   return (
     <div className={`text-input ${className}`}>
@@ -29,14 +30,24 @@ function TextInput({
       <div className="field-body">
         <div className="field">
           <p className="control">
-            <input
-              className={`input ${hasError ? 'is-danger' : ''}`}
-              type={type}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              autoComplete={autoComplete ? 'on' : 'new-password'}
-              maxLength={maxLength}
-            />
+            {multiline ? (
+              <textarea
+                className={`textarea ${hasError ? 'is-danger' : ''}`}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                autoComplete={autoComplete ? 'on' : 'new-password'}
+                maxLength={maxLength}
+              />
+            ) : (
+              <input
+                className={`input ${hasError ? 'is-danger' : ''}`}
+                type={type}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                autoComplete={autoComplete ? 'on' : 'new-password'}
+                maxLength={maxLength}
+              />
+            )}
           </p>
         </div>
       </div>
@@ -54,6 +65,7 @@ TextInput.propTypes = {
   hasError: PropTypes.bool,
   autoComplete: PropTypes.bool,
   maxLength: PropTypes.number,
+  multiline: PropTypes.bool,
 }
 
 TextInput.defaultProps = {
@@ -64,6 +76,7 @@ TextInput.defaultProps = {
   hasError: false,
   autoComplete: true,
   maxLength: null,
+  multiline: false,
 }
 
 export default TextInput

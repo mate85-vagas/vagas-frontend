@@ -1,0 +1,35 @@
+.job-form {
+  padding: 50px;
+  flex-grow: 1;
+}
+
+.job-form .card {
+  padding: 45px; 
+}
+
+.job-form .card-title {
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DFDFDF;
+  margin-bottom: 10px;
+}
+
+.form-horizontal .control {
+  flex-grow: 1;
+}
+
+.form-horizontal .text-input {
+  flex-grow: 2;
+}
+
+.form-margin-top {
+  margin-top: 20px;
+}
+
+.job-form .margin-input {
+  margin-right: 30px;
+}
+
+.job-form .btn-save {
+  width: 100%;
+  margin-top: 40px;
+}
