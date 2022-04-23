@@ -27,3 +27,12 @@
 .btn-rect.is-red {
   background-color: var(--color-red);
 }
+
+.btn-rect.is-small {
+  height: 40px;
+  padding: 0px 20px 0px 20px;
+}
+
+.btn-rect.is-small .text {
+  font-size: 15px !important;
+}

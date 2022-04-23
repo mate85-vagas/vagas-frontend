@@ -20,7 +20,8 @@
   display: flex;
 }
 
-.edit-data .text-input {
+.edit-data .text-input,
+.edit-data .tag-input {
   flex-grow: 1;
   width: 50%;
 }

@@ -1,0 +1,25 @@
+.tag-input {
+  margin-top: 20px;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  margin-bottom: 10px;
+}
+
+.tag-input .field {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-sublabel {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.tag-input .multiselect {
+  width: 100%;
+}

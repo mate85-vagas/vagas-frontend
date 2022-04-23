@@ -1,0 +1,23 @@
+ul.filters li.selected-filter {
+  background: var(--color-accent);
+  color: var(--color-one);
+  padding: 6px 15px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 10px 10px 0;
+}
+
+ul.filters li.selected-filter button {
+  display: flex;
+  align-items: center;
+  color: var(--color-one);
+  font-size: 12px;
+}

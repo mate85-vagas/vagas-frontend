@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
+import Tag from '../../components/Tag'
 import Text from '../../components/Text'
 import { useGetProfileById } from '../../hooks/profile'
 import useAuth from '../../hooks/useAuth'
@@ -82,18 +83,22 @@ function ViewProfile() {
                   />
                 </div>
               </div>
-              <div className="profile-row margin-bottom">
+              <div className="profile-row">
                 <div className="profile-field margin-input">
                   <Text
                     className="is-bold"
                     text="Habilidades comportamentais"
                     size={18}
                   />
-                  <Text
-                    className=""
-                    text={knowledge || translate('not_informed')}
-                    size={16}
-                  />
+                  {knowledge ? (
+                    <ul className="filters">
+                      {knowledge.split(';').map((tag) => (
+                        <Tag label={tag} />
+                      ))}
+                    </ul>
+                  ) : (
+                    <Text text={translate('not_informed')} size={16} />
+                  )}
                 </div>
                 <div className="profile-field">
                   <Text
@@ -101,10 +106,15 @@ function ViewProfile() {
                     text="Conhecimentos e tecnologias"
                     size={18}
                   />
-                  <Text
-                    text={technologies || translate('not_informed')}
-                    size={16}
-                  />
+                  {technologies ? (
+                    <ul className="filters">
+                      {technologies.split(';').map((tag) => (
+                        <Tag key={tag} label={tag} />
+                      ))}
+                    </ul>
+                  ) : (
+                    <Text text={translate('not_informed')} size={16} />
+                  )}
                 </div>
               </div>
               <div className="profile-row">

@@ -17,6 +17,7 @@ import {
   jobScholarityLabel,
 } from '../../utils/constants/project'
 import Text from '../../components/Text'
+import Tag from '../../components/Tag'
 
 function JobList() {
   const isInitialMount = useRef(true)
@@ -52,14 +53,13 @@ function JobList() {
         className={`filters ${filterKeys.length > 0 ? 'filters-margin' : ''}`}
       >
         {filterKeys.map((field) => (
-          <li key={field} className="selected-filter">
-            <span className="filter-label">
-              {jobFilterLabel[field]}: {formatTagValue(field, filters[field])}
-            </span>
-            <button type="button" onClick={() => setTagToRemove(field)}>
-              <span className="lnr lnr-cross" />
-            </button>
-          </li>
+          <Tag
+            label={`${jobFilterLabel[field]}: ${formatTagValue(
+              field,
+              filters[field]
+            )}`}
+            onRemove={() => setTagToRemove(field)}
+          />
         ))}
       </ul>
     )

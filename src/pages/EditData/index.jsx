@@ -5,10 +5,13 @@ import { toast } from 'react-toastify'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import { DateBox, SelectBox } from '../../components/FormElements'
 import Layout from '../../components/Layout'
+import TagInput from '../../components/TagInput'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import { useGetProfileById, useProfileRoutes } from '../../hooks/profile'
 import useAuth from '../../hooks/useAuth'
+import { useGetSkills, useSkillRoutes } from '../../hooks/skill'
+import { useGetTechnologies, useTechnologyRoutes } from '../../hooks/technology'
 import { useGetUserById, useUserRoutes } from '../../hooks/user'
 import {
   appearOnSearchOptions,
@@ -30,13 +33,20 @@ function EditData() {
   const [languages, setLanguages] = useState('')
   const [linkResume, setLinkResume] = useState('')
 
+  const [knowledgeTags, setKnowledgeTags] = useState([])
+  const [technologiesTags, setTechnologiesTags] = useState([])
+
   const [hasError, setHasError] = useState(false)
 
   const user = useGetUserById(userId)
   const profile = useGetProfileById(user && user.profileId, false)
+  const skillOptions = useGetSkills()
+  const technologyOptions = useGetTechnologies()
 
   const { updateUser } = useUserRoutes()
   const { createProfile, updateProfile } = useProfileRoutes()
+  const { createSkill } = useSkillRoutes()
+  const { createTechnology } = useTechnologyRoutes()
 
   const isScholarityInvalid = () => scholarity === ''
   const isBirthDateInvalid = () => birthDate === ''
@@ -81,33 +91,62 @@ function EditData() {
         return
       }
 
-      if (user.profileId !== -1) {
-        await updateProfile(
-          user.profileId,
-          userId,
-          birthDate,
-          scholarity,
-          searchable,
-          knowledge,
-          technologies,
-          languages,
-          linkResume
-        )
-      } else {
-        await createProfile(
-          userId,
-          birthDate,
-          scholarity,
-          searchable,
-          knowledge,
-          technologies,
-          languages,
-          linkResume
-        )
+      const saveProfile = async () => {
+        if (user.profileId !== -1) {
+          await updateProfile(
+            user.profileId,
+            userId,
+            birthDate,
+            scholarity,
+            searchable,
+            knowledge,
+            technologies,
+            languages,
+            linkResume
+          )
+        } else {
+          await createProfile(
+            userId,
+            birthDate,
+            scholarity,
+            searchable,
+            knowledge,
+            technologies,
+            languages,
+            linkResume
+          )
+        }
       }
+
+      saveProfile().then(async () => {
+        const newSkills = knowledgeTags.filter(
+          (tag) =>
+            skillOptions.filter((skill) => skill.description === tag).length ===
+            0
+        )
+        const newTechnologies = technologiesTags.filter(
+          (tag) =>
+            technologyOptions.filter(
+              (technology) => technology.description === tag
+            ).length === 0
+        )
+
+        if (newSkills.length > 0) await createSkill(newSkills)
+        if (newTechnologies.length > 0) await createTechnology(newTechnologies)
+      })
     }
 
     navigate('/')
+  }
+
+  const updateKnowledgeTags = (newTags) => {
+    setKnowledgeTags(newTags)
+    setKnowledge(newTags.join(';'))
+  }
+
+  const updateTechnologiesTags = (newTags) => {
+    setTechnologiesTags(newTags)
+    setTechnologies(newTags.join(';'))
   }
 
   useEffect(() => {
@@ -121,7 +160,9 @@ function EditData() {
     setScholarity(profile.scholarity)
     setSearchable(profile.searchable)
     setKnowledge(profile.knowledge)
+    setKnowledgeTags(profile.knowledge.split(';'))
     setTechnologies(profile.technologies)
+    setTechnologiesTags(profile.technologies.split(';'))
     setLanguages(profile.languages)
     setLinkResume(profile.linkResume)
   }, [profile])
@@ -183,33 +224,32 @@ function EditData() {
                 />
               </div>
               <div className="form-horizontal">
-                <TextInput
+                <TagInput
                   className="margin-input"
                   label="Habilidades comportamentais"
-                  subLabel="(use vírgulas para separar diferentes habilidades)"
-                  type="text"
                   autoComplete={false}
-                  value={knowledge}
+                  tags={knowledgeTags}
                   hasError={hasError && isKnowledgeInvalid()}
-                  setValue={setKnowledge}
+                  setValue={updateKnowledgeTags}
                   maxLength={255}
+                  selectOptions={skillOptions.map((value) => value.description)}
                 />
-                <TextInput
+                <TagInput
                   label="Conhecimentos e tecnologias"
-                  subLabel="(use vírgulas para separar diferentes conhecimentos)"
-                  type="text"
                   autoComplete={false}
-                  value={technologies}
+                  tags={technologiesTags}
                   hasError={hasError && isTechnologiesInvalid()}
-                  setValue={setTechnologies}
+                  setValue={updateTechnologiesTags}
                   maxLength={255}
+                  selectOptions={technologyOptions.map(
+                    (value) => value.description
+                  )}
                 />
               </div>
               <div className="form-horizontal">
                 <TextInput
                   className="margin-input"
                   label="Idiomas"
-                  subLabel="(use vírgulas para separar diferentes idiomas)"
                   type="text"
                   autoComplete={false}
                   value={languages}
