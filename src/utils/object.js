@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 
 export const assignDefined = (target, sources) => {
+  if (!sources) return {}
+
   const newObject = target
   Object.keys(sources).map((key) => {
     if (sources[key] !== undefined) {
