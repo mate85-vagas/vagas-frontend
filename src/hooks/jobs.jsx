@@ -23,6 +23,83 @@ export const useGetJobById = (id) => {
   return { job, user }
 }
 
+export const useJobRoutes = () => {
+    const createJob = async (
+      jobId,
+      description,
+      scholarity,
+      title,
+      type,
+      site,
+      workload,
+      salary,
+      endingDate,
+      stardingDate
+    ) => {
+      if(stardingDate === undefined || endingDate === undefined)
+      toast.error('Os campos "Incio" e "Fim" não podem estar vazio.')
+
+      const response = await api.post(`/vagas`,{
+        jobId,
+        description,
+        scholarity,
+        title,
+        type,
+        site,
+        workload,
+        salary,
+        endingDate,
+        stardingDate
+      })
+
+      if(response.data.message){
+        if(response.data.error) toast.error(response.data.message)
+        else toast.success(response.data.message)
+      }
+    }
+    const updateJob = async (
+      id,
+      jobId,
+      description,
+      scholarity,
+      title,
+      type,
+      site,
+      workload,
+      salary,
+      endingDate,
+      stardingDate
+    ) => {
+      if(stardingDate === undefined || endingDate === undefined)
+      toast.error('Os campos "Incio" e "Fim" não podem estar vazio.')
+
+      const response= await api.patch(`/vagas/${id}`,{
+        jobId,
+        description,
+        scholarity,
+        title,
+        type,
+        site,
+        workload,
+        salary,
+        endingDate,
+        stardingDate,
+      })
+
+      if(response.data.message){
+        if(response.data.error) toast.error(response.data.message)
+        else toast.success(response.data.message)
+      }
+    }
+    
+    const deleteJob = async (id) => {
+      const response = await api.delete(`/vagas/${id}`)
+      if(response.data.message) toast.error(response.data.message)
+    }
+    return {createJob, updateJob, deleteJob}
+
+  }
+
 export const useGetJobs = (pageNumber, itemsPerPage, filters) => {
   const [jobs, setJobs] = useState([])
   const [totalPages, setTotalPages] = useState(0)
