@@ -6,7 +6,7 @@ import './styles.css'
 
 function UserAvatar() {
   const navigate = useNavigate()
-  const { logout } = useAuth()
+  const { logout, userId } = useAuth()
 
   const dropdownItem = (label, onClick) => (
     <div className="dropdown-item">
@@ -33,7 +33,7 @@ function UserAvatar() {
       </div>
       <div className="dropdown-menu" id="user-dropdown-menu" role="menu">
         <div className="dropdown-content">
-          {dropdownItem('Ver Perfil', () => navigate('/verperfil'))}
+          {dropdownItem('Ver Perfil', () => navigate(`/verperfil/${userId}`))}
           {dropdownItem('Editar Dados', () => navigate('/editardados'))}
           {dropdownItem('Sair', logout)}
         </div>

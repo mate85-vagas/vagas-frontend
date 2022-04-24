@@ -1,4 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import Tag from '../../components/Tag'
 import Text from '../../components/Text'
@@ -10,6 +12,7 @@ import { translate } from '../../utils/translations'
 import './styles.css'
 
 function ViewProfile() {
+  const params = useParams()
   const { userId } = useAuth()
 
   const [email, setEmail] = useState('')
@@ -20,7 +23,7 @@ function ViewProfile() {
   const [languages, setLanguages] = useState('')
   const [linkResume, setLinkResume] = useState('')
 
-  const user = useGetUserById(userId)
+  const user = useGetUserById(params.id)
   const profile = useGetProfileById(user && user.profileId, false)
 
   useEffect(() => {
@@ -40,104 +43,97 @@ function ViewProfile() {
     setLinkResume(profile.linkResume)
   }, [profile])
 
+  const renderCard = () => (
+    <>
+      <div className="card-title">
+        <Text className="is-bold is-blue" text={user.name} size={24} />
+      </div>
+      <div className="profile-row margin-bottom">
+        <div className="profile-field margin-input">
+          <Text className="is-bold" text="E-mail" size={18} />
+          <Text className="" text={email} size={16} />
+        </div>
+        <div className="profile-field">
+          <Text className="is-bold" text="Data de Nascimento" size={18} />
+          <Text text={birthDate || translate('not_informed')} size={16} />
+        </div>
+      </div>
+      <div className="profile-row margin-bottom">
+        <div className="profile-field margin-input">
+          <Text className="is-bold" text="Escolaridade" size={18} />
+          <Text
+            className=""
+            text={scholarity || translate('not_informed')}
+            size={16}
+          />
+        </div>
+        <div className="profile-field">
+          <Text className="is-bold" text="Idiomas" size={18} />
+          <Text text={languages || translate('not_informed')} size={16} />
+        </div>
+      </div>
+      <div className="profile-row">
+        <div className="profile-field margin-input">
+          <Text
+            className="is-bold"
+            text="Habilidades comportamentais"
+            size={18}
+          />
+          {knowledge ? (
+            <ul className="filters">
+              {knowledge.split(';').map((tag) => (
+                <Tag label={tag} />
+              ))}
+            </ul>
+          ) : (
+            <Text text={translate('not_informed')} size={16} />
+          )}
+        </div>
+        <div className="profile-field">
+          <Text
+            className="is-bold"
+            text="Conhecimentos e tecnologias"
+            size={18}
+          />
+          {technologies ? (
+            <ul className="filters">
+              {technologies.split(';').map((tag) => (
+                <Tag key={tag} label={tag} />
+              ))}
+            </ul>
+          ) : (
+            <Text text={translate('not_informed')} size={16} />
+          )}
+        </div>
+      </div>
+      <div className="profile-row">
+        <div className="profile-field margin-input">
+          <Text
+            className="is-bold"
+            text={translate('profile_field_resume')}
+            size={18}
+          />
+          <Text text={linkResume || translate('not_informed')} size={16} />
+        </div>
+      </div>
+    </>
+  )
+
+  const renderInfoText = (text) => (
+    <Text className="is-bold is-blue" text={text} size={24} />
+  )
+
   return (
     <Layout isFinalPage>
       <div className="view-profile">
         <div className="card">
-          {user && (user.profileId === -1 || profile) ? (
-            <>
-              <div className="card-title">
-                <Text className="is-bold is-blue" text={user.name} size={24} />
-              </div>
-              <div className="profile-row margin-bottom">
-                <div className="profile-field margin-input">
-                  <Text className="is-bold" text="E-mail" size={18} />
-                  <Text className="" text={email} size={16} />
-                </div>
-                <div className="profile-field">
-                  <Text
-                    className="is-bold"
-                    text="Data de Nascimento"
-                    size={18}
-                  />
-                  <Text
-                    text={birthDate || translate('not_informed')}
-                    size={16}
-                  />
-                </div>
-              </div>
-              <div className="profile-row margin-bottom">
-                <div className="profile-field margin-input">
-                  <Text className="is-bold" text="Escolaridade" size={18} />
-                  <Text
-                    className=""
-                    text={scholarity || translate('not_informed')}
-                    size={16}
-                  />
-                </div>
-                <div className="profile-field">
-                  <Text className="is-bold" text="Idiomas" size={18} />
-                  <Text
-                    text={languages || translate('not_informed')}
-                    size={16}
-                  />
-                </div>
-              </div>
-              <div className="profile-row">
-                <div className="profile-field margin-input">
-                  <Text
-                    className="is-bold"
-                    text="Habilidades comportamentais"
-                    size={18}
-                  />
-                  {knowledge ? (
-                    <ul className="filters">
-                      {knowledge.split(';').map((tag) => (
-                        <Tag label={tag} />
-                      ))}
-                    </ul>
-                  ) : (
-                    <Text text={translate('not_informed')} size={16} />
-                  )}
-                </div>
-                <div className="profile-field">
-                  <Text
-                    className="is-bold"
-                    text="Conhecimentos e tecnologias"
-                    size={18}
-                  />
-                  {technologies ? (
-                    <ul className="filters">
-                      {technologies.split(';').map((tag) => (
-                        <Tag key={tag} label={tag} />
-                      ))}
-                    </ul>
-                  ) : (
-                    <Text text={translate('not_informed')} size={16} />
-                  )}
-                </div>
-              </div>
-              <div className="profile-row">
-                <div className="profile-field margin-input">
-                  <Text
-                    className="is-bold"
-                    text={translate('profile_field_resume')}
-                    size={18}
-                  />
-                  <Text
-                    text={linkResume || translate('not_informed')}
-                    size={16}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <Text
-              className="is-bold is-blue"
-              text="Carregando usuário e perfil..."
-              size={24}
-            />
-          )}
+          {user && (user.profileId === -1 || profile)
+            ? user.profileId === -1 ||
+              (profile && profile.searchable) ||
+              userId === params.id
+              ? renderCard()
+              : renderInfoText('Esse perfil não quer ser visualizado!')
+            : renderInfoText('Carregando usuário e perfil...')}
         </div>
       </div>
     </Layout>

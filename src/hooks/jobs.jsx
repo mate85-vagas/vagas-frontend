@@ -6,26 +6,44 @@ import api from '../api'
 export const useGetJobById = (id) => {
   const [job, setJob] = useState()
   const [user, setUser] = useState()
+  const [jobId, setJobId] = useState()
+  const [userId, setUserId] = useState()
 
   useEffect(async () => {
     if (!id) return
     const response = await api.get(`/vagas/${id}`)
 
-    if (!response.data.job || !response.data.user) {
+    if (response.data.message && response.data.error) {
       toast.error(response.data.message)
       return
     }
 
     setJob(response.data.job)
     setUser(response.data.user)
+    setJobId(response.data.jobId)
+    setUserId(response.data.userId)
   }, [id])
 
-  return { job, user }
+  return { job, user, jobId, userId }
 }
 
 export const useJobRoutes = () => {
-    const createJob = async (
-      jobId,
+  const createJob = async (
+    description,
+    scholarity,
+    title,
+    type,
+    site,
+    workload,
+    salary,
+    endingDate,
+    startingDate,
+    userId
+  ) => {
+    if (startingDate === undefined || endingDate === undefined)
+      toast.error('Os campos "Inicio" e "Fim" não podem estar vazio.')
+
+    const response = await api.post(`/vagas`, {
       description,
       scholarity,
       title,
@@ -34,71 +52,61 @@ export const useJobRoutes = () => {
       workload,
       salary,
       endingDate,
-      stardingDate
-    ) => {
-      if(stardingDate === undefined || endingDate === undefined)
-      toast.error('Os campos "Incio" e "Fim" não podem estar vazio.')
+      startingDate,
+      userId,
+    })
 
-      const response = await api.post(`/vagas`,{
-        jobId,
-        description,
-        scholarity,
-        title,
-        type,
-        site,
-        workload,
-        salary,
-        endingDate,
-        stardingDate
-      })
-
-      if(response.data.message){
-        if(response.data.error) toast.error(response.data.message)
-        else toast.success(response.data.message)
-      }
+    if (response.data.message) {
+      if (response.data.error) toast.error(response.data.message)
+      else toast.success(response.data.message)
     }
-    const updateJob = async (
-      id,
-      jobId,
-      description,
-      scholarity,
-      title,
-      type,
-      site,
-      workload,
-      salary,
-      endingDate,
-      stardingDate
-    ) => {
-      if(stardingDate === undefined || endingDate === undefined)
-      toast.error('Os campos "Incio" e "Fim" não podem estar vazio.')
-
-      const response= await api.patch(`/vagas/${id}`,{
-        jobId,
-        description,
-        scholarity,
-        title,
-        type,
-        site,
-        workload,
-        salary,
-        endingDate,
-        stardingDate,
-      })
-
-      if(response.data.message){
-        if(response.data.error) toast.error(response.data.message)
-        else toast.success(response.data.message)
-      }
-    }
-    
-    const deleteJob = async (id) => {
-      const response = await api.delete(`/vagas/${id}`)
-      if(response.data.message) toast.error(response.data.message)
-    }
-    return {createJob, updateJob, deleteJob}
-
   }
+  const updateJob = async (
+    jobId,
+    description,
+    scholarity,
+    title,
+    type,
+    site,
+    workload,
+    salary,
+    endingDate,
+    startingDate,
+    userId
+  ) => {
+    if (startingDate === undefined || endingDate === undefined)
+      toast.error('Os campos "Inicio" e "Fim" não podem estar vazio.')
+
+    const response = await api.patch(`/vagas/${jobId}`, {
+      description,
+      scholarity,
+      title,
+      type,
+      site,
+      workload,
+      salary,
+      endingDate,
+      startingDate,
+      userId,
+    })
+
+    if (response.data.message) {
+      if (response.data.error) toast.error(response.data.message)
+      else toast.success(response.data.message)
+    }
+  }
+
+  const deleteJob = async (id) => {
+    const response = await api.delete(`/vagas/${id}`)
+
+    if (response.data.message) {
+      if (response.data.error) toast.error(response.data.message)
+      else toast.success(response.data.message)
+    }
+  }
+
+  return { createJob, updateJob, deleteJob }
+}
 
 export const useGetJobs = (pageNumber, itemsPerPage, filters) => {
   const [jobs, setJobs] = useState([])

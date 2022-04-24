@@ -24,7 +24,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" exact element={<JobList />} />
         <Route path="/vagas/:id" exact element={<JobDetails />} />
-        <Route exact path="/verperfil" element={<ViewProfile />} />
+        <Route exact path="/verperfil/:id" element={<ViewProfile />} />
 
         <Route exact path="/login" element={<ProtectedRoute />}>
           <Route exact path="/login" element={<Login />} />
@@ -38,9 +38,17 @@ function AppRoutes() {
           <Route exact path="/editardados" element={<EditData />} />
         </Route>
 
-        {/* <Route exact path="/formulariovaga" element={<PrivateRoute />}> */}
-        <Route exact path="/formulariovaga" element={<JobForm />} />
-        {/* </Route> */}
+        <Route
+          exact
+          path="/formulariovaga/:type/:id"
+          element={<PrivateRoute />}
+        >
+          <Route exact path="/formulariovaga/:type/:id" element={<JobForm />} />
+        </Route>
+
+        <Route exact path="/formulariovaga/:type" element={<PrivateRoute />}>
+          <Route exact path="/formulariovaga/:type" element={<JobForm />} />
+        </Route>
       </Routes>
     </Router>
   )

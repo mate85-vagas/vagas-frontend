@@ -99,10 +99,13 @@ export function AuthProvider({ children }) {
     [authState]
   )
 
+  const isIdle = useMemo(() => authState === AuthState.IDLE, [authState])
+
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        isIdle,
         token,
         userId,
         state: authState,

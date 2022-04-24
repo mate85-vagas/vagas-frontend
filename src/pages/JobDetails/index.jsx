@@ -97,7 +97,11 @@ function JobDetails() {
           ) : (
             <Text
               className="is-bold is-blue"
-              text="Carregando detalhes da vaga..."
+              text={
+                params.id
+                  ? 'Carregando detalhes da vaga...'
+                  : 'Essa vaga não existe!'
+              }
               size={24}
             />
           )}
