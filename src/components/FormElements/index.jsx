@@ -59,7 +59,7 @@ SelectBox.propTypes = {
   initialOption: PropTypes.string,
   label: PropTypes.string,
   labelLarge: PropTypes.bool,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOf([PropTypes.string, PropTypes.bool]),
   onChange: PropTypes.func,
   hasError: PropTypes.bool,
 }
@@ -74,6 +74,7 @@ SelectBox.defaultProps = {
   labelLarge: false,
   onChange: null,
   hasError: false,
+  value: '',
 }
 
 /**

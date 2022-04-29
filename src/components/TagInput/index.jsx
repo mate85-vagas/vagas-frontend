@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 import Text from '../Text'
 import './styles.css'
 import { translate } from '../../utils/translations'
@@ -29,7 +29,7 @@ function TagInput({
     () => tags.map((tag) => ({ value: tag, label: tag })),
     [tags]
   )
-
+  console.log(selectOptions)
   return (
     <div className={`tag-input ${className}`}>
       <Text
@@ -45,7 +45,7 @@ function TagInput({
       <div className="field-body">
         <div className="field">
           <p className="control">
-            <Select
+            <CreatableSelect
               className="multiselect"
               value={value}
               onChange={onChangeSelection}

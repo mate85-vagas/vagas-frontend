@@ -138,7 +138,7 @@ function EditData() {
 
     navigate('/')
   }
-
+  console.log(knowledgeTags)
   const updateKnowledgeTags = (newTags) => {
     setKnowledgeTags(newTags)
     setKnowledge(newTags.join(';'))

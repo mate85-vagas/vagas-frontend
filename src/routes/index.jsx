@@ -13,11 +13,13 @@ import ViewProfile from '../pages/ViewProfile'
 import JobForm from '../pages/JobForm'
 
 function AppRoutes() {
-  const { loadToken } = useAuth()
+  const { loadToken, isIdle } = useAuth()
 
   useEffect(() => {
     loadToken()
   }, [])
+
+  if (isIdle) return <div />
 
   return (
     <Router>

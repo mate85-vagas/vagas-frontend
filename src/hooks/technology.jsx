@@ -29,7 +29,7 @@ export const useTechnologyRoutes = () => {
       return
     }
 
-    const response = await api.post(`/tecnologias/multiplas`, {
+    const response = await api.post(`/tecnologias`, {
       content: descriptions.map((description) => ({ description })),
     })
 

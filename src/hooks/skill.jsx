@@ -29,7 +29,7 @@ export const useSkillRoutes = () => {
       return
     }
 
-    const response = await api.post(`/habilidades/multiplas`, {
+    const response = await api.post(`/habilidades`, {
       content: descriptions.map((description) => ({ description })),
     })
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import Tag from '../../components/Tag'
@@ -123,14 +123,19 @@ function ViewProfile() {
     <Text className="is-bold is-blue" text={text} size={24} />
   )
 
+  const userIsVisible = useMemo(
+    () =>
+      (profile && profile.searchable) ||
+      parseInt(userId, 10) === parseInt(params.id, 10),
+    [profile, userId, params]
+  )
+
   return (
     <Layout isFinalPage>
       <div className="view-profile">
         <div className="card">
           {user && (user.profileId === -1 || profile)
-            ? user.profileId === -1 ||
-              (profile && profile.searchable) ||
-              userId === params.id
+            ? user.profileId === -1 || userIsVisible
               ? renderCard()
               : renderInfoText('Esse perfil não quer ser visualizado!')
             : renderInfoText('Carregando usuário e perfil...')}
