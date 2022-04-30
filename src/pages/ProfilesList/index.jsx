@@ -7,6 +7,12 @@ import Pagination from '../../components/Pagination'
 import ProfileCard from './ProfileCard'
 
 function ProfilesList() {
+  const pseudoUser = [
+    { id: 0, name: 'Carolaine Vieira', resume: 'fb.com' },
+    { id: 1, name: 'Natan Moura', resume: '/' },
+    { id: 2, name: 'Victor Pinheiro', resume: '/' },
+  ]
+
   return (
     <Layout
       headerLeftChildren={
@@ -26,9 +32,13 @@ function ProfilesList() {
 
         <div className="right-container">
           <div id="profiles">
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
+            {pseudoUser.map((user) => (
+              <ProfileCard
+                key={user.id}
+                name={user.name}
+                resume={user.resume}
+              />
+            ))}
           </div>
 
           <Pagination />
