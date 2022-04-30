@@ -29,7 +29,7 @@ function AppRoutes() {
         <Route path="/vagas/:id" exact element={<JobDetails />} />
         <Route path="/verperfil/:id" exact element={<ViewProfile />} />
 
-        <Route path="/perfis" exact element={<ProfilesList />} />
+        <Route path="/pesquisa/perfis" exact element={<ProfilesList />} />
 
         <Route exact path="/login" element={<ProtectedRoute />}>
           <Route exact path="/login" element={<Login />} />
