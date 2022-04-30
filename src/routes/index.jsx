@@ -11,6 +11,7 @@ import useAuth from '../hooks/useAuth'
 import EditData from '../pages/EditData'
 import ViewProfile from '../pages/ViewProfile'
 import JobForm from '../pages/JobForm'
+import ProfilesList from '../pages/ProfilesList'
 
 function AppRoutes() {
   const { loadToken, isIdle } = useAuth()
@@ -26,7 +27,8 @@ function AppRoutes() {
       <Routes>
         <Route path="/" exact element={<JobList />} />
         <Route path="/vagas/:id" exact element={<JobDetails />} />
-        <Route exact path="/verperfil/:id" element={<ViewProfile />} />
+        <Route path="/verperfil/:id" exact element={<ViewProfile />} />
+        <Route path="/perfis" exact element={<ProfilesList />} />
 
         <Route exact path="/login" element={<ProtectedRoute />}>
           <Route exact path="/login" element={<Login />} />
