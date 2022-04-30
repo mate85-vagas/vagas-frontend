@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import IconIC from '../../IconIC'
 import UserAvatar from './UserAvatar'
 import Text from '../../Text'
@@ -18,7 +18,10 @@ function Header({ hasReturnButton }) {
   return (
     <div className={`top-header ${hasReturnButton ? 'shadow' : ''}`}>
       <div className="header-right-container">
-        <IconIC height={100} />
+        <Link to="/">
+          <IconIC height={100} />
+        </Link>
+
         <div className="title-container">
           <Text
             className="is-bold is-white"
