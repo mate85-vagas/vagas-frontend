@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import Layout from '../../components/Layout'
 import Tag from '../../components/Tag'
 import Text from '../../components/Text'
@@ -12,6 +13,8 @@ import { translate } from '../../utils/translations'
 import './styles.css'
 
 function ViewProfile() {
+  const navigate = useNavigate()
+
   const params = useParams()
   const { userId } = useAuth()
 
@@ -25,6 +28,20 @@ function ViewProfile() {
 
   const user = useGetUserById(params.id)
   const profile = useGetProfileById(user && user.profileId, false)
+
+  const isOwnProfile = useMemo(
+    () => parseInt(userId, 10) === parseInt(params.id, 10),
+    [userId, params]
+  )
+
+  const userIsVisible = useMemo(
+    () => (profile && profile.searchable) || isOwnProfile,
+    [profile, userId, params]
+  )
+
+  const onEditProfile = () => {
+    navigate('/editardados')
+  }
 
   useEffect(() => {
     if (!user) return
@@ -116,18 +133,18 @@ function ViewProfile() {
           <Text text={linkResume || translate('not_informed')} size={16} />
         </div>
       </div>
+      {isOwnProfile && (
+        <ButtonRectangle
+          className="is-green btn-edit-profile"
+          label="Editar Perfil"
+          onClick={onEditProfile}
+        />
+      )}
     </>
   )
 
   const renderInfoText = (text) => (
     <Text className="is-bold is-blue" text={text} size={24} />
-  )
-
-  const userIsVisible = useMemo(
-    () =>
-      (profile && profile.searchable) ||
-      parseInt(userId, 10) === parseInt(params.id, 10),
-    [profile, userId, params]
   )
 
   return (

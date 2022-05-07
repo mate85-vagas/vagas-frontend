@@ -19,6 +19,7 @@ import {
 } from '../../utils/constants/project'
 import Text from '../../components/Text'
 import Tag from '../../components/Tag'
+import { sanitizeStringToSearch } from '../../utils/conversions'
 
 function JobList() {
   const navigate = useNavigate()
@@ -78,7 +79,7 @@ function JobList() {
   const onSearchJobs = () => {
     setTagToRemove('all')
     setPageNumber(1)
-    setFilters({ filter: jobFilter })
+    setFilters({ filter: sanitizeStringToSearch(jobFilter) })
   }
 
   useEffect(() => {
@@ -112,6 +113,7 @@ function JobList() {
             key="btn-jobs"
             label="Minhas Vagas"
             className="is-blue bottom-header-margin"
+            onClick={() => navigate('/minhasvagas')}
           />
         ) : null,
       ]}

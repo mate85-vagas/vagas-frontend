@@ -12,14 +12,71 @@ export const useGetUserById = (id) => {
     const response = await api.get(`/usuarios/${id}`)
 
     if (response.data.message) {
-      toast.error(response.data.message)
-      return
+      if (response.data.error) {
+        toast.error(response.data.message)
+        return
+      }
+      toast.success(response.data.message)
     }
 
     setUser(response.data)
   }, [id])
 
   return user
+}
+
+export const useGetCreatedJobs = (userId) => {
+  const [createdJobs, setCreatedJobs] = useState([])
+  const [count, setCount] = useState(0)
+
+  const getCreatedJobs = async () => {
+    if (!userId) return
+    const response = await api.get(`/usuarios/${userId}/vagas/criadas`)
+
+    if (response.data.message) {
+      if (response.data.error) {
+        toast.error(response.data.message)
+        return
+      }
+      toast.success(response.data.message)
+    }
+
+    setCreatedJobs(response.data.rows)
+    setCount(response.data.count)
+  }
+
+  useEffect(() => {
+    getCreatedJobs()
+  }, [userId])
+
+  return { getCreatedJobs, createdJobs, count }
+}
+
+export const useGetAppliedJobs = (userId) => {
+  const [appliedJobs, setAppliedJobs] = useState([])
+  const [count, setCount] = useState(0)
+
+  const getAppliedJobs = async () => {
+    if (!userId) return
+    const response = await api.get(`/usuarios/${userId}/vagas/aplicadas`)
+
+    if (response.data.message) {
+      if (response.data.error) {
+        toast.error(response.data.message)
+        return
+      }
+      toast.success(response.data.message)
+    }
+
+    setAppliedJobs(response.data.rows)
+    setCount(response.data.count)
+  }
+
+  useEffect(() => {
+    getAppliedJobs()
+  }, [userId])
+
+  return { getAppliedJobs, appliedJobs, count }
 }
 
 export const useUserRoutes = () => {

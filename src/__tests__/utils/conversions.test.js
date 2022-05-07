@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom/extend-expect'
-import { localDate, numberToReais } from '../../utils/conversions'
+import {
+  localDate,
+  numberToReais,
+  sanitizeStringToSearch,
+} from '../../utils/conversions'
 import { translate } from '../../utils/translations'
 
 describe('testing localDate function', () => {
@@ -58,6 +62,26 @@ describe('testing numberToReais function', () => {
     it('should return the money string formatted', () => {
       expect(numberToReais(30.2)).toBe('R$ 30,20')
       expect(numberToReais(5000.99)).toBe('R$ 5.000,99')
+    })
+  })
+})
+
+describe('testing sanitizeStringToSearch function', () => {
+  describe('when string is empty', () => {
+    it('should return empty', () => {
+      expect(sanitizeStringToSearch('')).toBe('')
+    })
+  })
+
+  describe('when string has no spaces', () => {
+    it('should return the same string', () => {
+      expect(sanitizeStringToSearch('aBcde')).toBe('aBcde')
+    })
+  })
+
+  describe('when string has spaces', () => {
+    it('should return formatted', () => {
+      expect(sanitizeStringToSearch('   aBc   de   ')).toBe('aBc de')
     })
   })
 })

@@ -58,3 +58,5 @@ export const itemsPerPageOptions = itemsPerPageNumbers.map((number, id) => ({
   value: number,
   label: `${number} por página`,
 }))
+
+export const DEFAULT_SALARY = 0

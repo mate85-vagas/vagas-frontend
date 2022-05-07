@@ -11,6 +11,7 @@ import {
 } from '../../../components/FormElements'
 import './style.css'
 import SliderInput from '../../../components/SliderInput'
+import { sanitizeStringToSearch } from '../../../utils/conversions'
 
 function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
   const [jobType, setJobType] = useState(null)
@@ -29,7 +30,7 @@ function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
     if (jobType) filters.type = jobType
     if (jobScholarity) filters.scholarity = jobScholarity
     if (jobStartDate) filters.createdAt = jobStartDate
-    if (jobSite) filters.site = jobSite
+    if (jobSite) filters.site = sanitizeStringToSearch(jobSite)
     if (jobMinWorkload || jobMaxWorkload) {
       filters.workload = {
         min: jobMinWorkload,

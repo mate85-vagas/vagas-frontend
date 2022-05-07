@@ -6,6 +6,12 @@
   height: 50px;
   border-radius: 5px;
   border: none;
+  gap: 10px;
+}
+
+.btn-rect .lnr {
+  color: white;
+  font-size: 20px;
 }
 
 .btn-rect:hover {

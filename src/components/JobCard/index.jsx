@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import './style.css'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { Button } from '../FormElements'
+import { localDate } from '../../utils/conversions'
 
 function JobCard({ data }) {
   const { title, description, site, endingDate, id } = data
@@ -25,7 +26,7 @@ function JobCard({ data }) {
             basedOn="letters"
           />
         </div>
-        <span className="due-date">Expira em: {endingDate}</span>
+        <span className="due-date">Expira em: {localDate(endingDate)}</span>
       </div>
       <div>
         <Button

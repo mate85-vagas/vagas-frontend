@@ -8,10 +8,13 @@ import useAuth from '../../../hooks/useAuth'
 import ButtonArrow from '../../Buttons/ButtonArrow'
 import { translate } from '../../../utils/translations'
 import './styles.css'
+import { useGetUserById } from '../../../hooks/user'
 
 function Header({ hasReturnButton }) {
   const navigate = useNavigate()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, userId } = useAuth()
+
+  const user = useGetUserById(userId)
 
   const navigateToLogin = () => navigate('/login')
 
@@ -37,7 +40,16 @@ function Header({ hasReturnButton }) {
       </div>
       <div className="header-left-container">
         {isAuthenticated ? (
-          <UserAvatar />
+          <>
+            {user && (
+              <Text
+                className="is-white is-bold"
+                text={`Bem vindo, ${user && user.name}`}
+                size={17}
+              />
+            )}
+            <UserAvatar />
+          </>
         ) : (
           <div className="login-btn-container">
             <button
