@@ -1,0 +1,108 @@
+.btn-margin {
+  margin-right: 20px;
+}
+
+.my-jobs .jobs-container {
+  padding: 40px 60px 0px 60px;
+}
+
+.my-jobs .jobs-title {
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.my-jobs .jobs-list {
+  margin-top: 20px;
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.my-jobs .no-results-container {
+  padding-top: 50px;
+}
+
+.my-jobs .job-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.my-jobs .job-card-buttons .btn-rect {
+  padding: 0px 23px 0px 23px;
+  width: 100%;
+}
+
+.job {
+  background: var(--color-one);
+  -webkit-box-shadow: var(--shadow-default);
+          box-shadow: var(--shadow-default);
+  border-radius: var(--border-radius);
+  padding: 20px 25px;
+  position: relative;
+}
+
+.my-jobs .job .expired-tag {
+  font-weight: bold;
+  padding: 0px 6px 0px 6px;
+  position: absolute;
+  width: min-content;
+  border-radius: 3px;
+  top: -7px;
+  right: 20px;
+}
+
+.expired-tag.is-expired {
+  background-color: var(--color-yellow);
+}
+
+.expired-tag.is-opened {
+  background-color: var(--color-green);
+}
+
+.job-top-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.job h3 {
+  border-bottom: 1px solid var(--color-border);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-accent);
+  padding: 20px 25px;
+  margin: -20px 0 20px -25px;
+  width: calc(100% + 50px);
+}
+
+.job h3 sub {
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.job span.due-date {
+  display: block;
+  margin: 15px 0 15px 0;
+  opacity: 0.8;
+}
+
+.job a.see-details {
+  background: var(--color-two);
+  color: var(--color-one);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  padding: 12px;
+  margin: 40px 0 0 0;
+}
+
+.job a.see-details:hover {
+  background: var(--color-accent);
+}
+/*# sourceMappingURL=style.css.map */

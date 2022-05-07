@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import { DateBox, SelectBox } from '../../components/FormElements'
 import Layout from '../../components/Layout'
+import ConfirmModal from '../../components/Modals/ConfirmModal'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
@@ -20,6 +21,8 @@ function JobForm() {
   const { userId } = useAuth()
 
   const { job, jobId } = useGetJobById(params.id)
+
+  const [modalOpened, setModalOpened] = useState(false)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -111,13 +114,12 @@ function JobForm() {
       }
     }
 
-    navigate('/')
+    navigate('/minhasvagas')
   }
 
-  const onDeleteJob = async (e) => {
-    e.preventDefault()
+  const onDeleteJob = async () => {
     await deleteJob(jobId).then(() => {
-      navigate('/')
+      navigate('/minhasvagas')
     })
   }
 
@@ -240,7 +242,7 @@ function JobForm() {
             <ButtonRectangle
               className="btn-save is-red margin-input"
               label="Deletar Vaga"
-              onClick={onDeleteJob}
+              onClick={() => setModalOpened(true)}
             />
             <ButtonRectangle
               className="btn-save is-green"
@@ -259,6 +261,16 @@ function JobForm() {
 
   return (
     <Layout isFinalPage>
+      <ConfirmModal
+        title="Deletar Vaga"
+        description={`Deseja realmente deletar a vaga "${
+          job && job.title
+        }"? A ação não poderá ser desfeita!`}
+        onConfirm={() => onDeleteJob()}
+        onCancel={() => setModalOpened(false)}
+        opened={modalOpened}
+        isDangerous
+      />
       <div className="job-form">
         <div className="card">
           {isCreationForm || job

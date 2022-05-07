@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 import Aside from './Aside'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import JobCard from '../../components/JobCard'
@@ -20,6 +21,7 @@ import Text from '../../components/Text'
 import Tag from '../../components/Tag'
 
 function JobList() {
+  const navigate = useNavigate()
   const isInitialMount = useRef(true)
   const { isAuthenticated } = useAuth()
 
@@ -108,6 +110,7 @@ function JobList() {
             key="btn-jobs"
             label="Minhas Vagas"
             className="is-blue bottom-header-margin"
+            onClick={() => navigate('/minhasvagas')}
           />
         ) : null,
       ]}

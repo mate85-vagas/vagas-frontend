@@ -11,6 +11,7 @@ import useAuth from '../hooks/useAuth'
 import EditData from '../pages/EditData'
 import ViewProfile from '../pages/ViewProfile'
 import JobForm from '../pages/JobForm'
+import MyJob from '../pages/MyJobs'
 
 function AppRoutes() {
   const { loadToken, isIdle } = useAuth()
@@ -50,6 +51,10 @@ function AppRoutes() {
 
         <Route exact path="/formulariovaga/:type" element={<PrivateRoute />}>
           <Route exact path="/formulariovaga/:type" element={<JobForm />} />
+        </Route>
+
+        <Route exact path="/minhasvagas" element={<PrivateRoute />}>
+          <Route exact path="/minhasvagas" element={<MyJob />} />
         </Route>
       </Routes>
     </Router>
