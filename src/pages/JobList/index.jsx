@@ -112,6 +112,7 @@ function JobList() {
             key="btn-jobs"
             label="Minhas Vagas"
             className="is-blue bottom-header-margin"
+            onClick={() => navigate('/minhasvagas')}
           />
         ) : null,
       ]}
