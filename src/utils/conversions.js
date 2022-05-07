@@ -19,3 +19,6 @@ export const numberToReais = (amount) => {
     useGrouping: true,
   })}`
 }
+
+export const sanitizeStringToSearch = (text) =>
+  text.trim().replace(/\s\s+/g, ' ')

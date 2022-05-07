@@ -10,6 +10,7 @@ function TextInput({
   type,
   value,
   setValue,
+  placeholder,
   hasError,
   autoComplete,
   maxLength,
@@ -43,6 +44,8 @@ function TextInput({
                 className={`input ${hasError ? 'is-danger' : ''}`}
                 type={type}
                 value={value}
+                placeholder={placeholder}
+                step="any"
                 onChange={(e) => setValue(e.target.value)}
                 autoComplete={autoComplete ? 'on' : 'new-password'}
                 maxLength={maxLength}
@@ -61,6 +64,7 @@ TextInput.propTypes = {
   subLabel: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
+  placeholder: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
   autoComplete: PropTypes.bool,
@@ -73,6 +77,7 @@ TextInput.defaultProps = {
   label: '',
   subLabel: '',
   value: '',
+  placeholder: '',
   type: 'text',
   hasError: false,
   autoComplete: true,

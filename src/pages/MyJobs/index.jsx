@@ -55,6 +55,7 @@ function MyJob() {
         <div className="jobs-list">
           {createdJobs.map((job) => (
             <MyJobCard
+              key={job.jobId}
               jobData={job}
               isCreatedJob
               onDelete={() => setModalJob(job)}

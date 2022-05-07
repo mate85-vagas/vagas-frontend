@@ -9,7 +9,11 @@ import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
 import useAuth from '../../hooks/useAuth'
-import { jobScholarities, jobTypes } from '../../utils/constants/project'
+import {
+  DEFAULT_SALARY,
+  jobScholarities,
+  jobTypes,
+} from '../../utils/constants/project'
 import { translate } from '../../utils/translations'
 import './styles.css'
 
@@ -22,7 +26,9 @@ function JobForm() {
 
   const { job, jobId } = useGetJobById(params.id)
 
-  const [modalOpened, setModalOpened] = useState(false)
+  const [deleteModalOpened, setDeleteModalOpened] = useState(false)
+  const [saveModalOpened, setSaveModalOpened] = useState(false)
+  const [createModalOpened, setCreateModalOpened] = useState(false)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -32,7 +38,7 @@ function JobForm() {
   const [scholarity, setScholarity] = useState('')
   const [type, setType] = useState('')
   const [workload, setWorkload] = useState('')
-  const [salary, setSalary] = useState('')
+  const [salary, setSalary] = useState(DEFAULT_SALARY)
 
   const [hasError, setHasError] = useState(false)
 
@@ -46,7 +52,6 @@ function JobForm() {
   const isScholarityInvalid = () => scholarity === ''
   const isTypeInvalid = () => type === ''
   const isWorkloadInvalid = () => workload === ''
-  const isSalaryInvalid = () => salary === ''
 
   const hasJobChanges = () => {
     if (job) {
@@ -65,8 +70,7 @@ function JobForm() {
     return true
   }
 
-  const onSave = async (e) => {
-    e.preventDefault()
+  const onSaveConfirm = async () => {
     if (hasJobChanges()) {
       if (
         isTitleInvalid() ||
@@ -76,8 +80,7 @@ function JobForm() {
         isSiteInvalid() ||
         isScholarityInvalid() ||
         isTypeInvalid() ||
-        isWorkloadInvalid() ||
-        isSalaryInvalid()
+        isWorkloadInvalid()
       ) {
         toast.error(translate('mandatory_not_filled'))
         setHasError(true)
@@ -92,7 +95,7 @@ function JobForm() {
           type,
           site,
           workload,
-          salary,
+          salary || DEFAULT_SALARY,
           endingDate,
           startingDate,
           userId
@@ -106,7 +109,7 @@ function JobForm() {
           type,
           site,
           workload,
-          salary,
+          salary || DEFAULT_SALARY,
           endingDate,
           startingDate,
           userId
@@ -115,6 +118,12 @@ function JobForm() {
     }
 
     navigate('/minhasvagas')
+  }
+
+  const onSave = (e) => {
+    e.preventDefault()
+    if (isCreationForm) setCreateModalOpened(true)
+    else setSaveModalOpened(true)
   }
 
   const onDeleteJob = async () => {
@@ -222,13 +231,13 @@ function JobForm() {
             hasError={hasError && isWorkloadInvalid()}
           />
           <TextInput
-            label="Salário"
+            label="Salário/Bolsa/Vencimento"
             type="number"
             value={`${salary}`}
-            setValue={setSalary}
+            setValue={(value) => setSalary(value)}
+            placeholder={`${DEFAULT_SALARY}`}
             autoComplete={false}
             maxLength={255}
-            hasError={hasError && isSalaryInvalid()}
           />
         </div>
         {isCreationForm ? (
@@ -242,7 +251,7 @@ function JobForm() {
             <ButtonRectangle
               className="btn-save is-red margin-input"
               label="Deletar Vaga"
-              onClick={() => setModalOpened(true)}
+              onClick={() => setDeleteModalOpened(true)}
             />
             <ButtonRectangle
               className="btn-save is-green"
@@ -267,9 +276,23 @@ function JobForm() {
           job && job.title
         }"? A ação não poderá ser desfeita!`}
         onConfirm={() => onDeleteJob()}
-        onCancel={() => setModalOpened(false)}
-        opened={modalOpened}
+        onCancel={() => setDeleteModalOpened(false)}
+        opened={deleteModalOpened}
         isDangerous
+      />
+      <ConfirmModal
+        title="Salvar Vaga"
+        description={`Deseja realmente salvar a vaga "${job && job.title}"?`}
+        onConfirm={() => onSaveConfirm()}
+        onCancel={() => setSaveModalOpened(false)}
+        opened={saveModalOpened}
+      />
+      <ConfirmModal
+        title="Criar Vaga"
+        description="Deseja realmente criar essa vaga?"
+        onConfirm={() => onSaveConfirm()}
+        onCancel={() => setCreateModalOpened(false)}
+        opened={createModalOpened}
       />
       <div className="job-form">
         <div className="card">

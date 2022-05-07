@@ -31,7 +31,7 @@ export const useGetCreatedJobs = (userId) => {
 
   const getCreatedJobs = async () => {
     if (!userId) return
-    const response = await api.get(`/usuarios/${userId}/vagas_criadas`)
+    const response = await api.get(`/usuarios/${userId}/vagas/criadas`)
 
     if (response.data.message) {
       if (response.data.error) {
@@ -58,7 +58,7 @@ export const useGetAppliedJobs = (userId) => {
 
   const getAppliedJobs = async () => {
     if (!userId) return
-    const response = await api.get(`/usuarios/${userId}/vagas_aplicadas`)
+    const response = await api.get(`/usuarios/${userId}/vagas/aplicadas`)
 
     if (response.data.message) {
       if (response.data.error) {
