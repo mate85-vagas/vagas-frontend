@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Button, SearchBox, SelectBox } from '../../../components/FormElements'
 import { jobScholarities } from '../../../utils/constants/project'
 import './style.css'
 
-function Aside() {
-  const [name, setName] = useState('')
-  const [scholarity, setScholarity] = useState('')
-  const [languages, setLanguages] = useState('')
-  const [habilities, setHabilities] = useState('')
+function Aside({ handleSubmitFilters }) {
+  const [filterQuery, setFilterQuery] = useState({})
 
   return (
     <aside>
@@ -16,8 +13,11 @@ function Aside() {
         inputName="name"
         placeholder="Pesquisar nome"
         label="Nome"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) =>
+          setFilterQuery((state) => {
+            return { ...state, name: e.target.value }
+          })
+        }
       />
 
       <SelectBox
@@ -25,37 +25,62 @@ function Aside() {
         selectName="scholarity"
         label="Escolaridade"
         initialOption="Selecionar escolaridade"
-        onChange={(e) => setScholarity(e.target.value)}
+        onChange={(e) =>
+          setFilterQuery((state) => {
+            return { ...state, scholarity: e.target.value }
+          })
+        }
       />
 
       <SearchBox
-        inputName="skills"
+        inputName="technologies"
         placeholder="Pesquisar tecnologia"
         label="Tecnologias"
+        onChange={(e) =>
+          setFilterQuery((state) => {
+            return { ...state, technologies: e.target.value }
+          })
+        }
       />
 
       <SearchBox
         inputName="languages"
-        onChange={(e) => setLanguages(e.target.value)}
         placeholder="Pesquisar idioma"
         label="Idiomas"
+        onChange={(e) =>
+          setFilterQuery((state) => {
+            return { ...state, languages: e.target.value }
+          })
+        }
       />
 
       <SearchBox
-        inputName="habilities"
-        onChange={(e) => setHabilities(e.target.value)}
+        inputName="knowledge"
         placeholder="Pesquisar habilidade"
         label="Habilidades"
+        onChange={(e) =>
+          setFilterQuery((state) => {
+            return { ...state, knowledge: e.target.value }
+          })
+        }
       />
 
       <Button
         label="Aplicar filtros"
         id="filters-submit"
-        // onClick={handleSubmitFilters}
+        onClick={() => handleSubmitFilters(filterQuery)}
         scheme="blue"
       />
     </aside>
   )
+}
+
+Aside.propTypes = {
+  handleSubmitFilters: PropTypes.func,
+}
+
+Aside.defaultProps = {
+  handleSubmitFilters: null,
 }
 
 export default Aside
