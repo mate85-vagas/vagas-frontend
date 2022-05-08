@@ -88,6 +88,13 @@ $ npm install
 $ npm start
 ```
 
+#### Running the tests
+
+```sh
+# Searches and runs all tests
+$ npm test
+```
+
 <a id="variaveis-ambiente"></a>
 
 ## :wrench: Environment variables
