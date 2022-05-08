@@ -10,10 +10,11 @@ import ProfileCard from './ProfileCard'
 import { useGetProfiles } from '../../hooks/profile'
 
 function ProfilesList() {
+  const itensPerPage = 5
   const [searchedTerm, setSearchedTerm] = useState(null)
-  const { profiles, getProfilesByQuery, count } = useGetProfiles(5)
-  const totalPages = Math.ceil(count / 5)
   const [currentPage, setCurrentPage] = useState(1)
+  const { profiles, getProfilesByQuery, count } = useGetProfiles(itensPerPage)
+  const totalPages = Math.ceil(count / itensPerPage)
 
   function handleSubmitFilters(filters) {
     let newQuery = ''
@@ -64,7 +65,7 @@ function ProfilesList() {
             ))}
           </div>
 
-          {count / 5 > 1 ? (
+          {count / itensPerPage > 1 ? (
             <Pagination
               onPageChange={handlePaginate}
               totalPages={totalPages}
