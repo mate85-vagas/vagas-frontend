@@ -1,4 +1,8 @@
-.profile-card {
+.card-link {
+  color: #222;
+}
+
+.card-link .profile-card {
   margin: 0 0 30px 30px;
   background: white;
   display: -webkit-box;
@@ -10,7 +14,7 @@
   padding: 22px;
 }
 
-.profile-card .left-container {
+.card-link .profile-card .left-container {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 75%;
           flex: 0 0 75%;
@@ -18,12 +22,13 @@
   padding-right: 3%;
 }
 
-.profile-card .left-container h3 {
+.card-link .profile-card .left-container h3 {
   font-weight: 600;
   font-size: 22px;
+  color: var(--color-accent);
 }
 
-.profile-card .right-container {
+.card-link .profile-card .right-container {
   -webkit-box-flex: 0 !important;
       -ms-flex: 0 0 25% !important;
           flex: 0 0 25% !important;
@@ -38,7 +43,7 @@
           align-items: center;
 }
 
-.profile-card .is-blue {
+.card-link .profile-card .is-blue {
   padding: 0 50px;
   height: 40px;
   border-radius: 3px;

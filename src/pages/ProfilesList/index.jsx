@@ -61,6 +61,7 @@ function ProfilesList() {
             {profiles?.rows?.map((user) => (
               <ProfileCard
                 key={user.id}
+                id={user.id}
                 name={user.user.name}
                 resume={user.linkResume}
                 technologies={user.technologies}
