@@ -6,6 +6,7 @@ import api from '../api'
 export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
   const [profiles, setProfiles] = useState()
   const [route, setRoute] = useState(`/perfis?itemsPerPage=${itensPerPage}`)
+  const [count, setCount] = useState()
 
   useEffect(async () => {
     if (route) {
@@ -17,7 +18,7 @@ export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
       }
 
       setProfiles(response.data)
-      console.log(route)
+      setCount(response.data.count)
     }
   }, [route])
 
@@ -25,7 +26,7 @@ export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
     setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
   }
 
-  return { profiles, getProfilesByQuery }
+  return { profiles, getProfilesByQuery, count }
 }
 
 export const useGetProfileById = (id, displayError = true) => {

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
-import React from 'react'
+import React, { useState } from 'react'
 import './style.css'
 import Layout from '../../components/Layout'
 import { SearchBox } from '../../components/FormElements'
@@ -10,7 +10,10 @@ import ProfileCard from './ProfileCard'
 import { useGetProfiles } from '../../hooks/profile'
 
 function ProfilesList() {
-  const { profiles, getProfilesByQuery } = useGetProfiles(5)
+  const [searchedTerm, setSearchedTerm] = useState(null)
+  const { profiles, getProfilesByQuery, count } = useGetProfiles(5)
+  const totalPages = Math.ceil(count / 5)
+  const [currentPage, setCurrentPage] = useState(1)
 
   function handleSubmitFilters(filters) {
     let newQuery = ''
@@ -22,7 +25,15 @@ function ProfilesList() {
     getProfilesByQuery(newQuery)
   }
 
-  function handlePaginate() {}
+  function handlePaginate() {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+      getProfilesByQuery(`&pageNumber=${currentPage + 1}`)
+    } else {
+      setCurrentPage(1)
+      getProfilesByQuery(`&pageNumber=1`)
+    }
+  }
 
   return (
     <Layout
@@ -30,10 +41,10 @@ function ProfilesList() {
         <SearchBox
           className="search-box"
           label=""
-          placeholder="Buscar vaga"
-          // value={jobFilter}
-          // onChange={(e) => setJobFilter(e.target.value)}
-          // onSearch={onSearchJobs}
+          placeholder="Pesquisar perfil por tecnologia"
+          value={searchedTerm}
+          onChange={(e) => setSearchedTerm(e.target.value)}
+          onSearch={() => getProfilesByQuery(`&knowledge=${searchedTerm}`)}
           searchButton
         />
       }
@@ -48,12 +59,20 @@ function ProfilesList() {
                 key={user.id}
                 name={user.user.name}
                 resume={user.linkResume}
-                knowledge={user.knowledge}
+                technologies={user.technologies}
               />
             ))}
           </div>
 
-          <Pagination onPageChange={handlePaginate} />
+          {count / 5 > 1 ? (
+            <Pagination
+              onPageChange={handlePaginate}
+              totalPages={totalPages}
+              pageNumber={currentPage}
+            />
+          ) : (
+            false
+          )}
         </div>
       </section>
     </Layout>

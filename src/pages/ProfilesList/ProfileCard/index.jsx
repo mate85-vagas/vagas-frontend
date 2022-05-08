@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import ButtonRectangle from '../../../components/Buttons/ButtonRectangle'
 import './style.css'
 
-function ProfileCard({ id, name, resume, knowledge }) {
+function ProfileCard({ id, name, resume, technologies }) {
   return (
     <div className="profile-card" id={`profile-${id}`}>
       <div className="left-container">
         <h3>{name}</h3>
-        <span>{knowledge}</span>
+        <span>{technologies}</span>
       </div>
       <div className="right-container">
         <ButtonRectangle
@@ -27,14 +27,14 @@ ProfileCard.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   resume: PropTypes.string,
-  knowledge: PropTypes.string,
+  technologies: PropTypes.string,
 }
 
 ProfileCard.defaultProps = {
   id: 0,
   name: 'User Name',
   resume: '/',
-  knowledge: '',
+  technologies: '',
 }
 
 export default ProfileCard
