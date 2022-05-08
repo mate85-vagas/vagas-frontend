@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-no-bind */
 import React from 'react'
 import './style.css'
 import Layout from '../../components/Layout'
@@ -5,13 +7,22 @@ import { SearchBox } from '../../components/FormElements'
 import Aside from './Aside'
 import Pagination from '../../components/Pagination'
 import ProfileCard from './ProfileCard'
+import { useGetProfiles } from '../../hooks/profile'
 
 function ProfilesList() {
-  const pseudoUser = [
-    { id: 0, name: 'Carolaine Vieira', resume: 'fb.com' },
-    { id: 1, name: 'Natan Moura', resume: '/' },
-    { id: 2, name: 'Victor Pinheiro', resume: '/' },
-  ]
+  const { profiles, getProfilesByQuery } = useGetProfiles(5)
+
+  function handleSubmitFilters(filters) {
+    let newQuery = ''
+
+    Object.entries(filters).forEach((filter) => {
+      newQuery += `&${filter[0]}=${filter[1]}`
+    })
+
+    getProfilesByQuery(newQuery)
+  }
+
+  function handlePaginate() {}
 
   return (
     <Layout
@@ -28,20 +39,21 @@ function ProfilesList() {
       }
     >
       <section id="profiles-container">
-        <Aside />
+        <Aside handleSubmitFilters={handleSubmitFilters} />
 
         <div className="right-container">
           <div id="profiles">
-            {pseudoUser.map((user) => (
+            {profiles?.rows?.map((user) => (
               <ProfileCard
                 key={user.id}
-                name={user.name}
-                resume={user.resume}
+                name={user.user.name}
+                resume={user.linkResume}
+                knowledge={user.knowledge}
               />
             ))}
           </div>
 
-          <Pagination />
+          <Pagination onPageChange={handlePaginate} />
         </div>
       </section>
     </Layout>

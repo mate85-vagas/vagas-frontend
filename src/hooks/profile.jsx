@@ -3,6 +3,31 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '../api'
 
+export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
+  const [profiles, setProfiles] = useState()
+  const [route, setRoute] = useState(`/perfis?itemsPerPage=${itensPerPage}`)
+
+  useEffect(async () => {
+    if (route) {
+      const response = await api.get(route)
+
+      if (response.data.message) {
+        if (displayError) toast.error(response.data.message)
+        return
+      }
+
+      setProfiles(response.data)
+      console.log(route)
+    }
+  }, [route])
+
+  const getProfilesByQuery = (newQuery) => {
+    setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
+  }
+
+  return { profiles, getProfilesByQuery }
+}
+
 export const useGetProfileById = (id, displayError = true) => {
   const [profile, setProfile] = useState()
 

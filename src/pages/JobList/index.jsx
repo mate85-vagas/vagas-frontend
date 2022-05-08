@@ -106,7 +106,7 @@ function JobList() {
           key="btn-profile"
           label="Pesquisar Perfis"
           className="is-blue"
-          onClick={() => navigate('/pesquisa/perfis')}
+          onClick={() => navigate('/perfis')}
         />,
         isAuthenticated ? (
           <ButtonRectangle
