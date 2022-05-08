@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+// Checks if an email is valid
 export const isEmailValid = (email) => {
   return email
     .toLowerCase()

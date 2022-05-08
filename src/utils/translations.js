@@ -14,6 +14,7 @@ const translations = {
   no_options: 'Sem opções',
 }
 
+// Translates a key to a text
 export const translate = (textName) => {
   if (!textName) return ''
   return translations[textName]
