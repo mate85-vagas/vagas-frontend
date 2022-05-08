@@ -11,6 +11,8 @@ import { useGetAppliedJobs, useGetCreatedJobs } from '../../hooks/user'
 import MyJobCard from './MyJobCard'
 import './styles.css'
 
+// Component that renders the page to view created and applied jobs. Also, the user
+// can edit the ones they created and add new jobs
 function MyJob() {
   const navigate = useNavigate()
   const { userId } = useAuth()

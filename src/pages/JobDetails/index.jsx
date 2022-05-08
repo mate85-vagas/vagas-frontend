@@ -12,6 +12,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal'
 import useAuth from '../../hooks/useAuth'
 import { useGetAppliedJobs } from '../../hooks/user'
 
+// Component that renders the page to see a job details or apply to it
 function JobDetails() {
   const params = useParams()
   const navigate = useNavigate()

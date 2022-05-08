@@ -20,6 +20,7 @@ import {
 import { translate } from '../../utils/translations'
 import './styles.css'
 
+// Component that renders the page to edit the user profile
 function EditData() {
   const navigate = useNavigate()
   const { userId } = useAuth()

@@ -13,6 +13,7 @@ import ViewProfile from '../pages/ViewProfile'
 import JobForm from '../pages/JobForm'
 import MyJob from '../pages/MyJobs'
 
+// Component to define the frontend routes and the privacy of each one
 function AppRoutes() {
   const { loadToken, isIdle } = useAuth()
 
