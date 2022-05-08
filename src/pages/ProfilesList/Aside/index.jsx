@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, SearchBox, SelectBox } from '../../../components/FormElements'
@@ -6,6 +7,11 @@ import './style.css'
 
 function Aside({ handleSubmitFilters }) {
   const [filterQuery, setFilterQuery] = useState({})
+  const [name, setName] = useState('')
+  const [scholarity, setScholarity] = useState('')
+  const [technologies, setTechnologies] = useState('')
+  const [languages, setLanguages] = useState('')
+  const [knowledge, setKnowledge] = useState('')
 
   return (
     <aside>
@@ -13,11 +19,13 @@ function Aside({ handleSubmitFilters }) {
         inputName="name"
         placeholder="Pesquisar nome"
         label="Nome"
-        onChange={(e) =>
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value)
           setFilterQuery((state) => {
             return { ...state, name: e.target.value }
           })
-        }
+        }}
       />
 
       <SelectBox
@@ -25,44 +33,52 @@ function Aside({ handleSubmitFilters }) {
         selectName="scholarity"
         label="Escolaridade"
         initialOption="Selecionar escolaridade"
-        onChange={(e) =>
+        value={scholarity}
+        onChange={(e) => {
+          setScholarity(e.target.value)
           setFilterQuery((state) => {
             return { ...state, scholarity: e.target.value }
           })
-        }
+        }}
       />
 
       <SearchBox
         inputName="technologies"
         placeholder="Pesquisar tecnologia"
         label="Tecnologias"
-        onChange={(e) =>
+        value={technologies}
+        onChange={(e) => {
+          setTechnologies(e.target.value)
           setFilterQuery((state) => {
             return { ...state, technologies: e.target.value }
           })
-        }
+        }}
       />
 
       <SearchBox
         inputName="languages"
         placeholder="Pesquisar idioma"
         label="Idiomas"
-        onChange={(e) =>
+        value={languages}
+        onChange={(e) => {
+          setLanguages(e.target.value)
           setFilterQuery((state) => {
             return { ...state, languages: e.target.value }
           })
-        }
+        }}
       />
 
       <SearchBox
         inputName="knowledge"
         placeholder="Pesquisar habilidade"
         label="Habilidades"
-        onChange={(e) =>
+        value={knowledge}
+        onChange={(e) => {
+          setKnowledge(e.target.value)
           setFilterQuery((state) => {
             return { ...state, knowledge: e.target.value }
           })
-        }
+        }}
       />
 
       <Button
