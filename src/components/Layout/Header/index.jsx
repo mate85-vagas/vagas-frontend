@@ -22,10 +22,9 @@ function Header({ hasReturnButton, headerChildren }) {
     <div className={`top-header ${hasReturnButton ? 'shadow' : ''}`}>
       <div className="header-right-container">
         <Link to="/">
-          <IconIC height={100} />
+          <IconIC height={80} />
         </Link>
 
-        <IconIC height={80} />
         <div className="title-container">
           <Text
             className="is-bold is-white"
