@@ -15,7 +15,7 @@ function MyJob() {
   const navigate = useNavigate()
   const { userId } = useAuth()
 
-  const [isCreatedJobs, setIsCreatedJobs] = useState(true)
+  const [isCreatedJobs, setIsCreatedJobs] = useState(false)
   const [modalJob, setModalJob] = useState()
 
   const {
@@ -78,7 +78,7 @@ function MyJob() {
       {appliedJobs.length > 0 ? (
         <div className="jobs-list">
           {appliedJobs.map((job) => (
-            <MyJobCard jobData={job} isCreatedJob={false} />
+            <MyJobCard key={job.jobId} jobData={job} isCreatedJob={false} />
           ))}
         </div>
       ) : (

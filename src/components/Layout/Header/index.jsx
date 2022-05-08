@@ -10,7 +10,7 @@ import { translate } from '../../../utils/translations'
 import './styles.css'
 import { useGetUserById } from '../../../hooks/user'
 
-function Header({ hasReturnButton }) {
+function Header({ hasReturnButton, headerChildren }) {
   const navigate = useNavigate()
   const { isAuthenticated, userId } = useAuth()
 
@@ -21,7 +21,7 @@ function Header({ hasReturnButton }) {
   return (
     <div className={`top-header ${hasReturnButton ? 'shadow' : ''}`}>
       <div className="header-right-container">
-        <IconIC height={100} />
+        <IconIC height={80} />
         <div className="title-container">
           <Text
             className="is-bold is-white"
@@ -36,6 +36,9 @@ function Header({ hasReturnButton }) {
         </div>
       </div>
       <div className="header-left-container">
+        {headerChildren && (
+          <div className="header-children-container">{headerChildren}</div>
+        )}
         {isAuthenticated ? (
           <>
             {user && (
@@ -70,10 +73,15 @@ function Header({ hasReturnButton }) {
 
 Header.propTypes = {
   hasReturnButton: PropTypes.bool,
+  headerChildren: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
 }
 
 Header.defaultProps = {
   hasReturnButton: false,
+  headerChildren: undefined,
 }
 
 export default Header

@@ -86,7 +86,10 @@ export const useProfileRoutes = () => {
   const deleteProfile = async (id) => {
     const response = await api.delete(`/perfis/${id}`)
 
-    if (response.data.message) toast.error(response.data.message)
+    if (response.data.message) {
+      if (response.data.error) toast.error(response.data.message)
+      else toast.success(response.data.message)
+    }
   }
 
   return { createProfile, updateProfile, deleteProfile }

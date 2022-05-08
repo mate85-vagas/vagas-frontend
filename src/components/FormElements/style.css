@@ -68,6 +68,13 @@ button.inactive-button {
   cursor: default;
 }
 
+.search-box .active-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 button.blue {
   background: var(--color-accent);
   color: var(--color-one);

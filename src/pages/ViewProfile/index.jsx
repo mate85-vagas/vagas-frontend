@@ -99,7 +99,7 @@ function ViewProfile() {
           {knowledge ? (
             <ul className="filters">
               {knowledge.split(';').map((tag) => (
-                <Tag label={tag} />
+                <Tag key={tag} label={tag} />
               ))}
             </ul>
           ) : (

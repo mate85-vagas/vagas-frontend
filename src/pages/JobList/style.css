@@ -102,6 +102,17 @@ input[type="search"] {
   right: 10px;
 }
 
+.main-search-box {
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.main-search-box input {
+  height: 50px;
+  font-size: 17px;
+}
+
 .filters-margin {
   margin-bottom: 20px;
 }
@@ -120,4 +131,12 @@ input[type="search"] {
   display: flex;
   justify-content: center;
   padding-top: 30px;
+}
+
+.header-button {
+  padding: 10px;
+}
+
+.header-button .text {
+  font-weight: lighter;
 }

@@ -10,8 +10,11 @@ export const useGetTechnologies = () => {
     const response = await api.get(`/tecnologias`)
 
     if (response.data.message) {
-      if (response.data.error) toast.error(response.data.message)
-      else toast.success(response.data.message)
+      if (response.data.error) {
+        toast.error(response.data.message)
+        return
+      }
+      toast.success(response.data.message)
     }
 
     setTechnologies(response.data.rows)
@@ -29,9 +32,10 @@ export const useTechnologyRoutes = () => {
       return
     }
 
-    const response = await api.post(`/tecnologias`, {
-      content: descriptions.map((description) => ({ description })),
-    })
+    const response = await api.post(
+      `/tecnologias`,
+      descriptions.map((description) => ({ description }))
+    )
 
     if (response.data.message) {
       if (response.data.error) toast.error(response.data.message)

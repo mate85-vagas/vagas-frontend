@@ -14,10 +14,10 @@ import SliderInput from '../../../components/SliderInput'
 import { sanitizeStringToSearch } from '../../../utils/conversions'
 
 function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
-  const [jobType, setJobType] = useState(null)
-  const [jobSite, setJobSite] = useState(null)
-  const [jobScholarity, setJobScholarity] = useState(null)
-  const [jobStartDate, setJobStartDate] = useState(null)
+  const [jobType, setJobType] = useState()
+  const [jobSite, setJobSite] = useState('')
+  const [jobScholarity, setJobScholarity] = useState()
+  const [jobStartDate, setJobStartDate] = useState('')
   const [jobMinWorkload, setJobMinWorkload] = useState(0)
   const [jobMaxWorkload, setJobMaxWorkload] = useState(0)
   const [jobMinSalary, setJobMinSalary] = useState(0)

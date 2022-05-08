@@ -5,8 +5,10 @@ import './styles.css'
 function BottomHeader({ leftChildren, rightChildren }) {
   return (
     <div className="bottom-header">
-      <div className="bottom-header-left">{leftChildren}</div>
-      <div className="bottom-header-right">{rightChildren}</div>
+      {leftChildren && <div className="bottom-header-left">{leftChildren}</div>}
+      {rightChildren && (
+        <div className="bottom-header-right">{rightChildren}</div>
+      )}
     </div>
   )
 }
@@ -23,8 +25,8 @@ BottomHeader.propTypes = {
 }
 
 BottomHeader.defaultProps = {
-  leftChildren: <div />,
-  rightChildren: <div />,
+  leftChildren: undefined,
+  rightChildren: undefined,
 }
 
 export default BottomHeader
