@@ -21,6 +21,8 @@ import Text from '../../components/Text'
 import Tag from '../../components/Tag'
 import { sanitizeStringToSearch } from '../../utils/conversions'
 
+// Component that renders the main page. It contains the job list, a filter, and a
+// search bar. Here, the user can go to the login, profile and their jobs list pages
 function JobList() {
   const navigate = useNavigate()
 

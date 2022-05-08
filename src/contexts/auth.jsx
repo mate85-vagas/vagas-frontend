@@ -2,6 +2,7 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '../api'
+import { getWithExpiry, saveWithExpiry } from '../utils/object'
 
 export const AuthState = {
   AUTHENTICATED: 1,
@@ -32,17 +33,15 @@ export function AuthProvider({ children }) {
     setToken(user.token)
     setUserId(user.id)
     setAuthState(AuthState.AUTHENTICATED)
-    localStorage.setItem(AUTH_TOKEN_KEY, user.token)
-    localStorage.setItem(AUTH_USER_ID_KEY, user.id)
+    saveWithExpiry(AUTH_TOKEN_KEY, user.token, 7200000)
+    saveWithExpiry(AUTH_USER_ID_KEY, user.id, 7200000)
 
     api.interceptors.request.use(
       (config) => {
-        if (config?.headers?.Authorization !== undefined) return config
-
         return {
           ...config,
           headers: {
-            'x-access-token': user.token,
+            'x-access-token': getWithExpiry(AUTH_TOKEN_KEY),
           },
         }
       },
@@ -85,8 +84,8 @@ export function AuthProvider({ children }) {
   }, [])
 
   const loadToken = useCallback(() => {
-    const tokenLoaded = localStorage.getItem(AUTH_TOKEN_KEY)
-    const userIdLoaded = localStorage.getItem(AUTH_USER_ID_KEY)
+    const tokenLoaded = getWithExpiry(AUTH_TOKEN_KEY)
+    const userIdLoaded = getWithExpiry(AUTH_USER_ID_KEY)
 
     manageUser({
       token: tokenLoaded ?? undefined,

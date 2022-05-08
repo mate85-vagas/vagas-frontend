@@ -10,6 +10,7 @@ import { isEmailValid } from '../../utils/validations'
 import { translate } from '../../utils/translations'
 import './styles.css'
 
+// Component that renders the page to login
 function Login() {
   const navigate = useNavigate()
   const { login } = useAuth()

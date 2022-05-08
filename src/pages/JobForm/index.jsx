@@ -17,6 +17,7 @@ import {
 import { translate } from '../../utils/translations'
 import './styles.css'
 
+// Component that renders the page to create, edit or delete a job
 function JobForm() {
   const navigate = useNavigate()
   const params = useParams()

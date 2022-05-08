@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
+// Assigns to 'target' object only the keys on 'sources' that are not undefined.
 export const assignDefined = (target, sources) => {
   if (!sources) return {}
 
@@ -13,17 +14,30 @@ export const assignDefined = (target, sources) => {
   return newObject
 }
 
-// export const byString = (object, lookup) => {
-//   if (object === null || object === undefined) return
+// Saves a key-value pair on localStorage with an expiration time (ttl) in seconds
+export const saveWithExpiry = (key, value, ttl) => {
+  const now = new Date()
+  const item = {
+    value,
+    expiry: now.getTime() + ttl,
+  }
+  localStorage.setItem(key, JSON.stringify(item))
+}
 
-//   const keys = lookup.split('.')
+// Gets a value on localStorage that has an expiration time. Returns undefined
+// if it is expired.
+export const getWithExpiry = (key) => {
+  const itemStr = localStorage.getItem(key)
 
-//   let value = object
+  if (!itemStr) return undefined
 
-//   keys.forEach((key) => {
-//     if (value[key] === null || value[key] === undefined) return
-//     value = value[key]
-//   })
+  const item = JSON.parse(itemStr)
+  const now = new Date()
 
-//   return value
-// }
+  if (now.getTime() > item.expiry) {
+    localStorage.removeItem(key)
+    return undefined
+  }
+
+  return item.value
+}

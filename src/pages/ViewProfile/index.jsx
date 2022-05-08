@@ -12,6 +12,7 @@ import { jobScholarityLabel } from '../../utils/constants/project'
 import { translate } from '../../utils/translations'
 import './styles.css'
 
+// Component that renders the page to see a profile details
 function ViewProfile() {
   const navigate = useNavigate()
 
