@@ -10,8 +10,11 @@ export const useGetSkills = () => {
     const response = await api.get(`/habilidades`)
 
     if (response.data.message) {
-      if (response.data.error) toast.error(response.data.message)
-      else toast.success(response.data.message)
+      if (response.data.error) {
+        toast.error(response.data.message)
+        return
+      }
+      toast.success(response.data.message)
     }
 
     setSkills(response.data.rows)
@@ -29,9 +32,10 @@ export const useSkillRoutes = () => {
       return
     }
 
-    const response = await api.post(`/habilidades`, {
-      content: descriptions.map((description) => ({ description })),
-    })
+    const response = await api.post(
+      `/habilidades`,
+      descriptions.map((description) => ({ description }))
+    )
 
     if (response.data.message) {
       if (response.data.error) toast.error(response.data.message)

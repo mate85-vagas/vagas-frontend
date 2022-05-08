@@ -59,7 +59,7 @@ SelectBox.propTypes = {
   initialOption: PropTypes.string,
   label: PropTypes.string,
   labelLarge: PropTypes.bool,
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.bool]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   onChange: PropTypes.func,
   hasError: PropTypes.bool,
 }
@@ -95,7 +95,7 @@ function SearchBox({
 }) {
   return (
     <div className={`control ${className}`}>
-      <span className="label">{label}</span>
+      {label && <span className="label">{label}</span>}
       <div className="search-box">
         <input
           placeholder={placeholder}
@@ -109,8 +109,11 @@ function SearchBox({
           type="submit"
           id="search-box-submit"
           onClick={onSearch}
-          className={searchButton ? 'active-button' : 'inactive-button'}
+          className={`${searchButton ? 'active-button' : 'inactive-button'}`}
         >
+          {searchButton && (
+            <Text className="is-blue is-bold" text="Pesquisar" size={17} />
+          )}
           <span className="lnr lnr-magnifier" />
         </button>
       </div>

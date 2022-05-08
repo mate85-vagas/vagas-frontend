@@ -58,6 +58,7 @@ function JobList() {
       >
         {filterKeys.map((field) => (
           <Tag
+            key={field}
             label={`${jobFilterLabel[field]}: ${formatTagValue(
               field,
               filters[field]
@@ -90,9 +91,25 @@ function JobList() {
 
   return (
     <Layout
+      superHeaderChildren={[
+        <ButtonRectangle
+          key="btn-profile"
+          label="Pesquisar Perfis"
+          onClick={() => navigate('/perfis')}
+          className="is-blue header-button"
+        />,
+        isAuthenticated ? (
+          <ButtonRectangle
+            key="btn-jobs"
+            label="Minhas Vagas"
+            className="is-blue header-button"
+            onClick={() => navigate('/minhasvagas')}
+          />
+        ) : null,
+      ]}
       headerLeftChildren={
         <SearchBox
-          className="search-box"
+          className="main-search-box"
           label=""
           placeholder="Buscar vaga"
           value={jobFilter}
@@ -101,22 +118,6 @@ function JobList() {
           searchButton
         />
       }
-      headerRightChildren={[
-        <ButtonRectangle
-          key="btn-profile"
-          label="Pesquisar Perfis"
-          className="is-blue"
-          onClick={() => navigate('/perfis')}
-        />,
-        isAuthenticated ? (
-          <ButtonRectangle
-            key="btn-jobs"
-            label="Minhas Vagas"
-            className="is-blue bottom-header-margin"
-            onClick={() => navigate('/minhasvagas')}
-          />
-        ) : null,
-      ]}
     >
       <section id="main">
         <div id="label">

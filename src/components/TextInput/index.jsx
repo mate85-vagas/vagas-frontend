@@ -21,10 +21,10 @@ function TextInput({
       <Text
         className={`is-bold ${label ? 'input-label' : ''}`}
         text={
-          <p>
+          <span>
             {label}
             <span className="input-sublabel"> {subLabel}</span>
-          </p>
+          </span>
         }
         size={18}
       />

@@ -9,13 +9,13 @@
 
 .edit-data .card-title {
   padding-bottom: 23px;
-  border-bottom: 1px solid #DFDFDF;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 23px;
 }
 
 .form-user {
   padding-bottom: 30px;
-  border-bottom: 1px solid #DFDFDF;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 30px;
   display: flex;
 }

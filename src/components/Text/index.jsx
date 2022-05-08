@@ -17,7 +17,7 @@ function Text({ className, text, size }) {
 
 Text.propTypes = {
   className: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   size: PropTypes.number,
 }
 

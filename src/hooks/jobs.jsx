@@ -105,7 +105,21 @@ export const useJobRoutes = () => {
     }
   }
 
-  return { createJob, updateJob, deleteJob }
+  const applyToJob = async (jobId, userId) => {
+    const response = await api.post('/vagas/aplicacao', {
+      jobId,
+      userId,
+    })
+
+    if (response.data.message) {
+      if (response.data.error) toast.error(response.data.message)
+      else toast.success(response.data.message)
+    }
+
+    return response.data.error
+  }
+
+  return { createJob, updateJob, deleteJob, applyToJob }
 }
 
 export const useGetJobs = (pageNumber, itemsPerPage, filters) => {
@@ -132,7 +146,7 @@ export const useGetJobs = (pageNumber, itemsPerPage, filters) => {
   useEffect(async () => {
     const response = await api.get(`/vagas?${buildQuery()}`)
 
-    if (response.data.message) {
+    if (response.data.error && response.data.message) {
       toast.error(response.data.message)
       return
     }

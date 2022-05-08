@@ -24,6 +24,8 @@
 .header-right-container {
   display: flex;
   justify-content: start;
+  align-items: center;
+  gap: 10px;
   flex-grow: 1;
 }
 
@@ -99,4 +101,13 @@
 
 .login-btn-container.button:focus {
   box-shadow: none;
+}
+
+.header-children-container {
+  border-right: 1px solid var(--color-border);
+  margin: 30px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

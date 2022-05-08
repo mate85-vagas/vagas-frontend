@@ -29,22 +29,22 @@ function TagInput({
     () => tags.map((tag) => ({ value: tag, label: tag })),
     [tags]
   )
-  console.log(selectOptions)
+
   return (
     <div className={`tag-input ${className}`}>
       <Text
         className={`is-bold ${label ? 'input-label' : ''}`}
         text={
-          <p>
+          <span>
             {label}
             <span className="input-sublabel"> {subLabel}</span>
-          </p>
+          </span>
         }
         size={18}
       />
       <div className="field-body">
         <div className="field">
-          <p className="control">
+          <div className="control">
             <CreatableSelect
               className="multiselect"
               value={value}
@@ -59,7 +59,7 @@ function TagInput({
               }}
               noOptionsMessage={() => translate('no_options')}
             />
-          </p>
+          </div>
         </div>
       </div>
     </div>

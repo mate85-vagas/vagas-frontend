@@ -51,7 +51,7 @@ export const appearOnSearchOptions = [
   },
 ]
 
-export const itemsPerPageNumbers = [5, 10, 20, 30, 50]
+export const itemsPerPageNumbers = ['5', '10', '20', '30', '50']
 
 export const itemsPerPageOptions = itemsPerPageNumbers.map((number, id) => ({
   id,

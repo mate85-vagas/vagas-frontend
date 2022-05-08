@@ -1,6 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useGetJobById } from '../../hooks/jobs'
+import React, { useMemo, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
 import Layout from '../../components/Layout'
 import Text from '../../components/Text'
 import { localDate, numberToReais } from '../../utils/conversions'
@@ -8,10 +8,37 @@ import { jobScholarityLabel, jobTypeLabel } from '../../utils/constants/project'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import './styles.css'
 import { translate } from '../../utils/translations'
+import ConfirmModal from '../../components/Modals/ConfirmModal'
+import useAuth from '../../hooks/useAuth'
+import { useGetAppliedJobs } from '../../hooks/user'
 
 function JobDetails() {
   const params = useParams()
+  const navigate = useNavigate()
+
+  const { userId } = useAuth()
+  const { applyToJob } = useJobRoutes()
   const { job, user } = useGetJobById(params.id)
+
+  const { appliedJobs } = useGetAppliedJobs(userId)
+
+  const [modalOpened, setModalOpened] = useState(false)
+
+  const isJobApplied = useMemo(
+    () =>
+      appliedJobs.filter(({ jobId }) => jobId === parseInt(params.id, 10))
+        .length > 0,
+    [appliedJobs, params]
+  )
+
+  const onApplyToJob = async () => {
+    await applyToJob(parseInt(params.id, 10), parseInt(userId, 10)).then(
+      (hasError) => {
+        if (!hasError) navigate('/minhasvagas')
+        else setModalOpened(false)
+      }
+    )
+  }
 
   const renderDetailItem = (
     title,
@@ -27,6 +54,15 @@ function JobDetails() {
 
   return (
     <Layout isFinalPage>
+      <ConfirmModal
+        title="Aplicar para Vaga"
+        description={`Deseja realmente aplicar para a vaga "${
+          job && job.title
+        }"?`}
+        onConfirm={() => onApplyToJob()}
+        onCancel={() => setModalOpened(false)}
+        opened={modalOpened}
+      />
       <div className="job-details">
         <div className="card detail-card">
           {job && user ? (
@@ -88,7 +124,11 @@ function JobDetails() {
                   <div className="btn-apply-container">
                     <ButtonRectangle
                       className="is-green"
-                      label={translate('apply_to_job')}
+                      label={translate(
+                        isJobApplied ? 'job_applied' : 'apply_to_job'
+                      )}
+                      onClick={() => setModalOpened(true)}
+                      disabled={isJobApplied}
                     />
                   </div>
                 </div>

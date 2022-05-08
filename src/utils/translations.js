@@ -9,6 +9,7 @@ const translations = {
   invalid_salary: 'Salário Inválido',
   mandatory_not_filled: 'Alguns campos obrigatórios não foram preenchidos!',
   apply_to_job: 'Aplicar para esta vaga',
+  job_applied: 'Você já aplicou para esta vaga',
   profile_field_resume: 'URL do Currículo',
   no_options: 'Sem opções',
 }
