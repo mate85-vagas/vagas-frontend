@@ -11,10 +11,11 @@
 }
 
 .profile-card .left-container {
-  border-right: 1px solid var(--color-border);
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 40%;
-          flex: 0 0 40%;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
+  overflow: hidden;
+  padding-right: 3%;
 }
 
 .profile-card .left-container h3 {
@@ -24,8 +25,8 @@
 
 .profile-card .right-container {
   -webkit-box-flex: 0 !important;
-      -ms-flex: 0 0 60% !important;
-          flex: 0 0 60% !important;
+      -ms-flex: 0 0 25% !important;
+          flex: 0 0 25% !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
