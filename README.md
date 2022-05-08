@@ -4,12 +4,6 @@
   Talentos IC
 </h1>
 
-<!-- Badges -->
-
-<!-- <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/igooralm192/nlw-01">
-</p> -->
-
 <!-- Description -->
 
 <h4 align="center">
