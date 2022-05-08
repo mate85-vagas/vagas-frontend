@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react'
 import './style.css'
@@ -36,6 +35,10 @@ function ProfilesList() {
     }
   }
 
+  function handleHeaderSearch() {
+    getProfilesByQuery(`&technologies=${searchedTerm}`)
+  }
+
   return (
     <Layout
       headerLeftChildren={
@@ -45,7 +48,7 @@ function ProfilesList() {
           placeholder="Pesquisar perfil por tecnologia"
           value={searchedTerm}
           onChange={(e) => setSearchedTerm(e.target.value)}
-          onSearch={() => getProfilesByQuery(`&knowledge=${searchedTerm}`)}
+          onSearch={handleHeaderSearch}
           searchButton
         />
       }
