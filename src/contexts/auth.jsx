@@ -37,12 +37,10 @@ export function AuthProvider({ children }) {
 
     api.interceptors.request.use(
       (config) => {
-        if (config?.headers?.Authorization !== undefined) return config
-
         return {
           ...config,
           headers: {
-            'x-access-token': user.token,
+            'x-access-token': localStorage.getItem(AUTH_TOKEN_KEY),
           },
         }
       },
