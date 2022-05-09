@@ -22,7 +22,12 @@ export const numberToReais = (amount) => {
   })}`
 }
 
-// Removes all left and right whitespaces of a string and left only one whitespace between
-// characters
-export const sanitizeStringToSearch = (text) =>
-  text.trim().replace(/\s\s+/g, ' ')
+export const sanitizeStringToSearch = (text) => {
+  let newText = null
+
+  newText = text.trim().replace(/\s\s+/g, ' ')
+  newText = newText.trim().replaceAll('#', '%23')
+  newText = newText.trim().replaceAll('+', '%2B')
+
+  return newText
+}

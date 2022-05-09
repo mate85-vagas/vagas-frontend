@@ -1,0 +1,51 @@
+.card-link {
+  color: #222;
+}
+
+.card-link .profile-card {
+  margin: 0 0 30px 30px;
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-shadow: var(--shadow-default);
+          box-shadow: var(--shadow-default);
+  border-radius: var(--border-radius);
+  padding: 22px;
+}
+
+.card-link .profile-card .left-container {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
+  overflow: hidden;
+  padding-right: 3%;
+}
+
+.card-link .profile-card .left-container h3 {
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--color-accent);
+}
+
+.card-link .profile-card .right-container {
+  -webkit-box-flex: 0 !important;
+      -ms-flex: 0 0 25% !important;
+          flex: 0 0 25% !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card-link .profile-card .is-blue {
+  padding: 0 50px;
+  height: 40px;
+  border-radius: 3px;
+}
+/*# sourceMappingURL=style.css.map */

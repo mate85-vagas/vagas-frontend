@@ -25,6 +25,7 @@ import { sanitizeStringToSearch } from '../../utils/conversions'
 // search bar. Here, the user can go to the login, profile and their jobs list pages
 function JobList() {
   const navigate = useNavigate()
+
   const isInitialMount = useRef(true)
   const { isAuthenticated } = useAuth()
 
@@ -96,6 +97,7 @@ function JobList() {
         <ButtonRectangle
           key="btn-profile"
           label="Pesquisar Perfis"
+          onClick={() => navigate('/perfis')}
           className="is-blue header-button"
         />,
         isAuthenticated ? (

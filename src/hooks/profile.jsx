@@ -2,6 +2,35 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '../api'
+import { sanitizeStringToSearch } from '../utils/conversions'
+
+export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
+  const [profiles, setProfiles] = useState()
+  const [route, setRoute] = useState(`/perfis?itemsPerPage=${itensPerPage}`)
+  const [count, setCount] = useState()
+
+  useEffect(async () => {
+    if (route) {
+      const response = await api.get(route)
+
+      if (response.data.message) {
+        if (displayError) toast.error(response.data.message)
+        return
+      }
+
+      setProfiles(response.data)
+      setCount(response.data.count)
+    }
+  }, [route])
+
+  const getProfilesByQuery = (newQuery) => {
+    setRoute(
+      sanitizeStringToSearch(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
+    )
+  }
+
+  return { profiles, getProfilesByQuery, count }
+}
 
 export const useGetProfileById = (id, displayError = true) => {
   const [profile, setProfile] = useState()

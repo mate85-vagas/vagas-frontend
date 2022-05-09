@@ -1,0 +1,8 @@
+aside {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 22%;
+          flex: 0 0 22%;
+  max-width: 350px;
+  overflow: hidden;
+}
+/*# sourceMappingURL=style.css.map */
