@@ -19,7 +19,7 @@ import {
 } from '../../utils/constants/project'
 import Text from '../../components/Text'
 import Tag from '../../components/Tag'
-import { sanitizeStringToSearch } from '../../utils/conversions'
+import { localDate, sanitizeStringToSearch } from '../../utils/conversions'
 
 // Component that renders the main page. It contains the job list, a filter, and a
 // search bar. Here, the user can go to the login, profile and their jobs list pages
@@ -45,7 +45,7 @@ function JobList() {
   const formatTagValue = (field, value) => {
     if (field === 'salary' || field === 'workload')
       return `${value.min} - ${value.max}`
-    if (field === 'createdAt') return new Date(value).toLocaleDateString()
+    if (field === 'createdAt') return localDate(value)
     if (field === 'scholarity') return jobScholarityLabel[value]
     return value
   }

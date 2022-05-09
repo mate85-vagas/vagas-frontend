@@ -24,7 +24,9 @@ describe('testing localDate function', () => {
   describe('when ISO-Date is formatted correctly', () => {
     it('should return the date on locale string', () => {
       const isoDate = '2022-02-22'
-      expect(localDate(isoDate)).toBe(new Date(isoDate).toLocaleDateString())
+      expect(localDate(isoDate)).toBe(
+        new Date(`${isoDate} `).toLocaleDateString()
+      )
     })
   })
 })
@@ -80,8 +82,8 @@ describe('testing sanitizeStringToSearch function', () => {
   })
 
   describe('when string has spaces', () => {
-    it('should return formatted', () => {
-      expect(sanitizeStringToSearch('   aBc   de   ')).toBe('aBc de')
+    it('should return formatted and encoded', () => {
+      expect(sanitizeStringToSearch('   aBc   de   ')).toBe('aBc%20de')
     })
   })
 })

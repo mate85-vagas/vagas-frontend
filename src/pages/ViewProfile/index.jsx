@@ -10,6 +10,7 @@ import useAuth from '../../hooks/useAuth'
 import useProfiles from '../../hooks/useProfiles'
 import { useGetUserById } from '../../hooks/user'
 import { jobScholarityLabel } from '../../utils/constants/project'
+import { localDate } from '../../utils/conversions'
 import { translate } from '../../utils/translations'
 import './styles.css'
 
@@ -62,9 +63,7 @@ function ViewProfile() {
 
   useEffect(() => {
     if (!profile) return
-    setBirthDate(
-      profile.birthDate && new Date(profile.birthDate).toLocaleDateString()
-    )
+    setBirthDate(profile.birthDate && localDate(profile.birthDate))
     setScholarity(profile.scholarity && jobScholarityLabel[profile.scholarity])
     setKnowledge(profile.knowledge)
     setTechnologies(profile.technologies)

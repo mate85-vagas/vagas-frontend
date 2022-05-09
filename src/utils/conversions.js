@@ -4,7 +4,7 @@ import { translate } from './translations'
 
 // Gets an string in iso format and transforms to locale format
 export const localDate = (isoDate) => {
-  const localeDate = new Date(isoDate).toLocaleDateString()
+  const localeDate = new Date(`${isoDate} `).toLocaleDateString()
   return localeDate === 'Invalid Date' ? translate('invalid_date') : localeDate
 }
 
