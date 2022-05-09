@@ -32,6 +32,8 @@
 
 The layout prototype of this application is available on [Figma](https://www.figma.com/file/Z6loIYv1xVtCgkyf3BzHp3/MATE85---Grupo-3?node-id=0%3A1).
 
+Icons used on this project are from [Linearicons](https://linearicons.com/free).
+
 <a id="demo"></a>
 
 ## :computer: Demo
@@ -48,6 +50,8 @@ This application uses this following technologies:
 - [ESLint](https://eslint.org/) (Code standardization)
 - [Prettier](https://prettier.io/) (Code formatting)
 - [React Router](https://reactrouter.com/web/guides/quick-start)
+- [Bulma](https://bulma.io/)
+- [Axios](https://axios-http.com/)
 
 <a id="como-executar"></a>
 
