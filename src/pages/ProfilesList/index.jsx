@@ -7,6 +7,7 @@ import Aside from './Aside'
 import Pagination from '../../components/Pagination'
 import ProfileCard from './ProfileCard'
 import { useGetProfiles } from '../../hooks/profile'
+import { sanitizeStringToSearch } from '../../utils/conversions'
 
 function ProfilesList() {
   const itensPerPage = 5
@@ -19,7 +20,7 @@ function ProfilesList() {
     let newQuery = ''
 
     Object.entries(filters).forEach((filter) => {
-      newQuery += `&${filter[0]}=${filter[1]}`
+      newQuery += `&${filter[0]}=${sanitizeStringToSearch(filter[1])}`
     })
 
     getProfilesByQuery(newQuery)
@@ -36,7 +37,7 @@ function ProfilesList() {
   }
 
   function handleHeaderSearch() {
-    getProfilesByQuery(`&technologies=${searchedTerm}`)
+    getProfilesByQuery(`&technologies=${sanitizeStringToSearch(searchedTerm)}`)
   }
 
   return (
@@ -58,14 +59,8 @@ function ProfilesList() {
 
         <div className="right-container">
           <div id="profiles">
-            {profiles?.rows?.map((user) => (
-              <ProfileCard
-                key={user.id}
-                id={user.id}
-                name={user.user.name}
-                resume={user.linkResume}
-                technologies={user.technologies}
-              />
+            {profiles?.rows?.map((profile) => (
+              <ProfileCard key={profile.id} profile={profile} />
             ))}
           </div>
 

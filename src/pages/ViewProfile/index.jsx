@@ -7,6 +7,7 @@ import Tag from '../../components/Tag'
 import Text from '../../components/Text'
 import { useGetProfileById } from '../../hooks/profile'
 import useAuth from '../../hooks/useAuth'
+import useProfiles from '../../hooks/useProfiles'
 import { useGetUserById } from '../../hooks/user'
 import { jobScholarityLabel } from '../../utils/constants/project'
 import { translate } from '../../utils/translations'
@@ -27,13 +28,23 @@ function ViewProfile() {
   const [languages, setLanguages] = useState('')
   const [linkResume, setLinkResume] = useState('')
 
-  const user = useGetUserById(params.id)
-  const profile = useGetProfileById(user && user.profileId, false)
+  const { selectedProfile } = useProfiles()
 
   const isOwnProfile = useMemo(
     () => parseInt(userId, 10) === parseInt(params.id, 10),
     [userId, params]
   )
+
+  const remoteUser = useGetUserById(isOwnProfile && params.id)
+  const remoteProfile = useGetProfileById(
+    isOwnProfile && remoteUser && remoteUser.profileId,
+    false
+  )
+
+  const { user, profile } = useMemo(() => {
+    if (isOwnProfile) return { user: remoteUser, profile: remoteProfile }
+    return { user: selectedProfile.user, profile: selectedProfile }
+  }, [isOwnProfile, remoteUser, remoteProfile, selectedProfile])
 
   const userIsVisible = useMemo(
     () => (profile && profile.searchable) || isOwnProfile,

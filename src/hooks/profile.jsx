@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '../api'
-import { sanitizeStringToSearch } from '../utils/conversions'
 
 export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
   const [profiles, setProfiles] = useState()
@@ -24,9 +23,7 @@ export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
   }, [route])
 
   const getProfilesByQuery = (newQuery) => {
-    setRoute(
-      sanitizeStringToSearch(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
-    )
+    setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
   }
 
   return { profiles, getProfilesByQuery, count }
