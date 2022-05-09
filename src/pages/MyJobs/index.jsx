@@ -8,6 +8,7 @@ import Text from '../../components/Text'
 import { useJobRoutes } from '../../hooks/jobs'
 import useAuth from '../../hooks/useAuth'
 import { useGetAppliedJobs, useGetCreatedJobs } from '../../hooks/user'
+import { translate } from '../../utils/translations'
 import MyJobCard from './MyJobCard'
 import './styles.css'
 
@@ -72,11 +73,14 @@ function MyJob() {
 
   const renderAppliedJobs = () => (
     <div className="jobs-container">
-      <Text
-        className="jobs-title"
-        text={`Vagas aplicadas (${totalApplied} resultados)`}
-        size={20}
-      />
+      <div className="jobs-title">
+        <Text
+          className="title-margin"
+          text={`Vagas aplicadas (${totalApplied} resultados)`}
+          size={20}
+        />
+        <Text text={translate('applied_job_warning')} />
+      </div>
       {appliedJobs.length > 0 ? (
         <div className="jobs-list">
           {appliedJobs.map((job) => (

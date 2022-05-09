@@ -12,6 +12,8 @@ const translations = {
   job_applied: 'Você já aplicou para esta vaga',
   profile_field_resume: 'URL do Currículo',
   no_options: 'Sem opções',
+  applied_job_warning:
+    'Fique atento ao seu e-mail, pois os responsáveis pelas vagas aplicadas poderão entrar em contato até que o prazo de candidaturas se encerre!',
 }
 
 // Translates a key to a text

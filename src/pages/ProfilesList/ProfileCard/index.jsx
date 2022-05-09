@@ -10,7 +10,6 @@ import { translate } from '../../../utils/translations'
 import useProfiles from '../../../hooks/useProfiles'
 
 function ProfileCard({ profile }) {
-  console.log(profile)
   const { id, user, technologies } = profile
 
   const navigate = useNavigate()
