@@ -23,6 +23,9 @@ export const numberToReais = (amount) => {
 }
 
 export const sanitizeStringToSearch = (text) => {
-  const newText = text.trim().replace(/\s\s+/g, ' ')
-  return encodeURI(newText)
+  let newText = text.trim().replace(/\s\s+/g, ' ')
+  newText = encodeURI(newText)
+  newText = newText.replaceAll('#', '%23')
+  newText = newText.replaceAll('+', '%2B')
+  return newText
 }
