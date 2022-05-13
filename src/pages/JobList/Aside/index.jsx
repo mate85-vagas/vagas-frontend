@@ -13,7 +13,12 @@ import './style.css'
 import SliderInput from '../../../components/SliderInput'
 import { sanitizeStringToSearch } from '../../../utils/conversions'
 
-function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
+function Aside({
+  onSubmitFilters,
+  tagToRemove,
+  onClearedFilter,
+  onClearFilters,
+}) {
   const [jobType, setJobType] = useState()
   const [jobSite, setJobSite] = useState('')
   const [jobScholarity, setJobScholarity] = useState()
@@ -23,6 +28,19 @@ function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
   const [jobMinSalary, setJobMinSalary] = useState(0)
   const [jobMaxSalary, setJobMaxSalary] = useState(0)
   const [toSubmit, setToSubmit] = useState(false)
+
+  const hasFilters = () => {
+    return (
+      jobType ||
+      jobSite !== '' ||
+      jobScholarity ||
+      jobStartDate !== '' ||
+      jobMinWorkload !== 0 ||
+      jobMaxWorkload !== 0 ||
+      jobMinSalary !== 0 ||
+      jobMaxSalary !== 0
+    )
+  }
 
   const handleSubmitFilters = () => {
     const filters = {}
@@ -70,6 +88,7 @@ function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
       setJobMaxSalary(0)
       setJobMinSalary(0)
 
+      onClearedFilter()
       return
     }
 
@@ -159,11 +178,20 @@ function Aside({ onSubmitFilters, tagToRemove, onClearedFilter }) {
         />
 
         <Button
-          label="Aplicar filtros"
+          label="Aplicar Filtros"
           id="filters-submit"
           onClick={handleSubmitFilters}
           scheme="blue"
         />
+
+        {hasFilters() && (
+          <Button
+            label="Limpar Filtros"
+            id="btn-filters-clear"
+            onClick={onClearFilters}
+            scheme="blue"
+          />
+        )}
       </div>
     </aside>
   )

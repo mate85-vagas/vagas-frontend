@@ -13,8 +13,29 @@ function Aside({ handleSubmitFilters }) {
   const [languages, setLanguages] = useState('')
   const [knowledge, setKnowledge] = useState('')
 
+  const clearFilters = () => {
+    setName('')
+    setScholarity('')
+    setTechnologies('')
+    setLanguages('')
+    setKnowledge('')
+    setFilterQuery({})
+    handleSubmitFilters({})
+  }
+
+  const hasFilters = () => {
+    return (
+      name !== '' ||
+      scholarity !== '' ||
+      technologies !== '' ||
+      languages !== '' ||
+      knowledge !== ''
+    )
+  }
+
   return (
     <aside>
+      <h2>Filtros</h2>
       <SearchBox
         inputName="name"
         placeholder="Pesquisar nome"
@@ -82,11 +103,20 @@ function Aside({ handleSubmitFilters }) {
       />
 
       <Button
-        label="Aplicar filtros"
+        label="Aplicar Filtros"
         id="filters-submit"
         onClick={() => handleSubmitFilters(filterQuery)}
         scheme="blue"
       />
+
+      {hasFilters() && (
+        <Button
+          label="Limpar Filtros"
+          id="btn-filters-clear"
+          onClick={clearFilters}
+          scheme="blue"
+        />
+      )}
     </aside>
   )
 }

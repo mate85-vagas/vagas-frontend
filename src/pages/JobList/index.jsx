@@ -31,7 +31,7 @@ function JobList() {
 
   const [pageNumber, setPageNumber] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageNumbers[2])
-  const [filters, setFilters] = useState({})
+  const [filters, setFilters] = useState({ filter: undefined })
   const [tagToRemove, setTagToRemove] = useState('')
 
   const [jobFilter, setJobFilter] = useState('')
@@ -78,6 +78,14 @@ function JobList() {
   }
 
   const onClearedFilter = () => setTagToRemove('')
+
+  const clearFilters = () => {
+    setTagToRemove('all')
+    setPageNumber(1)
+    setFilters((prevFilters) => ({
+      filter: prevFilters.filter,
+    }))
+  }
 
   const onSearchJobs = () => {
     setTagToRemove('all')
@@ -141,6 +149,7 @@ function JobList() {
             onSubmitFilters={applyFilters}
             tagToRemove={tagToRemove}
             onClearedFilter={onClearedFilter}
+            onClearFilters={clearFilters}
           />
           <div id="jobs">
             {filterTags()}

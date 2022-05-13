@@ -24,7 +24,9 @@ function ProfilesList() {
     let newQuery = ''
 
     Object.entries(filters).forEach((filter) => {
-      newQuery += `&${filter[0]}=${sanitizeStringToSearch(filter[1])}`
+      const sanitizedValue = sanitizeStringToSearch(filter[1])
+      if (!sanitizedValue) return
+      newQuery += `&${filter[0]}=${sanitizedValue}`
     })
 
     getProfilesByQuery(newQuery)
