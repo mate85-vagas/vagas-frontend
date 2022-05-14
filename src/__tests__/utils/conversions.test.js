@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import {
+  keepQueryOnUrl,
   localDate,
   numberToReais,
   sanitizeStringToSearch,
@@ -84,6 +85,32 @@ describe('testing sanitizeStringToSearch function', () => {
   describe('when string has spaces', () => {
     it('should return formatted and encoded', () => {
       expect(sanitizeStringToSearch('   aBc   de   ')).toBe('aBc%20de')
+    })
+  })
+})
+
+describe('testing keepQueryOnUrl function', () => {
+  describe('when condition is false', () => {
+    it('should format url properly', () => {
+      expect(keepQueryOnUrl('/url', 'query=1', false)).toBe('/url')
+    })
+
+    describe('when url or query is empty', () => {
+      it('should format url properly', () => {
+        expect(keepQueryOnUrl('', '', false)).toBe('')
+      })
+    })
+  })
+
+  describe('when condition is true', () => {
+    it('should format url properly', () => {
+      expect(keepQueryOnUrl('/url', 'query=1', true)).toBe('/url?query=1')
+    })
+
+    describe('when url or query is empty', () => {
+      it('should format url properly', () => {
+        expect(keepQueryOnUrl('', '', true)).toBe('?')
+      })
     })
   })
 })

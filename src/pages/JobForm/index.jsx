@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
@@ -8,6 +8,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
+import { useSearchObject } from '../../hooks/url'
 import useAuth from '../../hooks/useAuth'
 import {
   DEFAULT_SALARY,
@@ -20,6 +21,8 @@ import './styles.css'
 // Component that renders the page to create, edit or delete a job
 function JobForm() {
   const navigate = useNavigate()
+  const [search] = useSearchObject()
+
   const params = useParams()
   const isCreationForm = params.type === 'criar'
 
@@ -44,6 +47,8 @@ function JobForm() {
   const [hasError, setHasError] = useState(false)
 
   const { createJob, updateJob, deleteJob } = useJobRoutes()
+
+  const fromHome = useMemo(() => search.home === '1', [search])
 
   const isTitleInvalid = () => title === ''
   const isDescriptionInvalid = () => description === ''
@@ -270,7 +275,7 @@ function JobForm() {
   )
 
   return (
-    <Layout isFinalPage>
+    <Layout returnUrl={fromHome ? '/' : ''} isFinalPage>
       <ConfirmModal
         title="Deletar Vaga"
         description={`Deseja realmente deletar a vaga "${

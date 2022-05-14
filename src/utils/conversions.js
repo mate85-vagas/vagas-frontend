@@ -22,6 +22,7 @@ export const numberToReais = (amount) => {
   })}`
 }
 
+// Formats a string properly to send in a url query
 export const sanitizeStringToSearch = (text) => {
   let newText = text.trim().replace(/\s\s+/g, ' ')
   newText = encodeURI(newText)
@@ -29,3 +30,7 @@ export const sanitizeStringToSearch = (text) => {
   newText = newText.replaceAll('+', '%2B')
   return newText
 }
+
+// Append query on url based on condition
+export const keepQueryOnUrl = (url, query, condition) =>
+  condition ? `${url}?${query}` : url

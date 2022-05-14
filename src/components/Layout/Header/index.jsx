@@ -10,7 +10,7 @@ import { translate } from '../../../utils/translations'
 import './styles.css'
 import { useGetUserById } from '../../../hooks/user'
 
-function Header({ hasReturnButton, headerChildren }) {
+function Header({ hasReturnButton, returnUrl, headerChildren }) {
   const navigate = useNavigate()
   const { isAuthenticated, userId } = useAuth()
 
@@ -66,7 +66,7 @@ function Header({ hasReturnButton, headerChildren }) {
         )}
         {hasReturnButton && (
           <div className="arrow-container">
-            <ButtonArrow onClick={() => navigate(-1)} />
+            <ButtonArrow onClick={() => navigate(returnUrl || -1)} />
           </div>
         )}
       </div>
@@ -76,6 +76,7 @@ function Header({ hasReturnButton, headerChildren }) {
 
 Header.propTypes = {
   hasReturnButton: PropTypes.bool,
+  returnUrl: PropTypes.string,
   headerChildren: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
@@ -84,6 +85,7 @@ Header.propTypes = {
 
 Header.defaultProps = {
   hasReturnButton: false,
+  returnUrl: '',
   headerChildren: undefined,
 }
 

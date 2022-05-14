@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Text from '../../components/Text'
@@ -8,11 +8,15 @@ import ButtonArrow from '../../components/Buttons/ButtonArrow'
 import useAuth from '../../hooks/useAuth'
 import { isEmailValid } from '../../utils/validations'
 import { translate } from '../../utils/translations'
+import { keepQueryOnUrl } from '../../utils/conversions'
+import { useSearchObject } from '../../hooks/url'
 import './styles.css'
 
 // Component that renders the page to login
 function Login() {
   const navigate = useNavigate()
+  const [search] = useSearchObject()
+
   const { login } = useAuth()
 
   const [hasError, setHasError] = useState(false)
@@ -20,8 +24,11 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const hasCreateJob = useMemo(() => search.criarvaga === '1', [search])
+
   const navigateToJobList = () => navigate('/')
-  const navigateToRegister = () => navigate('/register')
+  const navigateToRegister = () =>
+    navigate(keepQueryOnUrl('/register', 'criarvaga=1', hasCreateJob))
 
   const isEmailInvalid = () => !isEmailValid(email)
   const isPasswordInvalid = () => password === ''
@@ -39,8 +46,7 @@ function Login() {
     }
 
     try {
-      const token = await login(email, password)
-      if (token) navigate('/')
+      await login(email, password)
     } catch (error) {
       toast.error('Usuário ou senha errados.')
     }

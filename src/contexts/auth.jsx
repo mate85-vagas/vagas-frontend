@@ -50,16 +50,21 @@ export function AuthProvider({ children }) {
   }
 
   const login = useCallback(async (email, password) => {
-    const response = await api.post('usuarios/login', { email, password })
+    return new Promise((resolve, reject) => {
+      api
+        .post('usuarios/login', { email, password })
+        .then((response) => {
+          const tokenFromResponse = response.data.token
 
-    const tokenFromResponse = response.data.token
+          if (!tokenFromResponse && response.data.message)
+            toast.error(response.data.message)
 
-    if (!tokenFromResponse && response.data.message)
-      toast.error(response.data.message)
+          manageUser(response.data)
 
-    manageUser(response.data)
-
-    return tokenFromResponse !== undefined
+          resolve(tokenFromResponse !== undefined)
+        })
+        .catch(reject)
+    })
   }, [])
 
   const register = useCallback(async (name, email, password) => {

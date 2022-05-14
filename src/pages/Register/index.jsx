@@ -9,10 +9,14 @@ import useAuth from '../../hooks/useAuth'
 import { isEmailValid } from '../../utils/validations'
 import { translate } from '../../utils/translations'
 import './styles.css'
+import { keepQueryOnUrl } from '../../utils/conversions'
+import { useSearchObject } from '../../hooks/url'
 
 // Component that renders the page to register a new user
 function Register() {
   const navigate = useNavigate()
+  const [search] = useSearchObject()
+
   const { register } = useAuth()
 
   const [hasError, setHasError] = useState(false)
@@ -21,7 +25,8 @@ function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const navigateToLogin = () => navigate('/login')
+  const navigateToLogin = () =>
+    navigate(keepQueryOnUrl('/login', 'criarvaga=1', search.criarvaga === '1'))
 
   const isNameInvalid = () => name === ''
   const isEmailInvalid = () => !isEmailValid(email)

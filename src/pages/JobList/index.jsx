@@ -93,6 +93,11 @@ function JobList() {
     setFilters({ filter: sanitizeStringToSearch(jobFilter) })
   }
 
+  const createJob = () => {
+    if (isAuthenticated) navigate('/formulariovaga/criar')
+    else navigate('/login?criarvaga=1')
+  }
+
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false
@@ -102,6 +107,12 @@ function JobList() {
   return (
     <Layout
       superHeaderChildren={[
+        <ButtonRectangle
+          key="btn-add-job"
+          label="Cadastrar Vaga"
+          onClick={createJob}
+          className="is-blue header-button"
+        />,
         <ButtonRectangle
           key="btn-profile"
           label="Pesquisar Perfis"
