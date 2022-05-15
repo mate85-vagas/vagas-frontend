@@ -37,7 +37,17 @@ function ProfilesList() {
       newQuery += `&${filter[0]}=${sanitizedValue}`
     })
 
-    getProfilesByQuery(newQuery)
+    if (!searchedTerm) {
+      getProfilesByQuery(newQuery)
+    } else {
+      getProfilesByQuery(
+        `${newQuery}&technologies=${sanitizeStringToSearch(searchedTerm)}`
+      )
+    }
+  }
+
+  function handleHeaderSearch() {
+    getProfilesByQuery(`&technologies=${sanitizeStringToSearch(searchedTerm)}`)
   }
 
   function handlePaginate() {
@@ -48,10 +58,6 @@ function ProfilesList() {
       setCurrentPage(1)
       getProfilesByQuery(`&pageNumber=1`)
     }
-  }
-
-  function handleHeaderSearch() {
-    getProfilesByQuery(`&technologies=${sanitizeStringToSearch(searchedTerm)}`)
   }
 
   return (
@@ -81,7 +87,7 @@ function ProfilesList() {
 
         <div className="right-container">
           <div id="label">
-            <span>Vagas ({count} resultados)</span>
+            <span>Perfis ({count} resultados)</span>
             <span className="page-input-container">
               Exibir
               <SelectBox
