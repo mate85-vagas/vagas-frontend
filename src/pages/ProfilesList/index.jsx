@@ -83,38 +83,40 @@ function ProfilesList() {
       }
     >
       <section id="main">
-        <Aside handleSubmitFilters={handleSubmitFilters} />
+        <div id="profiles-container">
+          <Aside handleSubmitFilters={handleSubmitFilters} />
 
-        <div className="right-container">
-          <div id="label">
-            <span>Perfis ({count} resultados)</span>
-            <span className="page-input-container">
-              Exibir
-              <SelectBox
-                className="page-input"
-                initialOption=""
-                value={itemsPerPage}
-                options={itemsPerPageOptions}
-                onChange={(e) => setItemsPerPage(e.target.value)}
+          <div className="right-container">
+            <div id="label">
+              <span>Perfis ({count} resultados)</span>
+              <span className="page-input-container">
+                Exibir
+                <SelectBox
+                  className="page-input"
+                  initialOption=""
+                  value={itemsPerPage}
+                  options={itemsPerPageOptions}
+                  onChange={(e) => setItemsPerPage(e.target.value)}
+                />
+              </span>
+            </div>
+
+            <div id="profiles">
+              {profiles?.rows?.map((profile) => (
+                <ProfileCard key={profile.id} profile={profile} />
+              ))}
+            </div>
+
+            {count / itemsPerPage > 1 ? (
+              <Pagination
+                onPageChange={handlePaginate}
+                totalPages={totalPages}
+                pageNumber={currentPage}
               />
-            </span>
+            ) : (
+              false
+            )}
           </div>
-
-          <div id="profiles">
-            {profiles?.rows?.map((profile) => (
-              <ProfileCard key={profile.id} profile={profile} />
-            ))}
-          </div>
-
-          {count / itemsPerPage > 1 ? (
-            <Pagination
-              onPageChange={handlePaginate}
-              totalPages={totalPages}
-              pageNumber={currentPage}
-            />
-          ) : (
-            false
-          )}
         </div>
       </section>
     </Layout>
