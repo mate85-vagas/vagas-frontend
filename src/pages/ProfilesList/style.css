@@ -1,11 +1,15 @@
-section#profiles-container {
+section#main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 50px 60px;
 }
 
-section#profiles-container .right-container {
+section#main #label {
+  margin: 0 0 30px 30px;
+}
+
+section#main .right-container {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 78%;
           flex: 0 0 78%;

@@ -1,24 +1,32 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../components/Layout'
-import { SearchBox } from '../../components/FormElements'
+import { SearchBox, SelectBox } from '../../components/FormElements'
 import Aside from './Aside'
 import Pagination from '../../components/Pagination'
 import ProfileCard from './ProfileCard'
 import { useGetProfiles } from '../../hooks/profile'
 import { sanitizeStringToSearch } from '../../utils/conversions'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
+import {
+  itemsPerPageNumbers,
+  itemsPerPageOptions,
+} from '../../utils/constants/project'
 
 function ProfilesList() {
   const navigate = useNavigate()
+  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageNumbers[2])
 
-  const itensPerPage = 5
   const [searchedTerm, setSearchedTerm] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
-  const { profiles, getProfilesByQuery, count } = useGetProfiles(itensPerPage)
-  const totalPages = Math.ceil(count / itensPerPage)
+  const { profiles, getProfilesByQuery, count } = useGetProfiles(itemsPerPage)
+  const totalPages = Math.ceil(count / itemsPerPage)
+
+  useEffect(() => {
+    getProfilesByQuery(`/`)
+  }, [itemsPerPage])
 
   function handleSubmitFilters(filters) {
     let newQuery = ''
@@ -68,17 +76,31 @@ function ProfilesList() {
         />
       }
     >
-      <section id="profiles-container">
+      <section id="main">
         <Aside handleSubmitFilters={handleSubmitFilters} />
 
         <div className="right-container">
+          <div id="label">
+            <span>Vagas ({count} resultados)</span>
+            <span className="page-input-container">
+              Exibir
+              <SelectBox
+                className="page-input"
+                initialOption=""
+                value={itemsPerPage}
+                options={itemsPerPageOptions}
+                onChange={(e) => setItemsPerPage(e.target.value)}
+              />
+            </span>
+          </div>
+
           <div id="profiles">
             {profiles?.rows?.map((profile) => (
               <ProfileCard key={profile.id} profile={profile} />
             ))}
           </div>
 
-          {count / itensPerPage > 1 ? (
+          {count / itemsPerPage > 1 ? (
             <Pagination
               onPageChange={handlePaginate}
               totalPages={totalPages}
