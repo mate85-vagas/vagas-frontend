@@ -14,8 +14,8 @@ import { SearchBox, SelectBox } from '../../components/FormElements'
 import {
   itemsPerPageNumbers,
   itemsPerPageOptions,
-  jobFilterLabel,
-  jobScholarityLabel,
+  filterLabel,
+  scholarityLabel,
 } from '../../utils/constants/project'
 import Text from '../../components/Text'
 import Tag from '../../components/Tag'
@@ -46,7 +46,7 @@ function JobList() {
     if (field === 'salary' || field === 'workload')
       return `${value.min} - ${value.max}`
     if (field === 'createdAt') return localDate(value)
-    if (field === 'scholarity') return jobScholarityLabel[value]
+    if (field === 'scholarity') return scholarityLabel[value]
     return value
   }
 
@@ -61,7 +61,7 @@ function JobList() {
         {filterKeys.map((field) => (
           <Tag
             key={field}
-            label={`${jobFilterLabel[field]}: ${formatTagValue(
+            label={`${filterLabel[field]}: ${formatTagValue(
               field,
               filters[field]
             )}`}

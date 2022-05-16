@@ -66,7 +66,7 @@ function Aside({ handleSubmitFilters }) {
       <SearchBox
         inputName="technologies"
         placeholder="Pesquisar tecnologia"
-        label="Tecnologias"
+        label="Tecnologia"
         value={technologies}
         onChange={(e) => {
           setTechnologies(e.target.value)
@@ -79,7 +79,7 @@ function Aside({ handleSubmitFilters }) {
       <SearchBox
         inputName="languages"
         placeholder="Pesquisar idioma"
-        label="Idiomas"
+        label="Idioma"
         value={languages}
         onChange={(e) => {
           setLanguages(e.target.value)
@@ -92,7 +92,7 @@ function Aside({ handleSubmitFilters }) {
       <SearchBox
         inputName="knowledge"
         placeholder="Pesquisar habilidade"
-        label="Habilidades"
+        label="Habilidade"
         value={knowledge}
         onChange={(e) => {
           setKnowledge(e.target.value)

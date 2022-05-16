@@ -9,16 +9,20 @@ export const jobTypeLabel = {
   outro: 'Outro',
 }
 
-export const jobFilterLabel = {
+export const filterLabel = {
   type: 'Tipo',
   workload: 'Carga horária',
   scholarity: 'Escolaridade',
   createdAt: 'Data de criação',
   site: 'Localidade',
   salary: 'Salário',
+  name: 'Nome',
+  technologies: 'Tecnologia',
+  languages: 'Idioma',
+  knowledge: 'Habilidade',
 }
 
-export const jobScholarityLabel = {
+export const scholarityLabel = {
   supinc: 'Superior Incompleto',
   supc: 'Superior Completo',
   posgrad: 'Pós-Graduação',
@@ -30,11 +34,11 @@ export const jobTypes = Object.keys(jobTypeLabel).map((value, id) => ({
   label: jobTypeLabel[value],
 }))
 
-export const jobScholarities = Object.keys(jobScholarityLabel).map(
+export const jobScholarities = Object.keys(scholarityLabel).map(
   (value, id) => ({
     id,
     value,
-    label: jobScholarityLabel[value],
+    label: scholarityLabel[value],
   })
 )
 

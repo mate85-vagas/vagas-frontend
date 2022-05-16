@@ -4,7 +4,7 @@ import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
 import Layout from '../../components/Layout'
 import Text from '../../components/Text'
 import { localDate, numberToReais } from '../../utils/conversions'
-import { jobScholarityLabel, jobTypeLabel } from '../../utils/constants/project'
+import { scholarityLabel, jobTypeLabel } from '../../utils/constants/project'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import './styles.css'
 import { translate } from '../../utils/translations'
@@ -105,7 +105,7 @@ function JobDetails() {
                   {renderDetailItem('Localidade', `${job.site}`)}
                   {renderDetailItem(
                     'Escolaridade',
-                    `${jobScholarityLabel[job.scholarity]}`,
+                    `${scholarityLabel[job.scholarity]}`,
                     ''
                   )}
                 </div>

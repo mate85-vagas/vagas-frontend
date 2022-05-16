@@ -14,8 +14,8 @@ import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import {
   itemsPerPageNumbers,
   itemsPerPageOptions,
-  jobFilterLabel,
-  jobScholarityLabel,
+  filterLabel,
+  scholarityLabel,
 } from '../../utils/constants/project'
 import Tag from '../../components/Tag'
 
@@ -67,16 +67,23 @@ function ProfilesList() {
     }
   }
 
+  const formatTagValue = (field, value) => {
+    if (field === 'scholarity') return scholarityLabel[value]
+    return value
+  }
+
   const filterTags = () => {
     return (
       <ul className="filters filter-tags">
-        {Object.entries(filters).map(([key, value]) => (
-          <Tag
-            key={key}
-            label={`${key}: ${value}`}
-            onRemove={() => setTagToRemove(key)}
-          />
-        ))}
+        {Object.entries(filters)
+          .filter(([_, value]) => value)
+          .map(([key, value]) => (
+            <Tag
+              key={key}
+              label={`${filterLabel[key]}: ${formatTagValue(key, value)}`}
+              onRemove={() => setTagToRemove(key)}
+            />
+          ))}
       </ul>
     )
   }
