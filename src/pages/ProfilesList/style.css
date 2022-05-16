@@ -13,4 +13,8 @@
       -ms-flex: 1 0 78%;
           flex: 1 0 78%;
 }
+
+#profiles-container .right-container .filter-tags {
+  margin: 0 0 30px 30px;
+}
 /*# sourceMappingURL=style.css.map */

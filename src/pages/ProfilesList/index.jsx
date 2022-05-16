@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react'
 import './style.css'
@@ -13,11 +14,16 @@ import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import {
   itemsPerPageNumbers,
   itemsPerPageOptions,
+  jobFilterLabel,
+  jobScholarityLabel,
 } from '../../utils/constants/project'
+import Tag from '../../components/Tag'
 
 function ProfilesList() {
   const navigate = useNavigate()
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageNumbers[2])
+  const [tagToRemove, setTagToRemove] = useState('')
+  const [filters, setFilters] = useState({})
 
   const [searchedTerm, setSearchedTerm] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -28,10 +34,11 @@ function ProfilesList() {
     getProfilesByQuery(`/`)
   }, [itemsPerPage])
 
-  function handleSubmitFilters(filters) {
+  function handleSubmitFilters(filterValues) {
+    setFilters(filterValues)
     let newQuery = ''
 
-    Object.entries(filters).forEach((filter) => {
+    Object.entries(filterValues).forEach((filter) => {
       const sanitizedValue = sanitizeStringToSearch(filter[1])
       if (!sanitizedValue) return
       newQuery += `&${filter[0]}=${sanitizedValue}`
@@ -58,6 +65,20 @@ function ProfilesList() {
       setCurrentPage(1)
       getProfilesByQuery(`&pageNumber=1`)
     }
+  }
+
+  const filterTags = () => {
+    return (
+      <ul className="filters filter-tags">
+        {Object.entries(filters).map(([key, value]) => (
+          <Tag
+            key={key}
+            label={`${key}: ${value}`}
+            onRemove={() => setTagToRemove(key)}
+          />
+        ))}
+      </ul>
+    )
   }
 
   return (
@@ -100,6 +121,8 @@ function ProfilesList() {
                 />
               </span>
             </div>
+
+            {filterTags()}
 
             <div id="profiles">
               {profiles?.rows?.map((profile) => (
