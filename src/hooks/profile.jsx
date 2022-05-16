@@ -23,7 +23,11 @@ export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
   }, [route])
 
   const getProfilesByQuery = (newQuery) => {
-    setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
+    if (newQuery) {
+      setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
+    } else {
+      setRoute(route)
+    }
   }
 
   return { profiles, getProfilesByQuery, count }
