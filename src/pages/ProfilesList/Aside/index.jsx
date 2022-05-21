@@ -1,27 +1,21 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, SearchBox, SelectBox } from '../../../components/FormElements'
 import { jobScholarities } from '../../../utils/constants/project'
 import './style.css'
 
-function Aside({ handleSubmitFilters }) {
-  const [filterQuery, setFilterQuery] = useState({})
+function Aside({
+  onSubmitFilters,
+  tagToRemove,
+  onClearedFilter,
+  onClearFilters,
+}) {
   const [name, setName] = useState('')
   const [scholarity, setScholarity] = useState('')
   const [technologies, setTechnologies] = useState('')
   const [languages, setLanguages] = useState('')
   const [knowledge, setKnowledge] = useState('')
-
-  const clearFilters = () => {
-    setName('')
-    setScholarity('')
-    setTechnologies('')
-    setLanguages('')
-    setKnowledge('')
-    setFilterQuery({})
-    handleSubmitFilters({})
-  }
+  const [toSubmit, setToSubmit] = useState(false)
 
   const hasFilters = () => {
     return (
@@ -33,6 +27,48 @@ function Aside({ handleSubmitFilters }) {
     )
   }
 
+  const handleSubmitFilters = () => {
+    const filters = {}
+
+    if (name) filters.name = name
+    if (scholarity) filters.scholarity = scholarity
+    if (technologies) filters.technologies = technologies
+    if (languages) filters.languages = languages
+    if (knowledge) filters.knowledge = knowledge
+
+    onSubmitFilters(filters)
+  }
+
+  useEffect(() => {
+    if (tagToRemove === '') return
+
+    if (tagToRemove === 'all') {
+      setName('')
+      setScholarity('')
+      setTechnologies('')
+      setLanguages('')
+      setKnowledge('')
+
+      onClearedFilter()
+      return
+    }
+
+    if (tagToRemove === 'name') setName('')
+    else if (tagToRemove === 'scholarity') setScholarity('')
+    else if (tagToRemove === 'technologies') setTechnologies('')
+    else if (tagToRemove === 'languages') setLanguages('')
+    else if (tagToRemove === 'knowledge') setKnowledge('')
+
+    setToSubmit(true)
+  }, [tagToRemove])
+
+  useEffect(() => {
+    if (!toSubmit) return
+    handleSubmitFilters()
+    setToSubmit(false)
+    onClearedFilter()
+  }, [toSubmit])
+
   return (
     <aside>
       <h2>Filtros</h2>
@@ -41,26 +77,16 @@ function Aside({ handleSubmitFilters }) {
         placeholder="Pesquisar nome"
         label="Nome"
         value={name}
-        onChange={(e) => {
-          setName(e.target.value)
-          setFilterQuery((state) => {
-            return { ...state, name: e.target.value }
-          })
-        }}
+        onChange={(e) => setName(e.target.value)}
       />
 
       <SelectBox
-        options={jobScholarities}
         selectName="scholarity"
         label="Escolaridade"
         initialOption="Selecionar escolaridade"
         value={scholarity}
-        onChange={(e) => {
-          setScholarity(e.target.value)
-          setFilterQuery((state) => {
-            return { ...state, scholarity: e.target.value }
-          })
-        }}
+        options={jobScholarities}
+        onChange={(e) => setScholarity(e.target.value)}
       />
 
       <SearchBox
@@ -68,12 +94,7 @@ function Aside({ handleSubmitFilters }) {
         placeholder="Pesquisar tecnologia"
         label="Tecnologia"
         value={technologies}
-        onChange={(e) => {
-          setTechnologies(e.target.value)
-          setFilterQuery((state) => {
-            return { ...state, technologies: e.target.value }
-          })
-        }}
+        onChange={(e) => setTechnologies(e.target.value)}
       />
 
       <SearchBox
@@ -81,12 +102,7 @@ function Aside({ handleSubmitFilters }) {
         placeholder="Pesquisar idioma"
         label="Idioma"
         value={languages}
-        onChange={(e) => {
-          setLanguages(e.target.value)
-          setFilterQuery((state) => {
-            return { ...state, languages: e.target.value }
-          })
-        }}
+        onChange={(e) => setLanguages(e.target.value)}
       />
 
       <SearchBox
@@ -94,18 +110,13 @@ function Aside({ handleSubmitFilters }) {
         placeholder="Pesquisar habilidade"
         label="Habilidade"
         value={knowledge}
-        onChange={(e) => {
-          setKnowledge(e.target.value)
-          setFilterQuery((state) => {
-            return { ...state, knowledge: e.target.value }
-          })
-        }}
+        onChange={(e) => setKnowledge(e.target.value)}
       />
 
       <Button
         label="Aplicar Filtros"
         id="filters-submit"
-        onClick={() => handleSubmitFilters(filterQuery)}
+        onClick={handleSubmitFilters}
         scheme="blue"
       />
 
@@ -113,7 +124,7 @@ function Aside({ handleSubmitFilters }) {
         <Button
           label="Limpar Filtros"
           id="btn-filters-clear"
-          onClick={clearFilters}
+          onClick={onClearFilters}
           scheme="blue"
         />
       )}
@@ -122,11 +133,17 @@ function Aside({ handleSubmitFilters }) {
 }
 
 Aside.propTypes = {
-  handleSubmitFilters: PropTypes.func,
+  onSubmitFilters: PropTypes.func,
+  tagToRemove: PropTypes.string,
+  onClearedFilter: PropTypes.func,
+  onClearFilters: PropTypes.func,
 }
 
 Aside.defaultProps = {
-  handleSubmitFilters: null,
+  onSubmitFilters: () => {},
+  tagToRemove: '',
+  onClearedFilter: () => {},
+  onClearFilters: () => {},
 }
 
 export default Aside

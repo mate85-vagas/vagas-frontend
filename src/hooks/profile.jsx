@@ -3,34 +3,37 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '../api'
 
-export const useGetProfiles = (itensPerPage = 3, displayError = true) => {
-  const [profiles, setProfiles] = useState()
-  const [route, setRoute] = useState(`/perfis?itemsPerPage=${itensPerPage}`)
-  const [count, setCount] = useState()
+export const useGetProfiles = (pageNumber, itemsPerPage, filters) => {
+  const [profiles, setProfiles] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
+  const [count, setCount] = useState(0)
 
-  useEffect(async () => {
-    if (route) {
-      const response = await api.get(route)
-
-      if (response.data.message) {
-        if (displayError) toast.error(response.data.message)
-        return
-      }
-
-      setProfiles(response.data)
-      setCount(response.data.count)
-    }
-  }, [route])
-
-  const getProfilesByQuery = (newQuery) => {
-    if (newQuery) {
-      setRoute(`/perfis?itemsPerPage=${itensPerPage}${newQuery}`)
-    } else {
-      setRoute(route)
-    }
+  const buildQuery = () => {
+    const query = []
+    query.push(`pageNumber=${pageNumber}`)
+    query.push(`itemsPerPage=${itemsPerPage}`)
+    Object.keys(filters).forEach((field) => {
+      if (field === 'filter' && filters[field]) {
+        query.push(`technologies=${filters[field]}`)
+      } else if (filters[field]) query.push(`${field}=${filters[field]}`)
+    })
+    return query.join('&')
   }
 
-  return { profiles, getProfilesByQuery, count }
+  useEffect(async () => {
+    const response = await api.get(`/perfis?${buildQuery()}`)
+
+    if (response.data.error && response.data.message) {
+      toast.error(response.data.message)
+      return
+    }
+
+    setProfiles(response.data.rows)
+    setCount(response.data.count)
+    setTotalPages(Math.ceil(response.data.count / itemsPerPage))
+  }, [pageNumber, itemsPerPage, filters])
+
+  return { profiles, totalPages, count }
 }
 
 export const useGetProfileById = (id, displayError = true) => {

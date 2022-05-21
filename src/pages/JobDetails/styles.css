@@ -9,17 +9,16 @@
 
 .detail-top-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   justify-content: space-between;
-  padding-bottom: 64px;
+  padding-bottom: 40px;
   margin-bottom: 30px;
   border-bottom: 1px solid var(--color-border);
 }
 
-.description-title {
-  margin-top: 45px;
-  margin-bottom: 15px;
+.job-description {
+  margin-left: 40px;
 }
 
 .description-container {
@@ -32,7 +31,11 @@
   padding: 30px;
   min-width: 30vw;
   max-width: 380px;
-  margin-left: 50px;
+}
+
+.description-top-container {
+  display: flex;
+  margin-top: 30px;
 }
 
 .side-detail-item {

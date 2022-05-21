@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import Layout from '../../components/Layout'
@@ -7,6 +7,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal'
 import Text from '../../components/Text'
 import { useJobRoutes } from '../../hooks/jobs'
 import useAuth from '../../hooks/useAuth'
+import { useSearchObject } from '../../hooks/url'
 import { useGetAppliedJobs, useGetCreatedJobs } from '../../hooks/user'
 import { translate } from '../../utils/translations'
 import MyJobCard from './MyJobCard'
@@ -16,9 +17,13 @@ import './styles.css'
 // can edit the ones they created and add new jobs
 function MyJob() {
   const navigate = useNavigate()
+  const [search] = useSearchObject()
+
+  const showCreatedJobs = useMemo(() => search.criadas === '1', [search])
+
   const { userId } = useAuth()
 
-  const [isCreatedJobs, setIsCreatedJobs] = useState(false)
+  const [isCreatedJobs, setIsCreatedJobs] = useState(showCreatedJobs)
   const [modalJob, setModalJob] = useState()
 
   const {

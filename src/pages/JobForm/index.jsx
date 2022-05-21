@@ -123,7 +123,7 @@ function JobForm() {
       }
     }
 
-    navigate('/minhasvagas')
+    navigate('/minhasvagas?criadas=1')
   }
 
   const onSave = (e) => {
@@ -134,7 +134,7 @@ function JobForm() {
 
   const onDeleteJob = async () => {
     await deleteJob(jobId).then(() => {
-      navigate('/minhasvagas')
+      navigate('/minhasvagas?criadas=1')
     })
   }
 

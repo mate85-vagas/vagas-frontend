@@ -24,6 +24,7 @@ function JobDetails() {
   const { appliedJobs } = useGetAppliedJobs(userId)
 
   const [modalOpened, setModalOpened] = useState(false)
+  const [errorModalOpened, setErrorModalOpened] = useState(false)
 
   const isJobApplied = useMemo(
     () =>
@@ -34,9 +35,12 @@ function JobDetails() {
 
   const onApplyToJob = async () => {
     await applyToJob(parseInt(params.id, 10), parseInt(userId, 10)).then(
-      (hasError) => {
+      ({ error: hasError, emptyProfile }) => {
         if (!hasError) navigate('/minhasvagas')
-        else setModalOpened(false)
+        else {
+          setModalOpened(false)
+          if (emptyProfile) setErrorModalOpened(true)
+        }
       }
     )
   }
@@ -64,6 +68,13 @@ function JobDetails() {
         onCancel={() => setModalOpened(false)}
         opened={modalOpened}
       />
+      <ConfirmModal
+        title="Erro na aplicação de vaga"
+        description="Para aplicar para qualquer vaga, é necessário ter um perfil. Deseja ir para a página de criar perfil?"
+        onConfirm={() => navigate('/editardados')}
+        onCancel={() => setErrorModalOpened(false)}
+        opened={errorModalOpened}
+      />
       <div className="job-details">
         <div className="card detail-card">
           {job && user ? (
@@ -75,39 +86,47 @@ function JobDetails() {
                     text={job.title}
                     size={24}
                   />
-                  <Text text={user.name} size={22} />
-                  <Text
-                    className="is-blue is-bold description-title"
-                    text="Descrição da vaga"
-                    size={20}
-                  />
-                  <Text
-                    className="description-container"
-                    text={job.description}
-                    size={18}
-                  />
                 </div>
-                <div className="detail-menu">
-                  {renderDetailItem(
-                    'Período da Candidatura',
-                    `${localDate(job.createdAt)} - ${localDate(job.endingDate)}`
-                  )}
-                  {renderDetailItem(
-                    'Início do Trabalho',
-                    `${localDate(job.startingDate)}`
-                  )}
-                  {renderDetailItem(
-                    'Tipo de Vaga',
-                    `${jobTypeLabel[job.type]}`
-                  )}
-                  {renderDetailItem('Carga horária', `${job.workload} horas`)}
-                  {renderDetailItem('Salário', `${numberToReais(job.salary)}`)}
-                  {renderDetailItem('Localidade', `${job.site}`)}
-                  {renderDetailItem(
-                    'Escolaridade',
-                    `${scholarityLabel[job.scholarity]}`,
-                    ''
-                  )}
+                <div className="description-top-container">
+                  <div className="detail-menu">
+                    {renderDetailItem(
+                      'Período da Candidatura',
+                      `${localDate(job.createdAt)} - ${localDate(
+                        job.endingDate
+                      )}`
+                    )}
+                    {renderDetailItem(
+                      'Início do Trabalho',
+                      `${localDate(job.startingDate)}`
+                    )}
+                    {renderDetailItem(
+                      'Tipo de Vaga',
+                      `${jobTypeLabel[job.type]}`
+                    )}
+                    {renderDetailItem('Carga horária', `${job.workload} horas`)}
+                    {renderDetailItem(
+                      'Salário',
+                      `${numberToReais(job.salary)}`
+                    )}
+                    {renderDetailItem('Localidade', `${job.site}`)}
+                    {renderDetailItem(
+                      'Escolaridade',
+                      `${scholarityLabel[job.scholarity]}`,
+                      ''
+                    )}
+                  </div>
+                  <div className="job-description">
+                    <Text
+                      className="is-blue is-bold"
+                      text="Descrição da vaga"
+                      size={20}
+                    />
+                    <Text
+                      className="description-container"
+                      text={job.description}
+                      size={18}
+                    />
+                  </div>
                 </div>
               </div>
               <div>

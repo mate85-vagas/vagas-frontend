@@ -116,7 +116,7 @@ export const useJobRoutes = () => {
       else toast.success(response.data.message)
     }
 
-    return response.data.error
+    return response.data
   }
 
   return { createJob, updateJob, deleteJob, applyToJob }

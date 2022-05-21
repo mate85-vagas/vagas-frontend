@@ -3,9 +3,13 @@
 export const jobTypeLabel = {
   estagio: 'Estágio',
   trabalho: 'Trabalho',
+  iniccient: 'Iniciação Cientifica',
+  tcc: 'TCC',
+  mestrado: 'Mestrado',
+  doutorado: 'Doutorado',
   extensao: 'Extensão',
-  complementar: 'Complementar',
   pesquisa: 'Pesquisa',
+  complementar: 'Complementar',
   outro: 'Outro',
 }
 
@@ -23,6 +27,7 @@ export const filterLabel = {
 }
 
 export const scholarityLabel = {
+  notgrad: 'Não Graduado',
   supinc: 'Superior Incompleto',
   supc: 'Superior Completo',
   posgrad: 'Pós-Graduação',
