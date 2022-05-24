@@ -23,7 +23,7 @@
 
 .header-right-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   flex-grow: 1;
@@ -37,7 +37,7 @@
 
 .header-left-container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   flex-grow: 1;
 }
 

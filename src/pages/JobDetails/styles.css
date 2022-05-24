@@ -55,7 +55,7 @@
 .btn-apply-container {
   display: flex;
   flex-grow: 1;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   margin-left: 20px;
 }
