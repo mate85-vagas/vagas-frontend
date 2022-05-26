@@ -13,6 +13,7 @@ import ViewProfile from '../pages/ViewProfile'
 import JobForm from '../pages/JobForm'
 import ProfilesList from '../pages/ProfilesList'
 import MyJob from '../pages/MyJobs'
+import ManageSystem from '../pages/ManageSystem'
 
 // Component to define the frontend routes and the privacy of each one
 function AppRoutes() {
@@ -59,6 +60,10 @@ function AppRoutes() {
 
         <Route exact path="/minhasvagas" element={<PrivateRoute />}>
           <Route exact path="/minhasvagas" element={<MyJob />} />
+        </Route>
+
+        <Route exact path="/gerenciarsistema" element={<PrivateRoute />}>
+          <Route exact path="/gerenciarsistema" element={<ManageSystem />} />
         </Route>
       </Routes>
     </Router>

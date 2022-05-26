@@ -1,12 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
+import { useGetUserById } from '../../../hooks/user'
 import Text from '../../Text'
 import './styles.css'
 
 function UserAvatar() {
   const navigate = useNavigate()
   const { logout, userId } = useAuth()
+
+  const user = useGetUserById(userId)
 
   const dropdownItem = (label, onClick) => (
     <div className="dropdown-item">
@@ -35,6 +38,11 @@ function UserAvatar() {
         <div className="dropdown-content">
           {dropdownItem('Ver Perfil', () => navigate(`/verperfil/${userId}`))}
           {dropdownItem('Editar Dados', () => navigate('/editardados'))}
+          {user &&
+            user.isAdmin &&
+            dropdownItem('Gerenciar Sistema', () =>
+              navigate('/gerenciarsistema')
+            )}
           {dropdownItem('Sair', logout)}
         </div>
       </div>

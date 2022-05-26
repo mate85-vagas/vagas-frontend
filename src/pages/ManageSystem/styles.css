@@ -1,0 +1,90 @@
+.manage-system {
+  padding: 70px;
+  display: flex;
+}
+
+.manage-system .options {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-right: 50px;
+  gap: 20px;
+}
+
+.manage-system .option {
+  padding: 19px;
+}
+
+.manage-system .option-selected {
+  background-color: var(--color-two);
+}
+
+.manage-system .manage-container {
+  flex-grow: 1;
+  height: fit-content;
+  padding: 35px;
+}
+
+.manage-system .option-card-title {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.manage-system .option-card-content {
+  display: flex;
+  margin-top: 21px;
+}
+
+.manage-system .option-card-content .text-input {
+  margin-top: 0px;
+  margin-right: 16px;
+  flex-grow: 1;
+}
+
+.manage-system .option-card-content .btn-rect {
+  height: 40px;
+}
+
+.manage-system .option-card-content .btn-rect .text {
+  font-size: 15px !important;
+}
+
+.view-profile .card-title {
+  padding-bottom: 23px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 23px;
+}
+
+.view-profile .text-input {
+  flex-grow: 1;
+  width: 50%;
+}
+
+.view-profile .text {  
+  overflow-wrap: anywhere;
+}
+
+.view-profile .margin-input {
+  padding-right: 20px;
+}
+
+.profile-row {
+  display: flex;
+  width: 100%;
+}
+
+.profile-row.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.profile-field {
+  width: 50%;
+}
+
+.view-profile .filters {
+  margin-top: 7px;
+}
+
+.view-profile .btn-edit-profile {
+  margin-top: 30px;
+}
