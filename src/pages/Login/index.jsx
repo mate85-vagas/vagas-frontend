@@ -11,6 +11,7 @@ import { translate } from '../../utils/translations'
 import { keepQueryOnUrl } from '../../utils/conversions'
 import { useSearchObject } from '../../hooks/url'
 import './styles.css'
+import ResetPasswordModal from '../../components/Modals/ResetPassword'
 
 // Component that renders the page to login
 function Login() {
@@ -37,6 +38,10 @@ function Login() {
     return isEmailInvalid() || isPasswordInvalid()
   }
 
+  const [resetPasswordModalOpened, setResetPasswordModalOpened] =
+    useState(false)
+  const [emailResetPassword, setEmailResetPassword] = useState('')
+
   const submitLogin = async (e) => {
     e.preventDefault()
 
@@ -52,8 +57,24 @@ function Login() {
     }
   }
 
+  const handleResetPasswordConfirm = () => {
+    if (emailResetPassword !== '') {
+      setResetPasswordModalOpened(false)
+      navigate('/resetarsenha')
+    }
+  }
+
   return (
     <div className="auth-page">
+      <ResetPasswordModal
+        title="Recuperar Acesso"
+        description="Insira o email cadastrado no sistema para receber o link de recuperação de senha."
+        emailResetPassword={emailResetPassword}
+        onEmailChange={setEmailResetPassword}
+        onCancel={() => setResetPasswordModalOpened(false)}
+        onConfirm={() => handleResetPasswordConfirm()}
+        opened={resetPasswordModalOpened}
+      />
       <div className="auth-left-container">
         <IconIC height={150} />
         <Text
@@ -97,6 +118,17 @@ function Login() {
               <Text className="is-white" text="Entrar" size={18} />
             </button>
           </form>
+          <button
+            className="button is-ghost btn-reset-password"
+            type="button"
+            onClick={() => setResetPasswordModalOpened(true)}
+          >
+            <Text
+              className="is-gray is-italic"
+              text="Esqueceu sua senha?"
+              size={15}
+            />
+          </button>
           <button
             className="button is-ghost btn-register-call"
             type="button"
