@@ -14,6 +14,7 @@ const translations = {
   no_options: 'Sem opções',
   applied_job_warning:
     'Fique atento ao seu e-mail, pois os responsáveis pelas vagas aplicadas poderão entrar em contato até que o prazo de candidaturas se encerre!',
+  getting_configs: 'Buscando configurações...',
 }
 
 // Translates a key to a text

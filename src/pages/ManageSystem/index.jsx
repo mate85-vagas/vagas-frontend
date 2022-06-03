@@ -4,6 +4,8 @@ import Layout from '../../components/Layout'
 import Text from '../../components/Text'
 import useAuth from '../../hooks/useAuth'
 import { useGetUserById } from '../../hooks/user'
+import EnableEmailList from './EnableEmailList'
+import ManageEmailList from './ManageEmailList'
 import SendInvite from './SendInvite'
 import './styles.css'
 
@@ -16,12 +18,12 @@ const optionsSettings = [
   {
     optionName: 'Gerenciar Listas',
     cardTitle: 'Gerenciar listas de divulgação',
-    cardComponent: () => <SendInvite />,
+    cardComponent: () => <ManageEmailList />,
   },
   {
     optionName: 'Permissões',
     cardTitle: 'Permissões de administrador',
-    cardComponent: () => <SendInvite />,
+    cardComponent: () => <EnableEmailList />,
   },
 ]
 

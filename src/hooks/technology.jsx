@@ -1,9 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import api from '../api'
+import { handleNotAuthorized } from '../utils/requests'
 
 export const useGetTechnologies = () => {
+  const navigate = useNavigate()
+
   const [technologies, setTechnologies] = useState([])
 
   useEffect(async () => {
@@ -12,6 +16,7 @@ export const useGetTechnologies = () => {
     if (response.data.message) {
       if (response.data.error) {
         toast.error(response.data.message)
+        handleNotAuthorized(response, navigate)
         return
       }
       toast.success(response.data.message)
@@ -24,6 +29,8 @@ export const useGetTechnologies = () => {
 }
 
 export const useTechnologyRoutes = () => {
+  const navigate = useNavigate()
+
   const createTechnology = async (descriptions) => {
     if (!descriptions || descriptions.length === 0) {
       toast.error(
@@ -41,6 +48,8 @@ export const useTechnologyRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   return { createTechnology }
