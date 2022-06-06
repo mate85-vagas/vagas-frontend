@@ -32,7 +32,7 @@ function AppRoutes() {
         <Route path="/" exact element={<JobList />} />
         <Route path="/vagas/:id" exact element={<JobDetails />} />
         <Route path="/verperfil/:id" exact element={<ViewProfile />} />
-        <Route path="/resetarsenha" exact element={<ResetPassword />} />
+        <Route path="/resetarsenha/:token" exact element={<ResetPassword />} />
 
         <Route path="/perfis" exact element={<ProfilesList />} />
 

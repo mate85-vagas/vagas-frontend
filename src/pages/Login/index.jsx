@@ -12,6 +12,7 @@ import { keepQueryOnUrl } from '../../utils/conversions'
 import { useSearchObject } from '../../hooks/url'
 import './styles.css'
 import ResetPasswordModal from '../../components/Modals/ResetPassword'
+import { usePasswordRecovery } from '../../hooks/user'
 
 // Component that renders the page to login
 function Login() {
@@ -41,6 +42,7 @@ function Login() {
   const [resetPasswordModalOpened, setResetPasswordModalOpened] =
     useState(false)
   const [emailResetPassword, setEmailResetPassword] = useState('')
+  const { sendRecoveryLink } = usePasswordRecovery()
 
   const submitLogin = async (e) => {
     e.preventDefault()
@@ -59,8 +61,10 @@ function Login() {
 
   const handleResetPasswordConfirm = () => {
     if (emailResetPassword !== '') {
+      sendRecoveryLink({ email: emailResetPassword })
+        .then(() => toast.success('Link enviado!'))
+        .catch(() => toast.error('Algo não funcionou como esperado'))
       setResetPasswordModalOpened(false)
-      navigate('/resetarsenha')
     }
   }
 
