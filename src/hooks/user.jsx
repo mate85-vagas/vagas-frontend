@@ -1,10 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import api from '../api'
 import { assignDefined } from '../utils/object'
+import { handleNotAuthorized } from '../utils/requests'
 
 export const useGetUserById = (id) => {
+  const navigate = useNavigate()
   const [user, setUser] = useState()
 
   useEffect(async () => {
@@ -14,6 +17,7 @@ export const useGetUserById = (id) => {
     if (response.data.message) {
       if (response.data.error) {
         toast.error(response.data.message)
+        handleNotAuthorized(response, navigate)
         return
       }
       toast.success(response.data.message)
@@ -26,6 +30,7 @@ export const useGetUserById = (id) => {
 }
 
 export const useGetCreatedJobs = (userId) => {
+  const navigate = useNavigate()
   const [createdJobs, setCreatedJobs] = useState([])
   const [count, setCount] = useState(0)
 
@@ -36,6 +41,7 @@ export const useGetCreatedJobs = (userId) => {
     if (response.data.message) {
       if (response.data.error) {
         toast.error(response.data.message)
+        handleNotAuthorized(response, navigate)
         return
       }
       toast.success(response.data.message)
@@ -53,6 +59,7 @@ export const useGetCreatedJobs = (userId) => {
 }
 
 export const useGetAppliedJobs = (userId) => {
+  const navigate = useNavigate()
   const [appliedJobs, setAppliedJobs] = useState([])
   const [count, setCount] = useState(0)
 
@@ -63,6 +70,7 @@ export const useGetAppliedJobs = (userId) => {
     if (response.data.message) {
       if (response.data.error) {
         toast.error(response.data.message)
+        handleNotAuthorized(response, navigate)
         return
       }
       toast.success(response.data.message)
@@ -80,6 +88,8 @@ export const useGetAppliedJobs = (userId) => {
 }
 
 export const useUserRoutes = () => {
+  const navigate = useNavigate()
+
   const updateUser = async (id, { name, email, password }) => {
     const userUpdateData = assignDefined({}, { name, email, password })
     const response = await api.patch(`/usuarios/${id}`, userUpdateData)
@@ -88,6 +98,8 @@ export const useUserRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   return { updateUser }

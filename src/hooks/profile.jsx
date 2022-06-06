@@ -1,7 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import api from '../api'
+import { handleNotAuthorized } from '../utils/requests'
 
 export const useGetProfiles = (pageNumber, itemsPerPage, filters) => {
   const [profiles, setProfiles] = useState([])
@@ -55,6 +57,8 @@ export const useGetProfileById = (id, displayError = true) => {
 }
 
 export const useProfileRoutes = () => {
+  const navigate = useNavigate()
+
   const createProfile = async (
     userId,
     birthDate,
@@ -83,6 +87,8 @@ export const useProfileRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   const updateProfile = async (
@@ -114,6 +120,8 @@ export const useProfileRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   const deleteProfile = async (id) => {
@@ -123,6 +131,8 @@ export const useProfileRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   return { createProfile, updateProfile, deleteProfile }

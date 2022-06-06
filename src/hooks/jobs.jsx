@@ -1,7 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import api from '../api'
+import { handleNotAuthorized } from '../utils/requests'
 
 export const useGetJobById = (id) => {
   const [job, setJob] = useState()
@@ -28,6 +30,8 @@ export const useGetJobById = (id) => {
 }
 
 export const useJobRoutes = () => {
+  const navigate = useNavigate()
+
   const createJob = async (
     description,
     scholarity,
@@ -60,7 +64,10 @@ export const useJobRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
+
   const updateJob = async (
     jobId,
     description,
@@ -94,6 +101,8 @@ export const useJobRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   const deleteJob = async (id) => {
@@ -103,6 +112,8 @@ export const useJobRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
   }
 
   const applyToJob = async (jobId, userId) => {
@@ -115,6 +126,8 @@ export const useJobRoutes = () => {
       if (response.data.error) toast.error(response.data.message)
       else toast.success(response.data.message)
     }
+
+    handleNotAuthorized(response, navigate)
 
     return response.data
   }
