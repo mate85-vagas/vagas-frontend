@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background-image: url("../../background.jpg");
-  background-size:     cover;
-  background-repeat:   no-repeat;
+  background-image: url('../../background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .auth-left-container {
@@ -61,6 +61,10 @@
 
 .auth-page .btn-register-call:focus {
   box-shadow: none;
+}
+
+.auth-page .btn-reset-password {
+  margin: 20px auto -5px auto;
 }
 
 .auth-header {

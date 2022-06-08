@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import api from '../api'
@@ -103,4 +103,21 @@ export const useUserRoutes = () => {
   }
 
   return { updateUser }
+}
+
+export const usePasswordRecovery = () => {
+  const sendRecoveryLink = useCallback(async (body) => {
+    return new Promise((resolve, reject) => {
+      api
+        .post('/usuarios/recuperacao/senha', body)
+        .then((response) => {
+          console.log(response)
+
+          resolve()
+        })
+        .catch(reject)
+    })
+  }, [])
+
+  return { sendRecoveryLink }
 }

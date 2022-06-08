@@ -1,0 +1,23 @@
+.reset-password-page {
+  margin: 50px;
+  padding: 35px;
+  background-color: var(--color-one);
+  -webkit-box-shadow: var(--shadow-default);
+          box-shadow: var(--shadow-default);
+  border-radius: var(--border-radius);
+}
+
+.reset-password-page-title {
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 24px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--color-background);
+}
+
+.reset-password-page-button {
+  margin: 30px auto 0 auto;
+  min-width: 300px;
+}
+/*# sourceMappingURL=style.css.map */

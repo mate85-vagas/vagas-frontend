@@ -14,6 +14,7 @@ import JobForm from '../pages/JobForm'
 import ProfilesList from '../pages/ProfilesList'
 import MyJob from '../pages/MyJobs'
 import ManageSystem from '../pages/ManageSystem'
+import ResetPassword from '../pages/ResetPassword'
 
 // Component to define the frontend routes and the privacy of each one
 function AppRoutes() {
@@ -31,6 +32,7 @@ function AppRoutes() {
         <Route path="/" exact element={<JobList />} />
         <Route path="/vagas/:id" exact element={<JobDetails />} />
         <Route path="/verperfil/:id" exact element={<ViewProfile />} />
+        <Route path="/resetarsenha/:token" exact element={<ResetPassword />} />
 
         <Route path="/perfis" exact element={<ProfilesList />} />
 
