@@ -42,7 +42,8 @@ export const useJobRoutes = () => {
     salary,
     endingDate,
     startingDate,
-    userId
+    userId,
+    emailsToSend
   ) => {
     if (startingDate === undefined || endingDate === undefined)
       toast.error('Os campos "Inicio" e "Fim" não podem estar vazio.')
@@ -58,6 +59,7 @@ export const useJobRoutes = () => {
       endingDate,
       startingDate,
       userId,
+      emailsToSend,
     })
 
     if (response.data.message) {

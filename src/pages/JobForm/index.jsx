@@ -5,8 +5,10 @@ import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import { DateBox, SelectBox } from '../../components/FormElements'
 import Layout from '../../components/Layout'
 import ConfirmModal from '../../components/Modals/ConfirmModal'
+import TagInput from '../../components/TagInput'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
+import { useGetEmailLists, useGetEmailListState } from '../../hooks/admin'
 import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
 import { useSearchObject } from '../../hooks/url'
 import useAuth from '../../hooks/useAuth'
@@ -16,6 +18,7 @@ import {
   jobTypes,
 } from '../../utils/constants/project'
 import { translate } from '../../utils/translations'
+import { isEmailValid } from '../../utils/validations'
 import './styles.css'
 
 // Component that renders the page to create, edit or delete a job
@@ -30,6 +33,9 @@ function JobForm() {
 
   const { job, jobId } = useGetJobById(params.id)
 
+  const { emailLists } = useGetEmailLists()
+  const { state: emailListState } = useGetEmailListState()
+
   const [deleteModalOpened, setDeleteModalOpened] = useState(false)
   const [saveModalOpened, setSaveModalOpened] = useState(false)
   const [createModalOpened, setCreateModalOpened] = useState(false)
@@ -43,6 +49,7 @@ function JobForm() {
   const [type, setType] = useState('')
   const [workload, setWorkload] = useState('')
   const [salary, setSalary] = useState(DEFAULT_SALARY)
+  const [emailsToSend, setEmailsToSend] = useState([])
 
   const [hasError, setHasError] = useState(false)
 
@@ -104,7 +111,8 @@ function JobForm() {
           salary || DEFAULT_SALARY,
           endingDate,
           startingDate,
-          userId
+          userId,
+          emailsToSend
         )
       } else if (job) {
         await updateJob(
@@ -136,6 +144,18 @@ function JobForm() {
     await deleteJob(jobId).then(() => {
       navigate('/minhasvagas?criadas=1')
     })
+  }
+
+  const updateEmailToSend = (emails) => {
+    setEmailsToSend(
+      emails.filter((email) => {
+        if (!isEmailValid(email)) {
+          toast.error(`O e-mail '${email}' não é válido, digite novamente!`)
+          return false
+        }
+        return true
+      })
+    )
   }
 
   useEffect(() => {
@@ -247,11 +267,25 @@ function JobForm() {
           />
         </div>
         {isCreationForm ? (
-          <ButtonRectangle
-            className="btn-save is-blue"
-            label="Criar Vaga"
-            isSubmit
-          />
+          <>
+            {emailListState && (
+              <div className="form-horizontal">
+                <TagInput
+                  className="tag-input"
+                  label="Divulgar vaga para quais listas de e-mail?"
+                  autoComplete={false}
+                  tags={emailsToSend}
+                  setValue={updateEmailToSend}
+                  selectOptions={emailLists.map((emailList) => emailList.email)}
+                />
+              </div>
+            )}
+            <ButtonRectangle
+              className="btn-save is-blue"
+              label="Criar Vaga"
+              isSubmit
+            />
+          </>
         ) : (
           <div className="form-horizontal">
             <ButtonRectangle

@@ -6,7 +6,7 @@ import IconIC from '../../components/IconIC'
 import TextInput from '../../components/TextInput'
 import ButtonArrow from '../../components/Buttons/ButtonArrow'
 import useAuth from '../../hooks/useAuth'
-import { isEmailValid } from '../../utils/validations'
+import { isEmailValid, isPasswordValid } from '../../utils/validations'
 import { translate } from '../../utils/translations'
 import './styles.css'
 import { keepQueryOnUrl } from '../../utils/conversions'
@@ -30,7 +30,7 @@ function Register() {
 
   const isNameInvalid = () => name === ''
   const isEmailInvalid = () => !isEmailValid(email)
-  const isPasswordInvalid = () => password === ''
+  const isPasswordInvalid = () => !isPasswordValid(password)
 
   const isFieldsInvalid = () => {
     return isNameInvalid() || isEmailInvalid() || isPasswordInvalid()

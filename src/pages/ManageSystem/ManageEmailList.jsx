@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
@@ -10,18 +9,16 @@ import {
   useGetEmailLists,
   useGetEmailListState,
 } from '../../hooks/admin'
-import useAuth from '../../hooks/useAuth'
 import { translate } from '../../utils/translations'
 import { isEmailValid } from '../../utils/validations'
 import './styles.css'
 
 function ManageEmailList() {
   const navigate = useNavigate()
-  const { userId } = useAuth()
   const [emailTags, setEmailTags] = useState([])
 
-  const { emailLists } = useGetEmailLists(userId)
-  const { updateEmailList } = useAdminRoutes()
+  const { emailLists } = useGetEmailLists()
+  const { createEmailList, deleteEmailList } = useAdminRoutes()
 
   const { state: emailListState } = useGetEmailListState()
 
@@ -38,7 +35,20 @@ function ManageEmailList() {
   }
 
   const saveEmailLists = () => {
-    updateEmailList(emailTags, emailListState).then(() => navigate('/'))
+    const savedEmails = emailLists.map((emailList) => emailList.email)
+    const newEmails = emailTags.filter((email) => !savedEmails.includes(email))
+    const deleteEmails = emailLists
+      .filter((emailList) => !emailTags.includes(emailList.email))
+      .map((emailList) => emailList.id)
+
+    if (newEmails.length > 0)
+      createEmailList(newEmails, emailListState).then(async () => {
+        await deleteEmailList(deleteEmails)
+        navigate('/')
+      })
+    else if (deleteEmails.length > 0)
+      deleteEmailList(deleteEmails).then(() => navigate('/'))
+    else navigate('/')
   }
 
   useEffect(() => {

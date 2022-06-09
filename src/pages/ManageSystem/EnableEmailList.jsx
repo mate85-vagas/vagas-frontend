@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Text from '../../components/Text'
 import { useAdminRoutes, useGetEmailListState } from '../../hooks/admin'
-import useAuth from '../../hooks/useAuth'
 import { translate } from '../../utils/translations'
 import './styles.css'
 
 function EnableEmailList() {
-  const { userId } = useAuth()
   const [enabled, setEnabled] = useState(true)
 
   const { manageEmailListState } = useAdminRoutes()
   const { state: emailListState } = useGetEmailListState()
 
   const changeState = () => {
-    manageEmailListState(!enabled, userId)
+    manageEmailListState(!enabled)
     setEnabled(!enabled)
   }
 

@@ -60,12 +60,17 @@ function Login() {
   }
 
   const handleResetPasswordConfirm = () => {
-    if (emailResetPassword !== '') {
-      sendRecoveryLink({ email: emailResetPassword })
-        .then(() => toast.success('Link enviado!'))
-        .catch(() => toast.error('Algo não funcionou como esperado'))
-      setResetPasswordModalOpened(false)
+    if (!isEmailValid(emailResetPassword)) {
+      toast.error('Por favor, digite um e-mail válido!')
+      return
     }
+
+    sendRecoveryLink({ email: emailResetPassword })
+      .then(() =>
+        toast.success('Link enviado para o e-mail caso a conta exista!')
+      )
+      .catch(() => toast.error('Algo não funcionou como esperado'))
+    setResetPasswordModalOpened(false)
   }
 
   return (

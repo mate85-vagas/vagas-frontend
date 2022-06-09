@@ -7,6 +7,7 @@ import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import TextInput from '../../components/TextInput'
 import './style.css'
 import { usePasswordRecovery } from '../../hooks/user'
+import { isPasswordValid } from '../../utils/validations'
 
 const ResetPassword = () => {
   const params = useParams()
@@ -19,6 +20,11 @@ const ResetPassword = () => {
 
   const handleSubmitPassword = () => {
     if (password === password2) {
+      if (!isPasswordValid(password)) {
+        toast.error('A senha precisa ter no mínimo 6 dígitos!')
+        return
+      }
+
       sendRecoveryLink({ token, password })
         .then(() => {
           toast.success('Senha alterada')

@@ -111,7 +111,10 @@ export const usePasswordRecovery = () => {
       api
         .post('/usuarios/recuperacao/senha', body)
         .then((response) => {
-          console.log(response)
+          if (response.data.error) {
+            reject()
+            return
+          }
 
           resolve()
         })

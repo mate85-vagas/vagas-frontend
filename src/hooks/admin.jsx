@@ -5,14 +5,12 @@ import { toast } from 'react-toastify'
 import api from '../api'
 import { handleNotAuthorized } from '../utils/requests'
 
-export const useGetEmailLists = (userId) => {
+export const useGetEmailLists = () => {
   const navigate = useNavigate()
   const [emailLists, setEmailLists] = useState([])
 
   useEffect(async () => {
-    if (!userId) return
-
-    const response = await api.get(`/email-list`, { userId })
+    const response = await api.get(`/email-list`)
 
     if (response.data.message && response.data.error) {
       toast.error(response.data.message)
@@ -20,15 +18,15 @@ export const useGetEmailLists = (userId) => {
       return
     }
 
-    setEmailLists(response.data)
-  }, [userId])
+    setEmailLists(response.data.rows)
+  }, [])
 
   return { emailLists }
 }
 
 export const useGetEmailListState = () => {
   const navigate = useNavigate()
-  const [state, setState] = useState()
+  const [state, setState] = useState(true)
 
   useEffect(async () => {
     const response = await api.get(`/email-list/verificacao`)
@@ -39,7 +37,7 @@ export const useGetEmailListState = () => {
       return
     }
 
-    setState(response.data)
+    setState(response.data.status)
   }, [])
 
   return { state }
@@ -59,8 +57,8 @@ export const useAdminRoutes = () => {
     handleNotAuthorized(response, navigate)
   }
 
-  const manageEmailListState = async (state, userId) => {
-    const response = await api.patch(`/email-list`, { state, userId })
+  const manageEmailListState = async (state) => {
+    const response = await api.patch(`/email-list`, { state })
 
     if (response.data.message) {
       if (response.data.error) toast.error(response.data.message)
@@ -70,7 +68,7 @@ export const useAdminRoutes = () => {
     handleNotAuthorized(response, navigate)
   }
 
-  const updateEmailList = async (emails, state) => {
+  const createEmailList = async (emails, state) => {
     return new Promise((resolve, reject) => {
       api
         .post(
@@ -92,9 +90,30 @@ export const useAdminRoutes = () => {
     })
   }
 
+  const deleteEmailList = async (ids) => {
+    return new Promise((resolve, reject) => {
+      api
+        .delete(`/email-list/${ids.join(',')}`)
+        .then((response) => {
+          if (response.data.message) {
+            if (response.data.error) {
+              toast.error(response.data.message)
+              handleNotAuthorized(response, navigate)
+              reject()
+            } else {
+              toast.success(response.data.message)
+              resolve()
+            }
+          }
+        })
+        .catch(reject)
+    })
+  }
+
   return {
     sendInvite,
     manageEmailListState,
-    updateEmailList,
+    createEmailList,
+    deleteEmailList,
   }
 }
