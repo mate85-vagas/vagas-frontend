@@ -150,7 +150,10 @@ function JobList() {
               initialOption=""
               value={itemsPerPage}
               options={itemsPerPageOptions}
-              onChange={(e) => setItemsPerPage(e.target.value)}
+              onChange={(e) => {
+                setItemsPerPage(e.target.value)
+                setPageNumber(1)
+              }}
             />
           </span>
         </div>

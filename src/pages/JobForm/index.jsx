@@ -277,6 +277,7 @@ function JobForm() {
                   tags={emailsToSend}
                   setValue={updateEmailToSend}
                   selectOptions={emailLists.map((emailList) => emailList.email)}
+                  creatable={false}
                 />
               </div>
             )}

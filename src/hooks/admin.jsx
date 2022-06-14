@@ -9,7 +9,13 @@ export const useGetEmailLists = () => {
   const navigate = useNavigate()
   const [emailLists, setEmailLists] = useState([])
 
+  const [fetch, setFetch] = useState(true)
+
+  const refresh = () => setFetch(true)
+
   useEffect(async () => {
+    if (!fetch) return
+
     const response = await api.get(`/email-list`)
 
     if (response.data.message && response.data.error) {
@@ -18,15 +24,16 @@ export const useGetEmailLists = () => {
       return
     }
 
+    setFetch(false)
     setEmailLists(response.data.rows)
-  }, [])
+  }, [fetch])
 
-  return { emailLists }
+  return { emailLists, refresh }
 }
 
 export const useGetEmailListState = () => {
   const navigate = useNavigate()
-  const [state, setState] = useState(true)
+  const [state, setState] = useState()
 
   useEffect(async () => {
     const response = await api.get(`/email-list/verificacao`)

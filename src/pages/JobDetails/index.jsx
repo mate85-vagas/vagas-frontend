@@ -4,7 +4,11 @@ import { useGetJobById, useJobRoutes } from '../../hooks/jobs'
 import Layout from '../../components/Layout'
 import Text from '../../components/Text'
 import { localDate, numberToReais } from '../../utils/conversions'
-import { scholarityLabel, jobTypeLabel } from '../../utils/constants/project'
+import {
+  scholarityLabel,
+  jobTypeLabel,
+  filterLabel,
+} from '../../utils/constants/project'
 import ButtonRectangle from '../../components/Buttons/ButtonRectangle'
 import './styles.css'
 import { translate } from '../../utils/translations'
@@ -19,7 +23,7 @@ function JobDetails() {
 
   const { userId } = useAuth()
   const { applyToJob } = useJobRoutes()
-  const { job, user } = useGetJobById(params.id)
+  const { job, user, userId: jobUserId } = useGetJobById(params.id)
 
   const { appliedJobs } = useGetAppliedJobs(userId)
 
@@ -31,6 +35,11 @@ function JobDetails() {
       appliedJobs.filter(({ jobId }) => jobId === parseInt(params.id, 10))
         .length > 0,
     [appliedJobs, params]
+  )
+
+  const isOwnJob = useMemo(
+    () => jobUserId && userId === jobUserId,
+    [userId, jobUserId]
   )
 
   const onApplyToJob = async () => {
@@ -56,6 +65,11 @@ function JobDetails() {
       <Text text={description} size={descriptionSize} />
     </div>
   )
+
+  const getBtnJobTranslation = () => {
+    if (isOwnJob) return 'is_own_job'
+    return isJobApplied ? 'job_applied' : 'apply_to_job'
+  }
 
   return (
     <Layout isFinalPage>
@@ -105,7 +119,7 @@ function JobDetails() {
                     )}
                     {renderDetailItem('Carga horária', `${job.workload} horas`)}
                     {renderDetailItem(
-                      'Salário',
+                      filterLabel.salary,
                       `${numberToReais(job.salary)}`
                     )}
                     {renderDetailItem('Localidade', `${job.site}`)}
@@ -144,11 +158,9 @@ function JobDetails() {
                   <div className="btn-apply-container">
                     <ButtonRectangle
                       className="is-green"
-                      label={translate(
-                        isJobApplied ? 'job_applied' : 'apply_to_job'
-                      )}
+                      label={translate(getBtnJobTranslation())}
                       onClick={() => setModalOpened(true)}
-                      disabled={isJobApplied}
+                      disabled={isOwnJob || isJobApplied}
                     />
                   </div>
                 </div>

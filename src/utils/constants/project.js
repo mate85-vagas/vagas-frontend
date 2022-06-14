@@ -19,7 +19,7 @@ export const filterLabel = {
   scholarity: 'Escolaridade',
   createdAt: 'Data de criação',
   site: 'Localidade',
-  salary: 'Salário',
+  salary: 'Salário/Bolsa/Vencimento',
   name: 'Nome',
   technologies: 'Tecnologia',
   languages: 'Idioma',

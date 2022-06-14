@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import CreatableSelect from 'react-select/creatable'
+import Select from 'react-select'
 import Text from '../Text'
 import './styles.css'
 import { translate } from '../../utils/translations'
@@ -16,6 +17,7 @@ function TagInput({
   hasError,
   maxLength,
   selectOptions,
+  creatable,
 }) {
   const onChangeSelection = (newSelection) => {
     setValue(newSelection.map((selectionValue) => selectionValue.value))
@@ -28,6 +30,13 @@ function TagInput({
   const value = useMemo(
     () => tags.map((tag) => ({ value: tag, label: tag })),
     [tags]
+  )
+
+  const SelectComponent = useCallback(
+    (props) => {
+      return creatable ? <CreatableSelect {...props} /> : <Select {...props} />
+    },
+    [creatable]
   )
 
   return (
@@ -45,7 +54,7 @@ function TagInput({
       <div className="field-body">
         <div className="field">
           <div className="control">
-            <CreatableSelect
+            <SelectComponent
               className="multiselect"
               value={value}
               onChange={onChangeSelection}
@@ -75,6 +84,7 @@ TagInput.propTypes = {
   hasError: PropTypes.bool,
   maxLength: PropTypes.number,
   selectOptions: PropTypes.array,
+  creatable: PropTypes.bool,
 }
 
 TagInput.defaultProps = {
@@ -85,6 +95,7 @@ TagInput.defaultProps = {
   hasError: false,
   maxLength: null,
   selectOptions: [],
+  creatable: true,
 }
 
 export default TagInput

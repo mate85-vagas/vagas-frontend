@@ -5,7 +5,7 @@ import { translate } from '../../utils/translations'
 import './styles.css'
 
 function EnableEmailList() {
-  const [enabled, setEnabled] = useState(true)
+  const [enabled, setEnabled] = useState()
 
   const { manageEmailListState } = useAdminRoutes()
   const { state: emailListState } = useGetEmailListState()
@@ -16,12 +16,13 @@ function EnableEmailList() {
   }
 
   useEffect(() => {
+    if (emailListState === undefined) return
     setEnabled(emailListState)
   }, [emailListState])
 
   return (
     <div className="option-card-content">
-      {emailListState !== undefined ? (
+      {enabled !== undefined ? (
         <>
           <Text text="Enviar e-mails de divulgação" />
           <label className="checkbox" htmlFor="emaillist-checkbox">

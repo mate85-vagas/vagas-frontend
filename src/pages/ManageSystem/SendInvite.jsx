@@ -11,7 +11,8 @@ function SendInvite() {
 
   const { sendInvite } = useAdminRoutes()
 
-  const submitInvitation = () => {
+  const submitInvitation = (e) => {
+    e.preventDefault()
     if (!isEmailValid(email)) {
       toast.error('Digite um e-mail válido!')
       return
@@ -22,7 +23,7 @@ function SendInvite() {
   }
 
   return (
-    <div className="option-card-content">
+    <form className="option-card-content" onSubmit={submitInvitation}>
       <TextInput
         placeholder="E-mail"
         type="email"
@@ -30,12 +31,8 @@ function SendInvite() {
         value={email}
         setValue={setEmail}
       />
-      <ButtonRectangle
-        className="is-blue"
-        label="Enviar"
-        onClick={submitInvitation}
-      />
-    </div>
+      <ButtonRectangle className="is-blue" label="Enviar" isSubmit />
+    </form>
   )
 }
 
